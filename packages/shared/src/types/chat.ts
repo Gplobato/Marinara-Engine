@@ -235,6 +235,8 @@ export interface ChatMetadata {
   gameLastIllustrationTag?: string;
   /** Extra user instructions for game scene illustration prompts. */
   gameImagePromptInstructions?: string | null;
+  /** Per-game asset browser folder exclusions. Omitted/null means every asset folder is available. */
+  gameAssetSelection?: { excludedFolders?: string[] } | null;
   /** When true, Game Mode uses Spotify DJ for music instead of local music assets. */
   gameUseSpotifyMusic?: boolean;
   /** Music source constraint for Spotify DJ in Game Mode. */
