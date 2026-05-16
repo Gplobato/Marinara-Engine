@@ -4,6 +4,7 @@
 // Calls image generation APIs (OpenAI DALL-E, Pollinations, Stability, etc.)
 // based on a user's configured image_generation connection.
 
+import { createHash } from "crypto";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { inflateRawSync } from "zlib";
@@ -1610,6 +1611,37 @@ function replaceComfyUiPlaceholders(
   return value;
 }
 
+async function uploadComfyReferenceImage(base: string, reference: string): Promise<string> {
+  const decoded = decodeReferenceImage(reference);
+  const hash = createHash("sha256").update(decoded.base64).digest("hex").slice(0, 16);
+  const filename = `marinara-ref-${hash}.${decoded.ext}`;
+
+  const formData = new FormData();
+  formData.append(
+    "image",
+    new Blob([Buffer.from(decoded.base64, "base64")], { type: decoded.mimeType }),
+    filename,
+  );
+  formData.append("overwrite", "true");
+
+  const resp = await localImageBackendFetch(`${base}/upload/image`, {
+    method: "POST",
+    body: formData,
+    signal: AbortSignal.timeout(IMAGE_GEN_TIMEOUT),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => "Unknown error");
+    throw new Error(`ComfyUI reference image upload failed (${resp.status}): ${sanitizeErrorText(errText)}`);
+  }
+
+  const result = (await resp.json()) as { name?: string };
+  if (!result.name) {
+    throw new Error("ComfyUI did not return a filename for the uploaded reference image");
+  }
+  return result.name;
+}
+
 async function generateComfyUI(baseUrl: string, request: ImageGenRequest): Promise<ImageGenResult> {
   const base = baseUrl.replace(/\/+$/, "");
   const defaults = resolveComfyUiDefaults(request);
@@ -1648,10 +1680,12 @@ async function generateComfyUI(baseUrl: string, request: ImageGenRequest): Promi
   if (request.model) {
     replacements["%model%"] = request.model;
   }
-  if (request.referenceImage) {
-    replacements["%reference_image%"] = request.referenceImage;
-  } else if (request.referenceImages?.length) {
-    replacements["%reference_image%"] = request.referenceImages[0]!;
+  const reference = request.referenceImage ?? request.referenceImages?.[0];
+  if (reference) {
+    replacements["%reference_image%"] = reference;
+    if (JSON.stringify(workflow).includes("%reference_image_name%")) {
+      replacements["%reference_image_name%"] = await uploadComfyReferenceImage(base, reference);
+    }
   }
   const resolvedWorkflow = replaceComfyUiPlaceholders(workflow, replacements);
 

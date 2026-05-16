@@ -312,6 +312,7 @@ export function ConnectionEditor() {
       { token: "%seed%", label: "%seed%", critical: false },
       { token: "%model%", label: "%model%", critical: false },
       { token: "%reference_image%", label: "%reference_image%", critical: false },
+      { token: "%reference_image_name%", label: "%reference_image_name%", critical: false },
     ];
     const missing = KNOWN_SUBS.filter(({ token }) => !wf.includes(token));
     return { parseError: false as const, missing };
@@ -1316,7 +1317,7 @@ export function ConnectionEditor() {
             <FieldGroup
               label="ComfyUI Workflow (Optional)"
               icon={<Zap size="0.875rem" className="text-sky-400" />}
-              help="Paste a custom ComfyUI workflow JSON (API format). Use placeholders like %prompt%, %negative_prompt%, %width%, %height%, %seed%, %model%, %steps%, %cfg%, %sampler%, %scheduler%, and %denoise%. Leave empty to use the built-in default txt2img workflow."
+              help="Paste a custom ComfyUI workflow JSON (API format). Use placeholders like %prompt%, %negative_prompt%, %width%, %height%, %seed%, %model%, %steps%, %cfg%, %sampler%, %scheduler%, and %denoise%. For reference images, use %reference_image% to inject a base64 string (workflow must decode it, e.g. via ETN_LoadImageBase64), or %reference_image_name% to upload the image to ComfyUI's input/ directory and inject the resulting filename for a vanilla LoadImage node. Leave empty to use the built-in default txt2img workflow."
             >
               <textarea
                 ref={comfyWorkflowTextareaRef}
