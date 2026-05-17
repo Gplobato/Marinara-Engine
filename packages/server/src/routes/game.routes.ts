@@ -6343,6 +6343,7 @@ export async function gameRoutes(app: FastifyInstance) {
             const imgSource = (imgConn as any).imageGenerationSource || imgModel;
             const imgServiceHint = imgConn.imageService || imgSource;
             const imgComfyWorkflow = imgConn.comfyuiWorkflow || undefined;
+            const imgEndpointId = imgConn.imageEndpointId || undefined;
             const imgDefaults = resolveConnectionImageDefaults(imgConn);
 
             const setupCfg = meta.gameSetupConfig as Record<string, unknown> | null;
@@ -6402,6 +6403,7 @@ export async function gameRoutes(app: FastifyInstance) {
                 imgBaseUrl,
                 imgApiKey,
                 imgService: imgServiceHint,
+                imgEndpointId,
                 imgComfyWorkflow,
                 imgDefaults,
                 debugLog: debugLogsEnabled ? debugLog : undefined,
@@ -6469,6 +6471,7 @@ export async function gameRoutes(app: FastifyInstance) {
                   imgBaseUrl,
                   imgApiKey,
                   imgService: imgServiceHint,
+                  imgEndpointId,
                   imgComfyWorkflow,
                   imgDefaults,
                   debugLog: debugLogsEnabled ? debugLog : undefined,
@@ -6518,6 +6521,7 @@ export async function gameRoutes(app: FastifyInstance) {
                   imgBaseUrl,
                   imgApiKey,
                   imgService: imgServiceHint,
+                  imgEndpointId,
                   imgComfyWorkflow,
                   imgDefaults,
                   debugLog: debugLogsEnabled ? debugLog : undefined,
@@ -6685,6 +6689,7 @@ export async function gameRoutes(app: FastifyInstance) {
     const imgSource = (imgConn as any).imageGenerationSource || imgModel;
     const imgComfyWorkflow = imgConn.comfyuiWorkflow || undefined;
     const imgServiceHint = imgConn.imageService || imgSource;
+    const imgEndpointId = imgConn.imageEndpointId || undefined;
     const imgDefaults = resolveConnectionImageDefaults(imgConn);
     const promptOverridesStorage = createPromptOverridesStorage(app.db);
 
@@ -6720,6 +6725,7 @@ export async function gameRoutes(app: FastifyInstance) {
         imgBaseUrl,
         imgApiKey,
         imgService: imgServiceHint,
+        imgEndpointId,
         imgComfyWorkflow,
         imgDefaults,
         promptOverridesStorage,
@@ -6791,6 +6797,7 @@ export async function gameRoutes(app: FastifyInstance) {
           imgBaseUrl,
           imgApiKey,
           imgService: imgServiceHint,
+          imgEndpointId,
           imgComfyWorkflow,
           imgDefaults,
           promptOverridesStorage,
@@ -6859,6 +6866,7 @@ export async function gameRoutes(app: FastifyInstance) {
           imgBaseUrl,
           imgApiKey,
           imgService: imgServiceHint,
+          imgEndpointId,
           imgComfyWorkflow,
           imgDefaults,
           promptOverridesStorage,
@@ -6949,6 +6957,7 @@ export async function gameRoutes(app: FastifyInstance) {
     const imgSource = (imgConn as any).imageGenerationSource || imgModel;
     const imgComfyWorkflow = imgConn.comfyuiWorkflow || undefined;
     const imgServiceHint = imgConn.imageService || imgSource;
+    const imgEndpointId = imgConn.imageEndpointId || undefined;
     const imgDefaults = resolveConnectionImageDefaults(imgConn);
 
     const setupCfg = meta.gameSetupConfig as Record<string, unknown> | null;
@@ -6986,6 +6995,7 @@ export async function gameRoutes(app: FastifyInstance) {
         imgBaseUrl,
         imgApiKey,
         imgService: imgServiceHint,
+        imgEndpointId,
         imgComfyWorkflow,
         imgDefaults,
         debugLog: debugLogsEnabled ? debugLog : undefined,
@@ -7073,6 +7083,7 @@ export async function gameRoutes(app: FastifyInstance) {
           imgBaseUrl,
           imgApiKey,
           imgService: imgServiceHint,
+          imgEndpointId,
           imgComfyWorkflow,
           imgDefaults,
           debugLog: debugLogsEnabled ? debugLog : undefined,
@@ -7171,6 +7182,7 @@ export async function gameRoutes(app: FastifyInstance) {
           imgBaseUrl,
           imgApiKey,
           imgService: imgServiceHint,
+          imgEndpointId,
           imgComfyWorkflow,
           imgDefaults,
           debugLog: debugLogsEnabled ? debugLog : undefined,

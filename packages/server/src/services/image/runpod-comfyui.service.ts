@@ -15,10 +15,18 @@
 // so placeholder substitution (%prompt%, %seed%, etc.) must happen BEFORE sending.
 
 import type { ImageGenRequest, ImageGenResult } from "./image-generation.js";
+import {
+  DEFAULT_COMFYUI_DEFAULTS,
+  mergeNegativePrompt,
+  mergePromptPrefix,
+  type ComfyUiDefaults,
+  type ImageGenerationDefaultsProfile,
+} from "@marinara-engine/shared";
+import { safeFetch } from "../../utils/security.js";
 
-const RUNPOD_POLL_INTERVAL_MS = Number(process.env.RUNPOD_POLL_INTERVAL_MS ?? 2_000);
-const RUNPOD_MAX_POLLS = 90; // 90 × 2s = 3 minutes max
-const RUNPOD_API_BASE = process.env.RUNPOD_API_BASE_URL ?? "https://api.runpod.ai/v2";
+const DEFAULT_RUNPOD_POLL_INTERVAL_MS = 2_000;
+const RUNPOD_MAX_POLLS = 90; // 90 × 2s = 3 minutes max by default.
+const RUNPOD_MAX_RESPONSE_BYTES = 30 * 1024 * 1024;
 
 interface RunPodRunResponse {
   id: string;
@@ -51,34 +59,51 @@ export async function generateRunPodComfyUI(
   apiKey: string,
   request: ImageGenRequest,
 ): Promise<ImageGenResult> {
-  const endpointUrl = `${baseUrl}/${endpointId}`;
+  const endpointIdSegment = normalizeRunPodEndpointId(endpointId);
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${apiKey}`,
   };
 
-  // The workflow JSON should already be substituted by the caller
-  // (see generateImage() switch case → placeholder replacement happens earlier).
-  // If there's no workflow, this is an error — RunPod needs the workflow.
+  // If there's no workflow, this is an error. RunPod needs the workflow because
+  // the serverless endpoint executes the ComfyUI graph supplied in the request.
   if (!request.comfyWorkflow) {
     throw new Error(
       "RunPod ComfyUI requires a workflow JSON. " +
-      "Paste your ComfyUI workflow (API format) in the connection's workflow field.",
+        "Paste your ComfyUI workflow (API format) in the connection's workflow field.",
     );
   }
 
   // ── Substitute placeholders (%prompt%, %seed%, etc.) ──
   // The workflow JSON string contains placeholders like %prompt% and %seed%.
   // Replace them before parsing, matching the local ComfyUI handler behaviour.
-  const seed = request.imageDefaults?.seed ?? -1;
-  const resolvedSeed = seed === -1 ? Math.floor(Math.random() * 2_147_483_647) : seed;
+  const defaults = resolveRunPodComfyUiDefaults(request);
+  const resolvedSeed = resolveRunPodSeed(request.imageDefaults);
+  const prompt = mergePromptPrefix(defaults.promptPrefix, request.prompt || "");
+  const negativePrompt = mergeNegativePrompt(defaults.negativePromptPrefix, request.negativePrompt);
 
   let wfStr = request.comfyWorkflow;
-  wfStr = wfStr.replace(/%prompt%/g, escapeJsonStr(request.prompt || ""));
-  wfStr = wfStr.replace(/%negative_prompt%/g, escapeJsonStr(request.negativePrompt || ""));
+  wfStr = wfStr.replace(/%prompt%/g, escapeJsonStr(prompt));
+  wfStr = wfStr.replace(/%negative_prompt%/g, escapeJsonStr(negativePrompt));
   wfStr = wfStr.replace(/%width%/g, String(request.width ?? 512));
   wfStr = wfStr.replace(/%height%/g, String(request.height ?? 768));
   wfStr = wfStr.replace(/%seed%/g, String(resolvedSeed));
+  wfStr = wfStr.replace(/%steps%/g, String(defaults.steps));
+  wfStr = wfStr.replace(/%cfg%/g, String(defaults.cfgScale));
+  wfStr = wfStr.replace(/%cfg_scale%/g, String(defaults.cfgScale));
+  wfStr = wfStr.replace(/%scale%/g, String(defaults.cfgScale));
+  wfStr = wfStr.replace(/%sampler%/g, escapeJsonStr(defaults.sampler));
+  wfStr = wfStr.replace(/%scheduler%/g, escapeJsonStr(defaults.scheduler));
+  wfStr = wfStr.replace(/%denoise%/g, String(defaults.denoisingStrength));
+  wfStr = wfStr.replace(/%denoising_strength%/g, String(defaults.denoisingStrength));
+  wfStr = wfStr.replace(/%clip_skip%/g, String(defaults.clipSkip ?? 0));
+  if (request.model) {
+    wfStr = wfStr.replace(/%model%/g, escapeJsonStr(request.model));
+  }
+  const referenceImage = request.referenceImage || request.referenceImages?.[0];
+  if (referenceImage) {
+    wfStr = wfStr.replace(/%reference_image%/g, escapeJsonStr(referenceImage));
+  }
 
   let workflow: Record<string, unknown>;
   try {
@@ -88,7 +113,7 @@ export async function generateRunPodComfyUI(
   }
 
   // ── Step 1: Submit the job ──
-  const jobResp = await fetch(`${endpointUrl}/run`, {
+  const jobResp = await runPodFetch(buildRunPodUrl(baseUrl, endpointIdSegment, "run"), request, {
     method: "POST",
     headers,
     body: JSON.stringify({ input: { workflow } }),
@@ -97,9 +122,7 @@ export async function generateRunPodComfyUI(
 
   if (!jobResp.ok) {
     const errText = await jobResp.text().catch(() => "Unknown error");
-    throw new Error(
-      `RunPod job submission failed (${jobResp.status}): ${sanitizeRunPodError(errText)}`,
-    );
+    throw new Error(`RunPod job submission failed (${jobResp.status}): ${sanitizeRunPodError(errText)}`);
   }
 
   const { id: jobId } = (await jobResp.json()) as RunPodRunResponse;
@@ -109,9 +132,9 @@ export async function generateRunPodComfyUI(
 
   // ── Step 2: Poll for completion ──
   for (let attempt = 0; attempt < RUNPOD_MAX_POLLS; attempt++) {
-    await new Promise((r) => setTimeout(r, RUNPOD_POLL_INTERVAL_MS));
+    await new Promise((r) => setTimeout(r, runPodPollIntervalMs()));
 
-    const statusResp = await fetch(`${endpointUrl}/status/${jobId}`, {
+    const statusResp = await runPodFetch(buildRunPodUrl(baseUrl, endpointIdSegment, "status", jobId), request, {
       method: "GET",
       headers,
       signal: AbortSignal.timeout(30_000),
@@ -119,9 +142,7 @@ export async function generateRunPodComfyUI(
 
     if (!statusResp.ok) {
       const errText = await statusResp.text().catch(() => "Unknown error");
-      throw new Error(
-        `RunPod status check failed (${statusResp.status}): ${sanitizeRunPodError(errText)}`,
-      );
+      throw new Error(`RunPod status check failed (${statusResp.status}): ${sanitizeRunPodError(errText)}`);
     }
 
     const status = (await statusResp.json()) as RunPodStatusResponse;
@@ -146,23 +167,18 @@ export async function generateRunPodComfyUI(
  * Expected format:
  *   { output: { images: [{ data: "<base64>", filename: "...", type: "base64" }] } }
  */
-function extractRunPodImage(
-  status: RunPodStatusResponse,
-  endpointId: string,
-): ImageGenResult {
+function extractRunPodImage(status: RunPodStatusResponse, endpointId: string): ImageGenResult {
   const output = status.output;
 
   if (!output) {
-    throw new Error(
-      `RunPod returned COMPLETED but no output data (endpoint: ${endpointId})`,
-    );
+    throw new Error(`RunPod returned COMPLETED but no output data (endpoint: ${endpointId})`);
   }
 
   const images = output.images;
   if (!Array.isArray(images) || images.length === 0) {
     throw new Error(
       `RunPod returned COMPLETED but output.images was empty or missing. ` +
-      `Check that your workflow has a SaveImage node connected to the output.`,
+        `Check that your workflow has a SaveImage node connected to the output.`,
     );
   }
 
@@ -192,11 +208,7 @@ function extractRunPodImage(
 
     // Also try "base64" or "image" keys (defensive fallback)
     const fallbackBase64 =
-      typeof img.base64 === "string"
-        ? img.base64
-        : typeof img.image === "string"
-          ? img.image
-          : null;
+      typeof img.base64 === "string" ? img.base64 : typeof img.image === "string" ? img.image : null;
 
     if (fallbackBase64) {
       const trimmed = fallbackBase64.trim();
@@ -211,8 +223,8 @@ function extractRunPodImage(
 
   throw new Error(
     `Could not extract image from RunPod output. ` +
-    `Found ${images.length} image(s) but none had valid base64 data. ` +
-    `Output preview: ${JSON.stringify(output).slice(0, 300)}`,
+      `Found ${images.length} image(s) but none had valid base64 data. ` +
+      `Output preview: ${JSON.stringify(output).slice(0, 300)}`,
   );
 }
 
@@ -220,13 +232,65 @@ function extractRunPodImage(
 
 function sanitizeRunPodError(text: string): string {
   if (!text.includes("<")) return text.slice(0, 300);
-  return text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 300);
+  return text
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 300);
+}
+
+function normalizeRunPodEndpointId(endpointId: string): string {
+  const trimmed = endpointId.trim();
+  if (!/^[A-Za-z0-9_-]+$/.test(trimmed)) {
+    throw new Error("RunPod endpoint ID may only contain letters, numbers, underscores, and dashes");
+  }
+  return trimmed;
+}
+
+function buildRunPodUrl(baseUrl: string, endpointId: string, ...pathSegments: string[]): URL {
+  const url = new URL(baseUrl);
+  const basePathSegments = url.pathname.split("/").filter(Boolean);
+  const path = [...basePathSegments, endpointId, ...pathSegments]
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment));
+  url.pathname = `/${path.join("/")}`;
+  url.search = "";
+  url.hash = "";
+  return url;
+}
+
+function runPodPollIntervalMs(): number {
+  const interval = Number(process.env.RUNPOD_POLL_INTERVAL_MS ?? DEFAULT_RUNPOD_POLL_INTERVAL_MS);
+  return Number.isFinite(interval) && interval >= 0 ? interval : DEFAULT_RUNPOD_POLL_INTERVAL_MS;
+}
+
+function resolveRunPodSeed(profile: ImageGenerationDefaultsProfile | null | undefined): number {
+  return typeof profile?.seed === "number" && profile.seed >= 0 ? profile.seed : Math.floor(Math.random() * 2 ** 32);
+}
+
+function resolveRunPodComfyUiDefaults(request: ImageGenRequest): ComfyUiDefaults {
+  if (request.imageDefaults?.service === "comfyui" && request.imageDefaults.comfyui) {
+    return request.imageDefaults.comfyui;
+  }
+  return DEFAULT_COMFYUI_DEFAULTS;
+}
+
+function runPodFetch(url: URL, request: ImageGenRequest, init: RequestInit): Promise<Response> {
+  return safeFetch(url, {
+    ...init,
+    policy: {
+      allowLocal: request.allowLocalUrls,
+      allowLoopback: true,
+      allowedProtocols: ["https:", "http:"],
+      flagName: "IMAGE_LOCAL_URLS_ENABLED",
+    },
+    maxResponseBytes: RUNPOD_MAX_RESPONSE_BYTES,
+  });
 }
 
 function detectImageMimeType(base64: string): string {
   const bytes = Buffer.from(base64.slice(0, 64), "base64");
-  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47)
-    return "image/png";
+  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return "image/png";
   if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return "image/jpeg";
   if (
     bytes[0] === 0x52 &&
@@ -266,5 +330,10 @@ function decodeDataUrl(dataUrl: string): ImageGenResult {
 
 /** Escape a string for safe insertion into a JSON string value (backslash + quote escaping). */
 function escapeJsonStr(str: string): string {
-  return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  return str
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "\\r")
+    .replace(/\t/g, "\\t");
 }

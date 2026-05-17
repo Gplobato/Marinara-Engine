@@ -1788,6 +1788,7 @@ async function applyRetryResultEffects(args: {
                 model: imgModel,
                 width: imgWidth,
                 height: imgHeight,
+                imageEndpointId: imgConnFull.imageEndpointId || undefined,
                 comfyWorkflow: (imgConnFull as any).comfyuiWorkflow || undefined,
                 imageDefaults,
                 referenceImage,
