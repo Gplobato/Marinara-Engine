@@ -6,7 +6,7 @@ import {
 } from "@marinara-engine/shared";
 import { wrapContent } from "../../services/prompt/format-engine.js";
 
-export type SimpleMessage = { role: "system" | "user" | "assistant"; content: string };
+export type SimpleMessage = { role: "system" | "user" | "assistant"; content: string; images?: string[] };
 export type StoredGenerationParameters = Partial<GenerationParameters>;
 export type PromptAttachment = {
   type?: string | null;
@@ -59,6 +59,40 @@ export function mergeCustomParameters(
   return merged;
 }
 
+function normalizeStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const seen = new Set<string>();
+  const normalized: string[] = [];
+  for (const item of value) {
+    if (typeof item !== "string") continue;
+    const trimmed = item.trim();
+    if (!trimmed || seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    normalized.push(trimmed);
+  }
+  return normalized;
+}
+
+export function resolveKnowledgeSourceLorebookIds(args: {
+  settings: Record<string, unknown> | null | undefined;
+  chatActiveLorebookIds: unknown;
+}): { sourceLorebookIds: string[]; source: "manual" | "chat_active" | "none" } {
+  const manualIds = normalizeStringArray(args.settings?.sourceLorebookIds);
+  if (manualIds.length > 0) {
+    return { sourceLorebookIds: manualIds, source: "manual" };
+  }
+
+  if (args.settings?.useChatActiveLorebooks === false) {
+    return { sourceLorebookIds: [], source: "none" };
+  }
+
+  const chatActiveIds = normalizeStringArray(args.chatActiveLorebookIds);
+  return {
+    sourceLorebookIds: chatActiveIds,
+    source: chatActiveIds.length > 0 ? "chat_active" : "none",
+  };
+}
+
 /** Find last message index matching a role (or predicate). Returns -1 if not found. */
 export function findLastIndex(messages: SimpleMessage[], role: string): number {
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -81,6 +115,123 @@ export function isMessageHiddenFromAI(message: { extra?: unknown }): boolean {
   return parseExtra(message.extra).hiddenFromAI === true;
 }
 
+export function canUseMessageForUserRegeneration(input: {
+  message: { role?: unknown; extra?: unknown };
+  supportsHiddenFromAI: boolean;
+}): boolean {
+  return !(input.message.role === "user" && input.supportsHiddenFromAI && isMessageHiddenFromAI(input.message));
+}
+
+function parsePromptAttachments(extra: unknown): PromptAttachment[] | undefined {
+  const rawAttachments = parseExtra(extra).attachments;
+  if (!Array.isArray(rawAttachments)) return undefined;
+  const attachments = rawAttachments.filter(isPromptAttachment);
+  return attachments.length ? attachments : undefined;
+}
+
+export function resolveUserRegenerationPersistentAttachments(message: {
+  role?: unknown;
+  extra?: unknown;
+}): PromptAttachment[] | undefined {
+  if (message.role !== "user") return undefined;
+  return parsePromptAttachments(message.extra);
+}
+
+function isPromptAttachment(value: unknown): value is PromptAttachment {
+  return !!value && typeof value === "object" && !Array.isArray(value);
+}
+
+/**
+ * Build the instruction used when regenerating a user-authored message as a swipe.
+ * The original user text and readable attachments are wrapped in
+ * <original_user_message> tags so downstream generation can return only
+ * replacement user-message text.
+ */
+export function buildUserMessageRegenerationInstruction(message: { content?: unknown; extra?: unknown }): string {
+  const original = typeof message.content === "string" ? message.content.trim() : "";
+  const attachments = parsePromptAttachments(message.extra);
+  const originalWithAttachments = appendReadableAttachmentsToContent(original, attachments);
+  return [
+    "Regenerate the user's previous message as an alternate swipe.",
+    "Write only the replacement user message text.",
+    "Do not answer as the assistant, continue the assistant side, or describe what the assistant does next.",
+    "",
+    "<original_user_message>",
+    originalWithAttachments,
+    "</original_user_message>",
+  ].join("\n");
+}
+
+export function buildUserMessageRegenerationPrompt(message: { content?: unknown; extra?: unknown }): SimpleMessage {
+  const attachments = parsePromptAttachments(message.extra);
+  const images = extractImageAttachmentDataUrls(attachments);
+  return {
+    role: "user",
+    content: buildUserMessageRegenerationInstruction(message),
+    ...(images.length ? { images } : {}),
+  };
+}
+
+export function buildUserMessageRegenerationPromptFromSource(source: SimpleMessage): SimpleMessage {
+  return {
+    role: "user",
+    content: buildUserMessageRegenerationInstruction({ content: source.content }),
+    ...(source.images?.length ? { images: source.images } : {}),
+  };
+}
+
+/**
+ * Build the context-facing version of a user message being regenerated.
+ * This preserves the original user text and attachments for prompt shaping
+ * without adding the provider-facing rewrite instruction.
+ */
+export function buildUserMessageRegenerationSourceMessage(message: {
+  content?: unknown;
+  extra?: unknown;
+}): SimpleMessage {
+  const original = typeof message.content === "string" ? message.content : "";
+  const attachments = parsePromptAttachments(message.extra);
+  const content = appendReadableAttachmentsToContent(original, attachments);
+  const images = extractImageAttachmentDataUrls(attachments);
+  return {
+    role: "user",
+    content,
+    ...(images.length ? { images } : {}),
+  };
+}
+
+export function appendGenerationTailMessages(
+  messages: SimpleMessage[],
+  options: {
+    assistantPrefill: string;
+    followUpIteration: number;
+    impersonate: boolean;
+    isGoogleProvider: boolean;
+    regenerateUserMessage: SimpleMessage | null;
+  },
+): { assistantPrefillInjected: boolean; googleUserRegenerationInjected: boolean } {
+  if (options.followUpIteration !== 0) {
+    return { assistantPrefillInjected: false, googleUserRegenerationInjected: false };
+  }
+
+  const shouldAppendGoogleUserRegeneration =
+    !options.impersonate && options.isGoogleProvider && !!options.regenerateUserMessage;
+  const assistantPrefill = options.assistantPrefill.trim();
+
+  if (assistantPrefill) {
+    messages.push({ role: "assistant", content: options.assistantPrefill });
+  }
+
+  if (shouldAppendGoogleUserRegeneration) {
+    messages.push(options.regenerateUserMessage!);
+  }
+
+  return {
+    assistantPrefillInjected: !!assistantPrefill,
+    googleUserRegenerationInjected: shouldAppendGoogleUserRegeneration,
+  };
+}
+
 export function resolveActiveCharacterIds(
   characterIds: string[],
   metadata: Record<string, unknown>,
@@ -94,6 +245,16 @@ export function resolveActiveCharacterIds(
   const activeIds = characterIds.filter((id) => !inactiveIds.has(id));
 
   if (activeIds.length > 0 || options.allowEmpty) return activeIds;
+  return characterIds;
+}
+
+export function resolvePromptCharacterIdsForTarget(
+  characterIds: string[],
+  targetCharacterId: string | null | undefined,
+): string[] {
+  if (typeof targetCharacterId === "string" && characterIds.includes(targetCharacterId)) {
+    return [targetCharacterId];
+  }
   return characterIds;
 }
 

@@ -20,6 +20,8 @@ import {
   LIMITS,
   coerceGameStateTextValue,
   appendChatSummaryEntryToMetadata,
+  applyQuestUpdatesToPlayerStats,
+  buildQuestJournalData,
 } from "@marinara-engine/shared";
 import type {
   AgentContext,
@@ -140,8 +142,12 @@ import { chunkAndEmbedMessages, embedMemoryRecallTexts, recallMemories } from ".
 import { resolveMemoryRecallEmbeddingSource } from "../services/memory-recall-embedding.js";
 import { postToDiscordWebhook } from "../services/discord-webhook.js";
 import {
+  appendGenerationTailMessages,
+  canUseMessageForUserRegeneration,
   findLastIndex,
   appendReadableAttachmentsToContent,
+  buildUserMessageRegenerationPromptFromSource,
+  buildUserMessageRegenerationSourceMessage,
   extractImageAttachmentDataUrls,
   injectIntoOutputFormatOrLastUser,
   isManualTrackerCharacterId,
@@ -153,9 +159,12 @@ import {
   preserveTrackerCharacterUiFields,
   resolveActiveCharacterIds,
   resolveBaseUrl,
+  resolvePromptCharacterIdsForTarget,
   resolveRegenerationGameStateFallbackMessageIds,
   resolveRegenerationGameStateAnchor,
+  resolveUserRegenerationPersistentAttachments,
   resolveVisibleGameStateAnchor,
+  resolveKnowledgeSourceLorebookIds,
   shouldPreferLatestVisibleGameState,
   shouldAbortOnPassiveGenerationDisconnect,
   shouldEnableAgentsForGeneration,
@@ -703,6 +712,54 @@ function toRuntimeAgentSectionType(
   return eligibleAgentTypes.has(agentType) ? agentType : null;
 }
 
+function parseRuntimeAgentSettings(settings: unknown): Record<string, unknown> {
+  if (!settings) return {};
+  if (typeof settings === "string") {
+    try {
+      const parsed = JSON.parse(settings) as unknown;
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+        ? (parsed as Record<string, unknown>)
+        : {};
+    } catch {
+      return {};
+    }
+  }
+  return typeof settings === "object" && !Array.isArray(settings) ? (settings as Record<string, unknown>) : {};
+}
+
+export function buildRuntimeAgentSectionEligibleTypesForTest(input: {
+  enableAgents: boolean;
+  activeAgentIds: string[];
+  configuredAgents?: Array<{ type: string; phase: string; settings?: unknown }>;
+}): Set<RuntimeAgentSectionType> {
+  const eligible = new Set<RuntimeAgentSectionType>();
+  if (!input.enableAgents || input.activeAgentIds.length === 0) return eligible;
+
+  const activeAgentIds = new Set(input.activeAgentIds);
+
+  for (const agent of BUILT_IN_AGENTS) {
+    if (!activeAgentIds.has(agent.id)) continue;
+    if (agent.phase !== "pre_generation" || agent.id === "html") continue;
+    if (
+      resolveAgentResultType({ type: agent.id, settings: getDefaultBuiltInAgentSettings(agent.id) }) !==
+      "context_injection"
+    ) {
+      continue;
+    }
+    eligible.add(agent.id);
+  }
+
+  for (const agent of input.configuredAgents ?? []) {
+    if (!activeAgentIds.has(agent.type)) continue;
+    if (agent.phase !== "pre_generation" || agent.type === "html") continue;
+    const settings = parseRuntimeAgentSettings(agent.settings);
+    if (resolveAgentResultType({ type: agent.type, settings }) !== "context_injection") continue;
+    eligible.add(agent.type);
+  }
+
+  return eligible;
+}
+
 function makeRuntimeAgentSectionTokens(agentType: RuntimeAgentSectionType, nonce: string): RuntimeAgentSectionTokens {
   return {
     placeholder: `${RUNTIME_AGENT_SECTION_TOKEN_PREFIX}${nonce}__${agentType}__VALUE__`,
@@ -912,7 +969,7 @@ export async function generateRoutes(app: FastifyInstance) {
       if (regenCandidate?.chatId === input.chatId) {
         const replay = normalizeGenerationReplay(parseExtra(regenCandidate.extra).generationReplay);
         applyGenerationReplayToRegenerateInput(input, replay);
-        if (!input.forCharacterId && earlyMeta.groupResponseOrder === "manual" && regenCandidate.characterId) {
+        if (!input.forCharacterId && regenCandidate.characterId) {
           input.forCharacterId = regenCandidate.characterId;
         }
       }
@@ -1113,7 +1170,9 @@ export async function generateRoutes(app: FastifyInstance) {
         ? scopedMessages.filter((message: any) => !isMessageHiddenFromAI(message))
         : scopedMessages;
       let lorebookKeeperMessages = chatMessages;
-      let regenMsg;
+      let regenMsg: any;
+      let regenerateUserMessage: SimpleMessage | null = null;
+      let regenerateUserSourceMessage: SimpleMessage | null = null;
 
       // ── Regeneration as swipe: exclude the target message from context ──
       if (input.regenerateMessageId) {
@@ -1121,6 +1180,13 @@ export async function generateRoutes(app: FastifyInstance) {
         if (!regenMsg) {
           sendSseEvent(reply, { type: "error", data: "Regenerated message not found" });
           return;
+        }
+        if (!canUseMessageForUserRegeneration({ message: regenMsg, supportsHiddenFromAI })) {
+          sendSseEvent(reply, { type: "error", data: "Cannot regenerate a message hidden from AI" });
+          return;
+        }
+        if (regenMsg.role === "user") {
+          regenerateUserSourceMessage = buildUserMessageRegenerationSourceMessage(regenMsg);
         }
         chatMessages = chatMessages.filter((m: any) => m.id !== input.regenerateMessageId);
         lorebookKeeperMessages = lorebookKeeperMessages.filter((m: any) => m.id !== input.regenerateMessageId);
@@ -1231,6 +1297,15 @@ export async function generateRoutes(app: FastifyInstance) {
       if (chatMode === "game") {
         applyAllSegmentEdits(mappedMessages, chatMeta as Record<string, unknown>, chatMessages);
       }
+
+      // User-message regeneration removes the target turn from real chat history,
+      // but prompt shaping still needs that original user input for macros,
+      // lorebook matching, semantic embeddings, and memory recall. Keep this
+      // separate from the final Gemini rewrite instruction appended near send time.
+      const currentInputMessages = (): SimpleMessage[] =>
+        regenerateUserSourceMessage ? [...mappedMessages, regenerateUserSourceMessage] : mappedMessages;
+      const currentUserInputContent = (): string | undefined =>
+        [...currentInputMessages()].reverse().find((message) => message.role === "user")?.content;
 
       const persona =
         (chat.personaId ? allPersonas.find((p: any) => p.id === chat.personaId) : null) ??
@@ -1381,16 +1456,18 @@ export async function generateRoutes(app: FastifyInstance) {
         const chatActiveAgentIds: string[] = filterGameInternalAgentIds(chatMode, persistedChatActiveAgentIds).filter(
           (agentId) => !(gameSpotifyMusicEnabled && agentId === "spotify"),
         );
-        const runtimeSectionEligibleAgentTypes = new Set(
-          BUILT_IN_AGENTS.filter(
-            (agent) =>
-              chatActiveAgentIds.includes(agent.id) &&
-              agent.phase === "pre_generation" &&
-              agent.id !== "html" &&
-              resolveAgentResultType({ type: agent.id, settings: getDefaultBuiltInAgentSettings(agent.id) }) ===
-                "context_injection",
-          ).map((agent) => agent.id),
-        );
+        const hasPerChatAgentList = chatActiveAgentIds.length > 0;
+        const perChatAgentSet = new Set(chatActiveAgentIds);
+        const configuredPromptAgents = chatEnableAgents && hasPerChatAgentList ? await agentsStore.list() : [];
+        const runtimeSectionEligibleAgentTypes = buildRuntimeAgentSectionEligibleTypesForTest({
+          enableAgents: chatEnableAgents,
+          activeAgentIds: chatActiveAgentIds,
+          configuredAgents: configuredPromptAgents.map((agent) => ({
+            type: agent.type,
+            phase: agent.phase,
+            settings: agent.settings,
+          })),
+        });
         const chatActiveLorebookIds: string[] = Array.isArray(chatMeta.activeLorebookIds)
           ? (chatMeta.activeLorebookIds as string[])
           : [];
@@ -1415,13 +1492,11 @@ export async function generateRoutes(app: FastifyInstance) {
               ? "individual"
               : "merged"
             : ((chatMeta.groupChatMode as string) ?? "merged");
-        const manualPromptTargetCharId =
-          promptGroupResponseOrder === "manual" &&
-          typeof input.forCharacterId === "string" &&
-          characterIds.includes(input.forCharacterId)
+        const promptTargetCharacterId =
+          typeof input.forCharacterId === "string" && characterIds.includes(input.forCharacterId)
             ? input.forCharacterId
             : null;
-        const promptCharacterIds = manualPromptTargetCharId ? [manualPromptTargetCharId] : characterIds;
+        const promptCharacterIds = resolvePromptCharacterIdsForTarget(characterIds, promptTargetCharacterId);
         const deferCharacterMacros =
           characterIds.length > 1 &&
           promptGroupChatMode === "individual" &&
@@ -1438,7 +1513,7 @@ export async function generateRoutes(app: FastifyInstance) {
             typeof chatMeta.groupScenarioText === "string" && (chatMeta.groupScenarioText as string).trim()
               ? (chatMeta.groupScenarioText as string).trim()
               : null,
-          lastInput: [...mappedMessages].reverse().find((message) => message.role === "user")?.content,
+          lastInput: currentUserInputContent(),
           chatId: input.chatId,
           model: conn.model,
         });
@@ -1459,9 +1534,16 @@ export async function generateRoutes(app: FastifyInstance) {
         // before it lands in runningMessagesForFollowUp, so each message still
         // gets exactly one pass.
         if (followUpIteration === 0) {
-          applyRegexScriptsToPromptMessages(mappedMessages, await regexScriptsStore.list(), {
+          const regexScripts = await regexScriptsStore.list();
+          applyRegexScriptsToPromptMessages(mappedMessages, regexScripts, {
             resolveMacros: (value) => resolveMacros(value, promptMacroContext, { trimResult: false }),
           });
+          if (regenerateUserSourceMessage) {
+            const sourceMessages = [regenerateUserSourceMessage];
+            applyRegexScriptsToPromptMessages(sourceMessages, regexScripts, {
+              resolveMacros: (value) => resolveMacros(value, promptMacroContext, { trimResult: false }),
+            });
+          }
 
           // Always collapse 3+ consecutive blank lines into a double newline —
           // these waste tokens and produce messy logs regardless of user regex settings.
@@ -1469,13 +1551,20 @@ export async function generateRoutes(app: FastifyInstance) {
           for (const msg of mappedMessages) {
             msg.content = msg.content.replace(/\n([ \t]*\n){2,}/g, "\n\n");
           }
+          if (regenerateUserSourceMessage) {
+            regenerateUserSourceMessage.content = regenerateUserSourceMessage.content.replace(
+              /\n([ \t]*\n){2,}/g,
+              "\n\n",
+            );
+          }
         }
-        promptMacroContext.lastInput = [...mappedMessages]
-          .reverse()
-          .find((message) => message.role === "user")?.content;
+        if (regenerateUserSourceMessage) {
+          regenerateUserMessage = buildUserMessageRegenerationPromptFromSource(regenerateUserSourceMessage);
+        }
+        promptMacroContext.lastInput = currentUserInputContent();
         const toLorebookScanMessages = () =>
           buildLorebookScanMessagesWithGenerationGuide(
-            mappedMessages.map((m) => ({
+            currentInputMessages().map((m) => ({
               role: m.role,
               content: m.content,
             })),
@@ -1502,7 +1591,7 @@ export async function generateRoutes(app: FastifyInstance) {
             (entry) => Array.isArray(entry.embedding) && entry.embedding.length > 0,
           );
           if (hasVectorizedEntries) {
-            const recentMsgs = mappedMessages
+            const recentMsgs = currentInputMessages()
               .slice(-10)
               .map((m) => m.content)
               .join("\n");
@@ -3034,12 +3123,9 @@ export async function generateRoutes(app: FastifyInstance) {
         // ────────────────────────────────────────
         // Agent Pipeline: resolve enabled agents
         // ────────────────────────────────────────
-        const hasPerChatAgentList = chatActiveAgentIds.length > 0;
-        const perChatAgentSet = new Set(chatActiveAgentIds);
-
         // Only run agents that are explicitly added to the chat.
         // Empty activeAgentIds = no agents (not "all globally-enabled").
-        const enabledConfigs = chatEnableAgents && hasPerChatAgentList ? await agentsStore.list() : [];
+        const enabledConfigs = configuredPromptAgents;
 
         // Build ResolvedAgent array — each agent gets its own provider/model or falls back to chat connection
         const resolvedAgents: ResolvedAgent[] = [];
@@ -3462,8 +3548,8 @@ export async function generateRoutes(app: FastifyInstance) {
         // in the <party> section, so skip fallback injection to avoid duplication.
         if (shouldInjectIdentityFallback({ chatMode, presetId })) {
           const allContent = finalMessages.map((m) => m.content).join("\n");
-          const fallbackCharInfo = manualPromptTargetCharId
-            ? charInfo.filter((c) => c.id === manualPromptTargetCharId)
+          const fallbackCharInfo = promptTargetCharacterId
+            ? charInfo.filter((c) => c.id === promptTargetCharacterId)
             : charInfo;
           for (const ci of fallbackCharInfo) {
             // Check if this character already appears by description snippet, XML tag, or markdown heading
@@ -4131,7 +4217,7 @@ export async function generateRoutes(app: FastifyInstance) {
           const _tRecall = Date.now();
           try {
             // Use the last user message as the query
-            const lastUserMsg = [...mappedMessages].reverse().find((m) => m.role === "user");
+            const lastUserMsg = [...currentInputMessages()].reverse().find((m) => m.role === "user");
             if (lastUserMsg?.content?.trim()) {
               // Scope recall to this chat only. Users expect memories to stay with
               // the exact conversation/roleplay/game where they were created.
@@ -4589,7 +4675,10 @@ export async function generateRoutes(app: FastifyInstance) {
 
           // Load lorebook entries
           try {
-            const sourceIds = (knowledgeRetrievalAgent.settings.sourceLorebookIds as string[]) ?? [];
+            const { sourceLorebookIds: sourceIds } = resolveKnowledgeSourceLorebookIds({
+              settings: knowledgeRetrievalAgent.settings,
+              chatActiveLorebookIds: chatActiveLorebookIds,
+            });
             if (sourceIds.length > 0) {
               const entries = await lorebooksStore.listEntriesByLorebooks(sourceIds);
               const activeEntries = entries.filter((e: any) => e.enabled !== false);
@@ -4651,7 +4740,10 @@ export async function generateRoutes(app: FastifyInstance) {
         let knowledgeRouterKeywordScanEntries: LorebookEntry[] = [];
         if (knowledgeRouterAgent) {
           try {
-            const sourceIds = (knowledgeRouterAgent.settings.sourceLorebookIds as string[]) ?? [];
+            const { sourceLorebookIds: sourceIds } = resolveKnowledgeSourceLorebookIds({
+              settings: knowledgeRouterAgent.settings,
+              chatActiveLorebookIds: chatActiveLorebookIds,
+            });
             if (sourceIds.length > 0) {
               const entries = (await lorebooksStore.listEntriesByLorebooks(sourceIds)) as LorebookEntry[];
               // Honor per-chat entry state overrides — a user can disable an entry for
@@ -5957,11 +6049,26 @@ export async function generateRoutes(app: FastifyInstance) {
           finalMessages.push({ role: "user", content: impersonateInstruction });
         }
 
-        if (assistantPrefill.trim() && followUpIteration === 0) {
-          finalMessages.push({ role: "assistant", content: assistantPrefill });
+        const tailMessages = appendGenerationTailMessages(finalMessages, {
+          assistantPrefill,
+          followUpIteration,
+          impersonate: input.impersonate,
+          isGoogleProvider,
+          regenerateUserMessage,
+        });
+        if (tailMessages.assistantPrefillInjected) {
+          const prefillPosition = tailMessages.googleUserRegenerationInjected
+            ? "before final user message"
+            : "as final assistant message";
           logger.debug(
-            "[generate] Injected assistant prefill (%d chars) as final assistant message",
+            "[generate] Injected assistant prefill (%d chars) %s",
             assistantPrefill.length,
+            prefillPosition,
+          );
+        }
+        if (tailMessages.googleUserRegenerationInjected && assistantPrefill.trim()) {
+          logger.debug(
+            "[generate] Preserved assistant prefill before Gemini user-message regeneration instruction",
           );
         }
 
@@ -6941,6 +7048,8 @@ export async function generateRoutes(app: FastifyInstance) {
               extraUpdate.generationReplay = buildGenerationReplay(input);
               // Cache the final prompt (what was actually sent to the model) for Peek Prompt
               extraUpdate.cachedPrompt = finalPromptSent.map((m) => ({ role: m.role, content: m.content }));
+              const persistentAttachments = resolveUserRegenerationPersistentAttachments(regenMsg ?? {});
+              if (persistentAttachments) extraUpdate.attachments = persistentAttachments;
               await chats.updateMessageExtra(savedMsg.id, extraUpdate);
               // Also persist on the active swipe so switching swipes preserves per-swipe extras
               const refreshedMsg = await chats.getMessage(savedMsg.id);
@@ -8081,7 +8190,7 @@ export async function generateRoutes(app: FastifyInstance) {
             if (result.success && result.type === "quest_update" && result.data && typeof result.data === "object") {
               try {
                 const qData = result.data as Record<string, unknown>;
-                const updates = (qData.updates as any[]) ?? [];
+                const updates = Array.isArray(qData.updates) ? qData.updates : [];
                 logger.debug(
                   "[generate] Quest agent result — updates: %d, data keys: %s %s",
                   updates.length,
@@ -8102,46 +8211,14 @@ export async function generateRoutes(app: FastifyInstance) {
                       ? JSON.parse(snap.playerStats)
                       : snap.playerStats
                     : { stats: [], attributes: null, skills: {}, inventory: [], activeQuests: [], status: "" };
-                  const originalQuests: any[] = existingPS.activeQuests ?? [];
-                  const quests: any[] = [...originalQuests];
-                  for (const u of updates) {
-                    const idx = quests.findIndex((q: any) => q.name === u.questName);
-                    if (u.action === "create" && idx === -1) {
-                      quests.push({
-                        questEntryId: u.questName,
-                        name: u.questName,
-                        currentStage: 0,
-                        objectives: u.objectives ?? [],
-                        completed: false,
-                      });
-                    } else if (idx !== -1) {
-                      if (u.action === "update") {
-                        if (u.objectives) quests[idx].objectives = u.objectives;
-                      } else if (u.action === "complete") {
-                        quests[idx].completed = true;
-                        if (u.objectives) quests[idx].objectives = u.objectives;
-                      } else if (u.action === "fail") {
-                        quests.splice(idx, 1);
-                      }
-                    }
-                  }
-                  // Auto-remove quests that are fully completed (all objectives done)
-                  for (let i = quests.length - 1; i >= 0; i--) {
-                    const q = quests[i];
-                    if (
-                      q.completed &&
-                      Array.isArray(q.objectives) &&
-                      q.objectives.length > 0 &&
-                      q.objectives.every((o: any) => o.completed)
-                    ) {
-                      quests.splice(i, 1);
-                    }
-                  }
+                  const questMerge = applyQuestUpdatesToPlayerStats(existingPS, updates, {
+                    autoRemoveFullyCompleted: true,
+                  });
+                  const { quests } = questMerge;
 
                   // Only persist + send if quests actually changed
-                  const changed = JSON.stringify(quests) !== JSON.stringify(originalQuests);
-                  if (changed) {
-                    const mergedPS = { ...existingPS, activeQuests: quests };
+                  if (questMerge.changed) {
+                    const mergedPS = questMerge.playerStats;
                     if (snap) {
                       await app.db
                         .update(gameStateSnapshotsTable)
@@ -8154,25 +8231,14 @@ export async function generateRoutes(app: FastifyInstance) {
                     );
 
                     // Auto-populate journal: quest updates
-                    for (const u of updates) {
-                      const questData = {
-                        id: u.questName,
-                        name: u.questName,
-                        status: (u.action === "complete" ? "completed" : u.action === "fail" ? "failed" : "active") as
-                          | "active"
-                          | "completed"
-                          | "failed",
-                        description: u.description || u.questName,
-                        objectives: (u.objectives ?? []).map((o: any) =>
-                          typeof o === "string" ? o : o.text || o.description || "",
-                        ),
-                      };
+                    for (const u of questMerge.updates) {
+                      const questData = buildQuestJournalData(u);
                       updateJournal(app.db, input.chatId, (j) => upsertQuest(j, questData));
                     }
                   }
                 }
-              } catch {
-                // Non-critical
+              } catch (err) {
+                logger.warn(err, "[generate] Quest tracker persistence failed");
               }
             }
 

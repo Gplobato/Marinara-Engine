@@ -24,7 +24,45 @@ import {
 } from "@marinara-engine/shared";
 import { isImageLocalUrlsEnabled } from "../../config/runtime-config.js";
 import { generateRunPodComfyUI } from "./runpod-comfyui.service.js";
+import { logger } from "../../lib/logger.js";
 import { normalizeLoopbackUrl, safeFetch, validateOutboundUrl } from "../../utils/security.js";
+
+// sharp is an optional native module (no prebuilds on some platforms like Termux).
+// Lazy-load so the server boots even when sharp is missing; the only callers that
+// need it (Draw Things img2img init resize) fall back to passing the original.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SharpFn = any;
+let _sharp: SharpFn | null = null;
+let _sharpLoadAttempted = false;
+async function tryLoadSharp(): Promise<SharpFn | null> {
+  if (_sharp || _sharpLoadAttempted) return _sharp;
+  _sharpLoadAttempted = true;
+  try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore - optional native dep
+    const mod = await import("sharp");
+    _sharp = (mod.default ?? mod) as SharpFn;
+    return _sharp;
+  } catch {
+    return null;
+  }
+}
+
+async function resizeBase64ToExactSize(b64: string, width: number, height: number): Promise<string> {
+  const sharpFn = await tryLoadSharp();
+  if (!sharpFn) return b64;
+  try {
+    const buf = Buffer.from(b64, "base64");
+    const out = await sharpFn(buf)
+      .resize(width, height, { fit: "cover", position: "attention" })
+      .png()
+      .toBuffer();
+    return out.toString("base64");
+  } catch (err) {
+    logger.warn(err, "[image-gen] init image resize failed, sending original");
+    return b64;
+  }
+}
 
 const GALLERY_DIR = join(DATA_DIR, "gallery");
 const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
@@ -159,7 +197,7 @@ export async function generateImage(
       return generateRunPodComfyUI(normalizedBaseUrl, endpointId, apiKey, scopedRequest);
     }
     case "automatic1111":
-      return generateAutomatic1111(normalizedBaseUrl, scopedRequest);
+      return generateAutomatic1111(normalizedBaseUrl, scopedRequest, serviceHint);
     case "gemini_image":
       return generateViaChatCompletions(normalizedBaseUrl, apiKey, scopedRequest);
     default:
@@ -221,6 +259,7 @@ function imageFetch(url: string | URL, init?: RequestInit, options: { allowLocal
       flagName: "IMAGE_LOCAL_URLS_ENABLED",
     },
     maxResponseBytes: MAX_IMAGE_RESPONSE_BYTES,
+    decodeCompressedResponse: true,
   });
 }
 
@@ -1461,15 +1500,57 @@ async function generateOpenRouter(baseUrl: string, apiKey: string, request: Imag
     throw new Error(`OpenRouter image generation failed (${resp.status}): ${sanitizeErrorText(errText)}`);
   }
 
-  const data = (await resp.json()) as { choices?: Array<{ message?: unknown }> };
-  const message = data.choices?.[0]?.message;
+  // Some OpenRouter image models (e.g. raw provider passthrough) return the
+  // image bytes directly instead of a chat-completions JSON envelope. Sniff
+  // the content-type and the first bytes before deciding how to parse.
+  const contentType = resp.headers.get("content-type") ?? "";
+  const buffer = Buffer.from(await resp.arrayBuffer());
+  const isImageContentType = contentType.startsWith("image/");
+  const looksLikeImageBytes =
+    buffer.length >= 4 &&
+    ((buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47) || // PNG
+      (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) || // JPEG
+      (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46) || // GIF
+      (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46)); // RIFF/WEBP
+
+  if (isImageContentType || looksLikeImageBytes) {
+    const base64 = buffer.toString("base64");
+    let mimeType = detectImageMimeType(base64);
+    if (!mimeType && contentType.startsWith("image/")) mimeType = contentType.split(";")[0]!.trim();
+    if (!mimeType) mimeType = "image/png";
+    return { base64, mimeType, ext: imageExtensionFromMimeType(mimeType) };
+  }
+
+  let data: { choices?: Array<{ message?: unknown; finish_reason?: string }>; error?: unknown };
+  try {
+    data = JSON.parse(buffer.toString("utf8")) as typeof data;
+  } catch {
+    throw new Error(
+      `OpenRouter returned unparseable response (content-type: ${contentType || "unknown"}, first 80 bytes hex: ${buffer.subarray(0, 80).toString("hex")})`,
+    );
+  }
+  if (data.error) {
+    throw new Error(`OpenRouter returned an error: ${JSON.stringify(data.error).slice(0, 400)}`);
+  }
+  const choice = data.choices?.[0];
+  const message = choice?.message;
   const imageUrl = extractImageUrlFromMessage(message);
   if (!imageUrl) {
+    logger.warn(
+      "[image-gen] OpenRouter response had no extractable image. model=%s finish_reason=%s shape=%s",
+      request.model ?? "(default)",
+      choice?.finish_reason ?? "(none)",
+      JSON.stringify(message ?? data).slice(0, 800),
+    );
     const content =
       message && typeof message === "object" && typeof (message as Record<string, unknown>).content === "string"
         ? ((message as Record<string, string>).content ?? "")
         : "";
-    throw new Error(`No image data in OpenRouter response: ${content.slice(0, 200)}`);
+    const messageKeys =
+      message && typeof message === "object" ? Object.keys(message as Record<string, unknown>).join(",") : "(no message)";
+    throw new Error(
+      `No image data in OpenRouter response (finish_reason=${choice?.finish_reason ?? "none"}, message keys=[${messageKeys}], content="${content.slice(0, 200)}")`,
+    );
   }
 
   return downloadImageUrl(imageUrl, request.allowLocalUrls);
@@ -1794,17 +1875,15 @@ async function generateComfyUI(baseUrl: string, request: ImageGenRequest): Promi
 
 // ── AUTOMATIC1111 / SD Web UI / Forge ──
 
-async function generateAutomatic1111(baseUrl: string, request: ImageGenRequest): Promise<ImageGenResult> {
+async function generateAutomatic1111(
+  baseUrl: string,
+  request: ImageGenRequest,
+  serviceHint?: string,
+): Promise<ImageGenResult> {
   const base = baseUrl.replace(/\/+$/, "");
+  const isDrawThings = serviceHint?.trim().toLowerCase() === "drawthings";
   const defaults = resolveAutomatic1111Defaults(request);
   const useImg2Img = !!(request.referenceImage || request.referenceImages?.length);
-  const overrideSettings: Record<string, unknown> = {};
-  if (request.model) {
-    overrideSettings.sd_model_checkpoint = request.model;
-  }
-  if (defaults.clipSkip) {
-    overrideSettings.CLIP_stop_at_last_layers = defaults.clipSkip;
-  }
 
   const body: Record<string, unknown> = {
     prompt: mergePromptPrefix(defaults.promptPrefix, request.prompt),
@@ -1812,25 +1891,50 @@ async function generateAutomatic1111(baseUrl: string, request: ImageGenRequest):
     width: request.width ?? 512,
     height: request.height ?? 768,
     steps: defaults.steps,
-    cfg_scale: defaults.cfgScale,
     seed: resolveSeed(request.imageDefaults),
     sampler_name: defaults.sampler || DEFAULT_AUTOMATIC1111_DEFAULTS.sampler,
-    batch_size: 1,
-    n_iter: 1,
-    restore_faces: defaults.restoreFaces,
   };
-  if (defaults.scheduler) {
-    body.scheduler = defaults.scheduler;
+
+  if (isDrawThings) {
+    // Draw Things' /sdapi/v1/txt2img diverges from A1111: it uses `guidance_scale`
+    // (not `cfg_scale`), `batch_count` (not `n_iter`/`batch_size`), and rejects
+    // unknown keys like `override_settings`, `scheduler`, and `restore_faces`.
+    // Model / LoRA selection is driven by the Draw Things UI state, not the request.
+    body.guidance_scale = defaults.cfgScale;
+    body.batch_count = 1;
+  } else {
+    body.cfg_scale = defaults.cfgScale;
+    body.batch_size = 1;
+    body.n_iter = 1;
+    body.restore_faces = defaults.restoreFaces;
+    if (defaults.scheduler) {
+      body.scheduler = defaults.scheduler;
+    }
+    const overrideSettings: Record<string, unknown> = {};
+    if (request.model) {
+      overrideSettings.sd_model_checkpoint = request.model;
+    }
+    if (defaults.clipSkip) {
+      overrideSettings.CLIP_stop_at_last_layers = defaults.clipSkip;
+    }
+    if (Object.keys(overrideSettings).length > 0) {
+      body.override_settings = overrideSettings;
+    }
   }
-  if (Object.keys(overrideSettings).length > 0) {
-    body.override_settings = overrideSettings;
-  }
+
   if (useImg2Img) {
-    body.init_images = [request.referenceImage ?? request.referenceImages?.[0]];
+    const rawInit = (request.referenceImage ?? request.referenceImages?.[0]) as string;
+    // Draw Things rejects img2img if init_images dimensions don't match the requested
+    // width/height exactly. A1111/Forge auto-resize internally; Draw Things does not.
+    const initImage = isDrawThings
+      ? await resizeBase64ToExactSize(rawInit, body.width as number, body.height as number)
+      : rawInit;
+    body.init_images = [initImage];
     body.denoising_strength = defaults.denoisingStrength;
   }
 
   const endpoint = useImg2Img ? `${base}/sdapi/v1/img2img` : `${base}/sdapi/v1/txt2img`;
+  const label = isDrawThings ? "Draw Things" : "AUTOMATIC1111";
 
   const resp = await localImageBackendFetch(endpoint, {
     method: "POST",
@@ -1841,12 +1945,17 @@ async function generateAutomatic1111(baseUrl: string, request: ImageGenRequest):
 
   if (!resp.ok) {
     const errText = await resp.text().catch(() => "Unknown error");
-    throw new Error(`AUTOMATIC1111 generation failed (${resp.status}): ${sanitizeErrorText(errText)}`);
+    throw new Error(`${label} generation failed (${resp.status}): ${sanitizeErrorText(errText)}`);
   }
 
   const data = (await resp.json()) as { images?: string[] };
   const b64 = data.images?.[0];
-  if (!b64) throw new Error("No image data in AUTOMATIC1111 response");
+  if (!b64) {
+    const hint = isDrawThings
+      ? " (check that a model is selected in Draw Things and the API server port matches)"
+      : "";
+    throw new Error(`No image data in ${label} response${hint}`);
+  }
 
   return { base64: b64, mimeType: "image/png", ext: "png" };
 }
