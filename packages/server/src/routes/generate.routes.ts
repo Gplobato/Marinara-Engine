@@ -251,6 +251,7 @@ import {
   type PerceptionContext,
 } from "../services/game/perception.service.js";
 import { getMoraleTier, formatMoraleContext } from "../services/game/morale.service.js";
+import { parseChatPets, buildPetsPromptContext } from "../services/game/pet.service.js";
 import type { GameMap, GameNpc, LorebookEntry } from "@marinara-engine/shared";
 import { sidecarModelService } from "../services/sidecar/sidecar-model.service.js";
 
@@ -4825,6 +4826,15 @@ export async function generateRoutes(app: FastifyInstance) {
             })(),
             characterSprites: listPartySprites(partyIdNamePairs),
             language: (setupConfig?.language as string) || undefined,
+            petsContext: (() => {
+              try {
+                const chatPets = parseChatPets((chatMeta as Record<string, unknown>).chatPets);
+                const ctx = buildPetsPromptContext(chatPets);
+                return ctx || undefined;
+              } catch {
+                return undefined;
+              }
+            })(),
           };
 
           const builtGmPrompt = buildGmSystemPrompt(gmCtx);
@@ -4970,6 +4980,15 @@ export async function generateRoutes(app: FastifyInstance) {
                 try {
                   const inv = (chatMeta.gameInventory as Array<{ name: string; quantity: number }>) ?? [];
                   return inv.length > 0 ? inv : undefined;
+                } catch {
+                  return undefined;
+                }
+              })(),
+              petsContext: (() => {
+                try {
+                  const chatPets = parseChatPets((chatMeta as Record<string, unknown>).chatPets);
+                  const ctx = buildPetsPromptContext(chatPets);
+                  return ctx || undefined;
                 } catch {
                   return undefined;
                 }

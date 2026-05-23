@@ -2,7 +2,7 @@
 // Layout: Right Panel (polished with panel transitions)
 // ──────────────────────────────────────────────
 import { lazy, Suspense, type ComponentType, type LazyExoticComponent, type ReactNode } from "react";
-import { X, Users, BookOpen, FileText, Link, Sparkles, Settings, User, Bot } from "lucide-react";
+import { X, Users, BookOpen, FileText, Link, Sparkles, Settings, User, Bot, Backpack, Heart } from "lucide-react";
 import { useUIStore } from "../../stores/ui.store";
 
 const CharactersPanel = lazy(() =>
@@ -25,6 +25,12 @@ const SettingsPanel = lazy(() =>
 const BotBrowserPanel = lazy(() =>
   import("../panels/BotBrowserPanel").then((module) => ({ default: module.BotBrowserPanel })),
 );
+const InventoryPanel = lazy(() =>
+  import("../panels/InventoryPanel").then((module) => ({ default: module.InventoryPanel })),
+);
+const PetPanel = lazy(() =>
+  import("../panels/PetPanel").then((module) => ({ default: module.PetPanel })),
+);
 
 const PANEL_CONFIG: Record<string, { title: string; icon: ReactNode; gradient: string }> = {
   "bot-browser": { title: "Browser", icon: <Bot size="0.875rem" />, gradient: "from-cyan-400 to-blue-500" },
@@ -35,6 +41,8 @@ const PANEL_CONFIG: Record<string, { title: string; icon: ReactNode; gradient: s
   agents: { title: "Agents", icon: <Sparkles size="0.875rem" />, gradient: "from-pink-300 to-purple-400" },
   personas: { title: "Personas", icon: <User size="0.875rem" />, gradient: "from-emerald-400 to-teal-500" },
   settings: { title: "Settings", icon: <Settings size="0.875rem" />, gradient: "from-gray-400 to-gray-500" },
+  inventory: { title: "Inventory", icon: <Backpack size="0.875rem" />, gradient: "from-amber-500 to-yellow-600" },
+  pets: { title: "Pets", icon: <Heart size="0.875rem" />, gradient: "from-pink-400 to-rose-500" },
 };
 
 const PANELS: Record<string, LazyExoticComponent<ComponentType>> = {
@@ -46,6 +54,8 @@ const PANELS: Record<string, LazyExoticComponent<ComponentType>> = {
   agents: AgentsPanel,
   personas: PersonasPanel,
   settings: SettingsPanel,
+  inventory: InventoryPanel,
+  pets: PetPanel,
 };
 
 // Module-level set survives component remounts (e.g. mobile AnimatePresence unmount/remount)

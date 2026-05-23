@@ -25,6 +25,18 @@ export * from "./types/game.js";
 export * from "./types/sidecar.js";
 export * from "./types/image-generation-defaults.js";
 
+// Types: RPG Systems
+export * from "./types/loot.js";
+export * from "./types/pet.js";
+
+// Schemas: RPG Systems
+export * from "./schemas/loot.schema.js";
+export * from "./schemas/pet.schema.js";
+
+// Utils: RPG Systems
+export * from "./utils/loot-generator.js";
+export * from "./utils/pet-generator.js";
+
 // Schemas
 export * from "./schemas/chat.schema.js";
 export * from "./schemas/chat-preset.schema.js";

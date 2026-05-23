@@ -66,6 +66,8 @@ export interface GmPromptContext {
   characterSprites?: CharacterSpriteInfo[];
   /** Player's current inventory items (for GM context) */
   playerInventory?: Array<{ name: string; quantity: number }>;
+  /** Player's active pets/familiars (for GM context) */
+  petsContext?: string;
   /** Language for all narration and dialogue */
   language?: string;
 }
@@ -623,6 +625,7 @@ export function buildGmFormatReminder(
     | "playerName"
     | "characterSprites"
     | "playerInventory"
+    | "petsContext"
     | "language"
     | "rating"
   > & {
@@ -820,6 +823,11 @@ export function buildGmFormatReminder(
   // Inventory context
   if (playerInventory.length > 0) {
     lines.push(``, `PLAYER INVENTORY: ${buildCompactInventoryLine(playerInventory)}`);
+  }
+
+  // Pets / familiars context
+  if (ctx.petsContext) {
+    lines.push(``, ctx.petsContext);
   }
 
   lines.push(`</output_format>`);

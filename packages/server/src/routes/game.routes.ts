@@ -54,6 +54,19 @@ import { resolveCombatRound, type CombatantStats } from "../services/game/combat
 import { getElementPreset, listElementPresets } from "../services/game/element-reactions.service.js";
 import { generateCombatLoot, generateLootTable } from "../services/game/loot.service.js";
 import {
+  parseChatPets,
+  addPet,
+  removePet,
+  updatePet,
+  setActivePet,
+  getPet,
+  generateNewPet,
+  generateEncounterPet,
+  performPetAction,
+  buildPetsPromptContext,
+  type ChatPets,
+} from "../services/game/pet.service.js";
+import {
   advanceTime,
   formatGameTime,
   createInitialTime,
@@ -5443,6 +5456,130 @@ export async function gameRoutes(app: FastifyInstance) {
     const difficulty = ((meta.gameSetupConfig as Record<string, unknown>)?.difficulty as string) ?? "normal";
     const drops = generateLootTable(count, difficulty);
     return { drops };
+  });
+
+  // ── GET /game/pets ──
+  app.get("/pets", async (req) => {
+    const schema = z.object({ chatId: z.string().min(1) });
+    const { chatId } = schema.parse(req.query);
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+    const meta = parseMeta(chat.metadata);
+    return parseChatPets((meta as Record<string, unknown>).chatPets);
+  });
+
+  // ── POST /game/pets/generate ──
+  app.post("/pets/generate", async (req) => {
+    const schema = z.object({
+      chatId: z.string().min(1),
+      tipo: z.enum(["combat", "companion", "mount", "familiar"]).optional(),
+      raridade: z.enum(["comum", "incomum", "raro", "épico", "lendário"]).optional(),
+      nivel: z.number().int().min(1).max(100).optional(),
+      nome: z.string().max(50).optional(),
+      wild: z.boolean().default(false),
+    });
+    const { chatId, tipo, raridade, nivel, nome, wild } = schema.parse(req.body);
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+
+    const pet = wild
+      ? generateEncounterPet(nivel ?? 1)
+      : generateNewPet({ tipo, raridade, nivel, nome });
+
+    const meta = parseMeta(chat.metadata);
+    const chatPets = parseChatPets((meta as Record<string, unknown>).chatPets);
+    const updated = addPet(chatPets, pet);
+    await chats.updateMetadata(chatId, { ...meta, chatPets: updated });
+
+    return { pet, chatPets: updated };
+  });
+
+  // ── POST /game/pets/active ──
+  app.post("/pets/active", async (req) => {
+    const schema = z.object({
+      chatId: z.string().min(1),
+      petId: z.string().nullable(),
+    });
+    const { chatId, petId } = schema.parse(req.body);
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+
+    const meta = parseMeta(chat.metadata);
+    const chatPets = parseChatPets((meta as Record<string, unknown>).chatPets);
+    const updated = setActivePet(chatPets, petId);
+    await chats.updateMetadata(chatId, { ...meta, chatPets: updated });
+
+    return updated;
+  });
+
+  // ── POST /game/pets/:petId/action ──
+  app.post("/pets/:petId/action", async (req) => {
+    const paramsSchema = z.object({ petId: z.string().min(1) });
+    const bodySchema = z.object({
+      chatId: z.string().min(1),
+      acao: z.string().min(1).max(50),
+    });
+    const { petId } = paramsSchema.parse(req.params);
+    const { chatId, acao } = bodySchema.parse(req.body);
+
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+
+    const meta = parseMeta(chat.metadata);
+    const chatPets = parseChatPets((meta as Record<string, unknown>).chatPets);
+    const { result, chatPets: updatedPets } = performPetAction(chatPets, petId, acao);
+    await chats.updateMetadata(chatId, { ...meta, chatPets: updatedPets });
+
+    return { result, pet: getPet(updatedPets, petId) };
+  });
+
+  // ── POST /game/pets/:petId/remove ──
+  app.post("/pets/:petId/remove", async (req) => {
+    const paramsSchema = z.object({ petId: z.string().min(1) });
+    const bodySchema = z.object({ chatId: z.string().min(1) });
+    const { petId } = paramsSchema.parse(req.params);
+    const { chatId } = bodySchema.parse(req.body);
+
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+
+    const meta = parseMeta(chat.metadata);
+    const chatPets = parseChatPets((meta as Record<string, unknown>).chatPets);
+    const updated = removePet(chatPets, petId);
+    await chats.updateMetadata(chatId, { ...meta, chatPets: updated });
+
+    return updated;
+  });
+
+  // ── PATCH /game/pets/:petId ──
+  app.patch("/pets/:petId", async (req) => {
+    const paramsSchema = z.object({ petId: z.string().min(1) });
+    const bodySchema = z.object({
+      chatId: z.string().min(1),
+      patch: z.record(z.unknown()),
+    });
+    const { petId } = paramsSchema.parse(req.params);
+    const { chatId, patch } = bodySchema.parse(req.body);
+
+    const chats = createChatsStorage(app.db);
+    const chat = await chats.getById(chatId);
+    if (!chat) throw new Error("Chat not found");
+
+    const meta = parseMeta(chat.metadata);
+    const chatPets = parseChatPets((meta as Record<string, unknown>).chatPets);
+    const existing = getPet(chatPets, petId);
+    if (!existing) throw new Error(`Pet ${petId} not found`);
+
+    const patched = { ...existing, ...patch, id: petId } as typeof existing;
+    const updated = updatePet(chatPets, patched);
+    await chats.updateMetadata(chatId, { ...meta, chatPets: updated });
+
+    return { pet: patched, chatPets: updated };
   });
 
   // ── POST /game/time/advance ──
