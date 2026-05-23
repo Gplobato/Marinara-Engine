@@ -14,7 +14,7 @@ const MODE_BADGE: Record<string, { icon: React.ReactNode; bg: string; label: str
   conversation: {
     icon: <MessageSquare size="0.375rem" />,
     bg: "linear-gradient(135deg, #4de5dd, #3ab8b1)",
-    label: "Conversation",
+    label: "Conversa",
   },
   roleplay: {
     icon: <BookOpen size="0.375rem" />,
@@ -24,7 +24,7 @@ const MODE_BADGE: Record<string, { icon: React.ReactNode; bg: string; label: str
   visual_novel: {
     icon: <BookOpen size="0.375rem" />,
     bg: "linear-gradient(135deg, #e15c8c, #c94776)",
-    label: "Game",
+    label: "Jogo",
   },
 };
 

@@ -140,7 +140,7 @@ export function AssetGrid({
                       ? "border-[var(--border)] bg-[var(--background)] text-[var(--muted-foreground)] hover:border-[var(--primary)]"
                       : "border-[var(--primary)]/40 bg-[var(--primary)] text-white hover:opacity-90")
                   }
-                  title="Select assets for this game"
+                  title="Selecionar recursos para este jogo"
                   aria-label={`Select ${node.name} assets for this game`}
                 >
                   <FolderSelectionMark status={folderSelectionStatus} />
@@ -191,7 +191,7 @@ export function AssetGrid({
         className={`grid ${gridColsClass} items-center gap-3 border-b border-[var(--border)]/40 px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)]`}
       >
         <span></span>
-        <span className="col-span-2">Name</span>
+        <span className="col-span-2">Nome</span>
         {listColumns.size && <span className="text-right">Size</span>}
         {listColumns.modified && <span className="text-right">Modified</span>}
         <span></span>
@@ -237,7 +237,7 @@ export function AssetGrid({
                       ? "border-[var(--border)] text-[var(--muted-foreground)] hover:border-[var(--primary)]"
                       : "border-[var(--primary)]/40 bg-[var(--primary)] text-white hover:opacity-90")
                   }
-                  title="Select assets for this game"
+                  title="Selecionar recursos para este jogo"
                   aria-label={`Select ${node.name} assets for this game`}
                 >
                   <FolderSelectionMark status={folderSelectionStatus} />

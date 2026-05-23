@@ -23,7 +23,7 @@ export function useStartChatFromCharacter() {
 
   const startChatFromCharacter = useCallback(
     ({ characterId, characterName, mode, firstMessage, alternateGreetings }: StartChatFromCharacterOptions) => {
-      const label = mode === "conversation" ? "Conversation" : "Roleplay";
+      const label = mode === "conversation" ? "Conversa" : "Roleplay";
       const presets = chatPresetsData ?? [];
       const presetMode = mode === "conversation" ? "conversation" : "roleplay";
       const starred = presets.find((preset) => preset.mode === presetMode && preset.isActive && !preset.isDefault);

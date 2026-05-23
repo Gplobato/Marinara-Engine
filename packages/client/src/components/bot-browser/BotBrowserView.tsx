@@ -258,7 +258,7 @@ const JANNY_TAG_MAP: Record<number, string> = {
   5: "OC",
   6: "Fictional",
   7: "Real",
-  8: "Game",
+  8: "Jogo",
   9: "Anime",
   10: "Historical",
   11: "Royalty",
@@ -1520,7 +1520,7 @@ export function BotBrowserView() {
       const d = await provider.fetchDetail(card);
       setDetail(d);
     } catch {
-      toast.error("Failed to load character details");
+      toast.error("Falha ao carregar personagem details");
       setSelectedCard(null);
     } finally {
       setDetailLoading(false);
@@ -1536,7 +1536,7 @@ export function BotBrowserView() {
 
       if (downloadUrl) {
         const res = await fetch(downloadUrl);
-        if (!res.ok) throw new Error("Failed to download character card");
+        if (!res.ok) throw new Error("Falha ao baixar ficha do personagem");
         const blob = await res.blob();
         const file = new File([blob], "character.png", { type: "image/png" });
         const { json, imageDataUrl } = await parsePngCharacterCard(file);
@@ -1795,7 +1795,7 @@ export function BotBrowserView() {
         >
           <ArrowLeft size="0.875rem" /> Back
         </button>
-        <h2 className="text-sm font-semibold text-[var(--foreground)]">Browser</h2>
+        <h2 className="text-sm font-semibold text-[var(--foreground)]">Navegador</h2>
         <div className="relative ml-2">
           <button
             onClick={() => setSourceOpen((v) => !v)}
@@ -1875,7 +1875,7 @@ export function BotBrowserView() {
                     addCustomTag();
                   }
                 }}
-                placeholder="Search tags..."
+                placeholder="Buscar tags..."
                 className="w-full rounded-md border border-[var(--border)] bg-[var(--secondary)] px-2.5 py-1.5 text-xs outline-none transition-colors focus:border-[var(--primary)]"
               />
             </div>
@@ -2004,7 +2004,7 @@ export function BotBrowserView() {
                       setQuery(e.target.value);
                       setPage(1);
                     }}
-                    placeholder="Search characters..."
+                    placeholder="Buscar personagens..."
                     className="w-full rounded-lg border border-[var(--border)] bg-[var(--secondary)] py-2 pl-9 pr-8 text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none transition-colors focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-60"
                   />
                   {query && (
@@ -2148,7 +2148,7 @@ export function BotBrowserView() {
                           else if (sourceId === "chartavern") handleCtLogout();
                         }}
                         className="flex items-center gap-1 rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-2.5 py-2 text-[0.65rem] text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--destructive)]"
-                        title="Log out"
+                        title="Sair"
                       >
                         <LogOut size="0.625rem" /> Logout
                       </button>
@@ -2170,7 +2170,7 @@ export function BotBrowserView() {
                 <button
                   onClick={doSearch}
                   className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-2 text-xs transition-colors hover:bg-[var(--accent)]"
-                  title="Refresh"
+                  title="Atualizar"
                 >
                   <RefreshCw size="0.75rem" />
                 </button>
@@ -2285,7 +2285,7 @@ export function BotBrowserView() {
                 </div>
               ) : results.length === 0 ? (
                 <div className="flex flex-1 items-center justify-center py-12 text-sm text-[var(--muted-foreground)]">
-                  No characters found
+                  Nenhum personagem encontrado
                 </div>
               ) : (
                 <>
@@ -2907,7 +2907,7 @@ function DetailView({
             {displayDetail ? (
               <div className="flex flex-col gap-3">
                 {displayDetail.creatorNotes && (
-                  <DefSection title="Creator's Notes" content={displayDetail.creatorNotes} />
+                  <DefSection title="Notas do Criador" content={displayDetail.creatorNotes} />
                 )}
                 {displayDetail.description && (
                   <DefSection title="Description / Personality" content={displayDetail.description} />

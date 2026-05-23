@@ -87,7 +87,7 @@ export function QuickConnectionSwitcher({ className }: { className?: string }) {
       <button
         ref={btnRef}
         onClick={() => setOpen((v) => !v)}
-        title="Quick Connection Switcher"
+        title="Troca Rápida de Conexão"
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-xl transition-all",
           open
@@ -106,7 +106,7 @@ export function QuickConnectionSwitcher({ className }: { className?: string }) {
           style={pos ? { left: pos.left, top: pos.top } : { visibility: "hidden" as const }}
         >
           <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] px-3 py-2">
-            <span className="text-[0.6875rem] font-semibold">Connections</span>
+            <span className="text-[0.6875rem] font-semibold">Conexões</span>
             <button
               onClick={handleToggleRandom}
               title={isRandom ? "Random pool active — click to disable" : "Use random connection from pool"}

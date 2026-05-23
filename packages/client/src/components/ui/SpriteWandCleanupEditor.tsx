@@ -960,7 +960,7 @@ export function SpriteWandCleanupEditor({
                   onClick={handleResetWandDefaults}
                   disabled={loading || applying}
                   className="inline-flex min-w-fit items-center gap-1.5 whitespace-nowrap rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:text-[var(--foreground)] disabled:opacity-45"
-                  title="Reset wand controls to their defaults"
+                  title="Redefinir controles da varinha para padrão"
                 >
                   <RotateCcw size="0.875rem" />
                   Defaults
@@ -979,7 +979,7 @@ export function SpriteWandCleanupEditor({
                   checked={wandStrong}
                   onChange={setWandStrong}
                   disabled={loading || applying}
-                  title="Reach farther into matching debris"
+                  title="Alcançar mais longe nos detritos correspondentes"
                 />
                 <RangeControl
                   label="Softness"
@@ -1030,7 +1030,7 @@ export function SpriteWandCleanupEditor({
                           : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
                       ].join(" ")}
                       aria-pressed={brushToolMode === "paint"}
-                      title="Paint with the selected color"
+                      title="Pintar com a cor selecionada"
                     >
                       <Brush size="0.75rem" />
                       Color
@@ -1046,7 +1046,7 @@ export function SpriteWandCleanupEditor({
                           : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
                       ].join(" ")}
                       aria-pressed={brushToolMode === "restore"}
-                      title="Paint original pixels back in"
+                      title="Restaurar pixels originais"
                     >
                       <Undo2 size="0.75rem" />
                       Restore
@@ -1062,7 +1062,7 @@ export function SpriteWandCleanupEditor({
                       value={cleanTolerance}
                       onChange={setCleanTolerance}
                       disabled={loading || applying}
-                      title="How closely pixels must match the sampled cleanup color"
+                      title="Quão próximos os pixels devem ser da cor de limpeza"
                       className="min-w-[12rem] flex-[1_1_12rem]"
                     />
                     <RangeControl
@@ -1072,7 +1072,7 @@ export function SpriteWandCleanupEditor({
                       value={cleanEdgeGuard}
                       onChange={setCleanEdgeGuard}
                       disabled={loading || applying}
-                      title="How strongly the brush avoids character-like edge pixels"
+                      title="Quão fortemente o pincel evita pixels de borda"
                       className="min-w-[16rem] flex-[1_1_16rem]"
                     />
                     <RangeControl
@@ -1082,7 +1082,7 @@ export function SpriteWandCleanupEditor({
                       value={cleanFeather}
                       onChange={setCleanFeather}
                       disabled={loading || applying}
-                      title="Soften the edge of the cleaned brush stroke"
+                      title="Suavizar a borda do traço limpo"
                       className="min-w-[14rem] flex-[1_1_14rem]"
                     />
                   </>
@@ -1090,7 +1090,7 @@ export function SpriteWandCleanupEditor({
                 {tool === "brush" && brushToolMode === "paint" && (
                   <div
                     className="flex min-w-fit items-center gap-2 rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs"
-                    title="Brush color"
+                    title="Cor do pincel"
                   >
                     <span className="shrink-0 whitespace-nowrap font-medium text-[var(--foreground)]">Color</span>
                     <input
@@ -1102,7 +1102,7 @@ export function SpriteWandCleanupEditor({
                       }}
                       disabled={loading || applying}
                       className="h-7 w-9 cursor-pointer rounded-md border border-[var(--border)] bg-transparent p-0.5 disabled:opacity-45"
-                      aria-label="Brush color"
+                      aria-label="Cor do pincel"
                     />
                     <span className="font-mono text-[0.6875rem] uppercase text-[var(--muted-foreground)]">
                       {brushColor}
@@ -1118,7 +1118,7 @@ export function SpriteWandCleanupEditor({
                           : "text-[var(--muted-foreground)] ring-[var(--border)] hover:text-[var(--foreground)]",
                       ].join(" ")}
                       aria-pressed={pickingBrushColor}
-                      title="Pick brush color from the sprite"
+                      title="Selecionar cor do sprite"
                     >
                       <Pipette size="0.75rem" />
                       Pick

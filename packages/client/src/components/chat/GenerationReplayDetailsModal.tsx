@@ -83,7 +83,7 @@ function TextBlock({
             type="button"
             onClick={() => void handleCopy()}
             className="inline-flex min-h-8 items-center gap-1.5 rounded-lg bg-[var(--secondary)] px-2.5 py-1.5 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Copy as /guided command"
+            title="Copiar como comando /guided"
             aria-label="Copy as /guided command"
           >
             <Copy size="0.75rem" className="shrink-0" />
@@ -139,7 +139,7 @@ export function GenerationReplayDetailsModal({
       replay?.impersonateBlockAgents === true);
 
   return (
-    <Modal open={open} onClose={onClose} title="Stored guidance" width="max-w-xl">
+    <Modal open={open} onClose={onClose} title="Orientação armazenada" width="max-w-xl">
       <div className="space-y-5">
         {generationGuide && !hasImpersonate && (
           <TextBlock

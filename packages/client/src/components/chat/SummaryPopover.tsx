@@ -296,7 +296,7 @@ export function SummaryPopover({
       ? `${selectedRangeCount} ${selectedRangeCount === 1 ? "message" : "messages"} selected`
       : totalMessageCount > 0
         ? `Using ${Math.min(normalizedLastSize, totalMessageCount)} of ${totalMessageCount} messages`
-        : "No messages yet";
+        : "Nenhuma mensagem ainda";
   const rangeErrorText = `Choose ${MAX_SUMMARY_MESSAGES} messages or fewer.`;
   const cleanedPromptTemplates = promptTemplates.filter(
     (template) =>
@@ -501,8 +501,8 @@ export function SummaryPopover({
       const confirmed = await showConfirmDialog({
         title: "Delete summary entry?",
         message: `Delete "${entry.title}"? This will change the summary context sent to the model.`,
-        confirmLabel: "Delete",
-        cancelLabel: "Cancel",
+        confirmLabel: "Excluir",
+        cancelLabel: "Cancelar",
         tone: "destructive",
       });
       if (!confirmed) return;
@@ -607,8 +607,8 @@ export function SummaryPopover({
       const confirmed = await showConfirmDialog({
         title: "Delete summary template?",
         message: `Delete "${target.name}" from this chat? Existing summaries will stay unchanged.`,
-        confirmLabel: "Delete",
-        cancelLabel: "Cancel",
+        confirmLabel: "Excluir",
+        cancelLabel: "Cancelar",
         tone: "destructive",
       });
       if (!confirmed) return;
@@ -679,7 +679,7 @@ export function SummaryPopover({
                 "rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)]",
                 scopeSettingsOpen && "bg-[var(--accent)] text-[var(--foreground)] ring-1 ring-[var(--border)]",
               )}
-              title="Summary source settings"
+              title="Configurações de fonte do resumo"
               aria-label="Summary source settings"
               aria-expanded={scopeSettingsOpen}
             >
@@ -760,7 +760,7 @@ export function SummaryPopover({
                         className="flex w-full min-w-0 items-center justify-between gap-2 rounded-md bg-[var(--card)] py-1 pl-2 pr-2 text-left truncate text-xs font-semibold text-[var(--foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                         aria-haspopup="listbox"
                         aria-expanded={templateSelectOpen}
-                        aria-label="Summary prompt template"
+                        aria-label="Template de prompt de resumo"
                       >
                         <span className="min-w-0 truncate">{promptTemplateSummary}</span>
                         <ChevronRight
@@ -796,8 +796,8 @@ export function SummaryPopover({
                       type="button"
                       onClick={() => handleDuplicatePromptTemplate(activePromptTemplate ?? null)}
                       className="rounded-md p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                      title="Copy current prompt to a new template"
-                      aria-label="Copy current prompt to a new template"
+                      title="Copiar prompt atual para novo template"
+                      aria-label="Copiar prompt atual para novo template"
                     >
                       <Copy size="0.75rem" />
                     </button>
@@ -842,14 +842,14 @@ export function SummaryPopover({
                             value={templateNameDraft}
                             onChange={(event) => setTemplateNameDraft(event.target.value)}
                             maxLength={80}
-                            placeholder="Template name"
+                            placeholder="Nome do template"
                             className="w-full rounded-md bg-[var(--card)] px-2 py-1 text-[0.6875rem] font-semibold text-[var(--foreground)] ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                           />
                           <textarea
                             value={templatePromptDraft}
                             onChange={(event) => setTemplatePromptDraft(event.target.value)}
                             rows={8}
-                            placeholder="Prompt instructions for manual summary generation..."
+                            placeholder="Instruções de prompt para geração manual de resumo..."
                             className="max-h-48 w-full resize-y rounded-md bg-[var(--card)] px-2 py-1.5 font-mono text-[0.625rem] leading-relaxed text-[var(--foreground)] ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                           />
                           <div className="flex justify-end gap-1">
@@ -997,7 +997,7 @@ export function SummaryPopover({
 
             {sourceMode === "last" ? (
               <label className="flex items-center justify-between gap-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                <span>Messages</span>
+                <span>Mensagens</span>
                 <input
                   type="number"
                   min={MIN_SUMMARY_MESSAGES}
@@ -1234,7 +1234,7 @@ function SummaryEntryRow({
             type="button"
             onClick={onStartEdit}
             className="rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] active:scale-90"
-            title="Edit"
+            title="Editar"
             aria-label="Edit summary entry"
           >
             <PenLine size="0.75rem" />
@@ -1244,7 +1244,7 @@ function SummaryEntryRow({
             onClick={onDelete}
             disabled={mutationPending}
             className="rounded p-1 text-[var(--destructive)] transition-colors hover:bg-[var(--destructive)]/15 active:scale-90 disabled:cursor-not-allowed disabled:opacity-50"
-            title="Delete"
+            title="Excluir"
             aria-label="Delete summary entry"
           >
             <Trash2 size="0.75rem" />
@@ -1308,7 +1308,7 @@ function SummaryEntryEditor({
         value={entry.title}
         onChange={(event) => onChange({ ...entry, title: event.target.value })}
         maxLength={120}
-        placeholder="Summary title"
+        placeholder="Título do resumo"
         className="w-full rounded-md bg-[var(--card)] px-2.5 py-1.5 text-xs font-semibold text-[var(--foreground)] ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
       />
       <textarea

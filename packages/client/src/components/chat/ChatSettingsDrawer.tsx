@@ -1486,7 +1486,7 @@ export function ChatSettingsDrawer({
     const ok = await showConfirmDialog({
       title: "Delete Preset",
       message: `Delete preset "${selectedChatPreset.name}"? This cannot be undone.`,
-      confirmLabel: "Delete",
+      confirmLabel: "Excluir",
       tone: "destructive",
     });
     if (!ok) return;
@@ -1599,7 +1599,7 @@ export function ChatSettingsDrawer({
       <div className="absolute right-0 top-0 z-50 flex h-full w-80 max-md:w-full flex-col border-l border-[var(--border)] bg-[var(--background)] shadow-2xl animate-fade-in-up max-md:pt-[env(safe-area-inset-top)]">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
-          <h3 className="text-sm font-bold">Chat Settings</h3>
+          <h3 className="text-sm font-bold">Configurações da Conversa</h3>
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)]"
@@ -1637,7 +1637,7 @@ export function ChatSettingsDrawer({
                 <select
                   value={selectedChatPreset?.id ?? ""}
                   onChange={(e) => handleSelectPreset(e.target.value)}
-                  title="Apply a chat-settings preset to this chat"
+                  title="Aplicar predefinição de configurações a esta conversa"
                   className="flex-1 min-w-0 rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                 >
                   {presetList.length === 0 && <option value="">Loading…</option>}
@@ -1707,7 +1707,7 @@ export function ChatSettingsDrawer({
               <button
                 onClick={handleSaveAsPreset}
                 disabled={!selectedChatPreset}
-                title="Save current chat settings as a new preset"
+                title="Salvar configurações atuais como nova predefinição"
                 className="flex-1 flex items-center justify-center rounded-md p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <FilePlus2 size="0.875rem" />
@@ -1804,7 +1804,7 @@ export function ChatSettingsDrawer({
                     onChange={(e) => setConnection(e.target.value || null)}
                     className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                   >
-                    <option value="">None</option>
+                    <option value="">Nenhum</option>
                     <option value="random">🎲 Random</option>
                     {textConnectionsList.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -1822,7 +1822,7 @@ export function ChatSettingsDrawer({
                   onChange={(e) => setConnection(e.target.value || null)}
                   className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                 >
-                  <option value="">None</option>
+                  <option value="">Nenhum</option>
                   <option value="random">🎲 Random</option>
                   {textConnectionsList.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -1852,7 +1852,7 @@ export function ChatSettingsDrawer({
                   onChange={(e) => setPreset(e.target.value || null)}
                   className="flex-1 rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                 >
-                  <option value="">None</option>
+                  <option value="">Nenhum</option>
                   {((presets ?? []) as Array<{ id: string; name: string; isDefault?: boolean | string }>).map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.name}
@@ -1903,7 +1903,7 @@ export function ChatSettingsDrawer({
                   <button
                     onClick={() => setExtraPromptExpanded(true)}
                     className="absolute right-1.5 top-1.5 rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                    title="Expand editor"
+                    title="Expandir editor"
                   >
                     <Maximize2 size="0.75rem" />
                   </button>
@@ -1935,7 +1935,7 @@ export function ChatSettingsDrawer({
                 title="Extra Prompt"
                 value={extraPromptDraft}
                 onChange={setExtraPromptDraft}
-                placeholder="Additional instructions for game generation..."
+                placeholder="Instruções adicionais para geração do jogo..."
               />
             </Section>
           )}
@@ -1956,14 +1956,14 @@ export function ChatSettingsDrawer({
                       updateMeta.mutate({ id: chat.id, sceneSystemPrompt: scenePromptDraft });
                     }
                   }}
-                  placeholder="Scene system prompt..."
+                  placeholder="Prompt de sistema da cena..."
                   rows={6}
                   className="w-full resize-y rounded-lg bg-[var(--secondary)] px-3 py-2 pr-8 text-xs leading-relaxed outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                 />
                 <button
                   onClick={() => setScenePromptExpanded(true)}
                   className="absolute right-1.5 top-1.5 rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                  title="Expand editor"
+                  title="Expandir editor"
                 >
                   <Maximize2 size="0.75rem" />
                 </button>
@@ -1976,10 +1976,10 @@ export function ChatSettingsDrawer({
                     updateMeta.mutate({ id: chat.id, sceneSystemPrompt: scenePromptDraft });
                   }
                 }}
-                title="Scene Instructions"
+                title="Instruções de Cena"
                 value={scenePromptDraft}
                 onChange={setScenePromptDraft}
-                placeholder="Scene system prompt..."
+                placeholder="Prompt de sistema da cena..."
               />
             </Section>
           )}
@@ -2028,7 +2028,7 @@ export function ChatSettingsDrawer({
                     <button
                       onClick={() => updateChat.mutate({ id: chat.id, personaId: null })}
                       className="ml-auto shrink-0 rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-                      title="Remove persona"
+                      title="Remover persona"
                     >
                       <X size="0.75rem" />
                     </button>
@@ -2052,7 +2052,7 @@ export function ChatSettingsDrawer({
                     search={personaSearch}
                     onSearchChange={setPersonaSearch}
                     onClose={() => setShowPersonaPicker(false)}
-                    placeholder="Search personas..."
+                    placeholder="Buscar personas..."
                   >
                     <button
                       onClick={() => {
@@ -2067,7 +2067,7 @@ export function ChatSettingsDrawer({
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--muted-foreground)]">
                         <X size="0.625rem" />
                       </div>
-                      <span className="flex-1 truncate text-xs">None</span>
+                      <span className="flex-1 truncate text-xs">Nenhum</span>
                       {!chat.personaId && <Check size="0.625rem" className="ml-auto shrink-0 text-[var(--primary)]" />}
                     </button>
                     {personas
@@ -2119,7 +2119,7 @@ export function ChatSettingsDrawer({
                         (p.comment && p.comment.toLowerCase().includes(personaSearch.toLowerCase())),
                     ).length === 0 && (
                       <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                        {personas.length === 0 ? "No personas created yet." : "No matches."}
+                        {personas.length === 0 ? "Nenhuma persona criada ainda." : "Nenhuma correspondência."}
                       </p>
                     )}
                   </PickerDropdown>
@@ -2148,7 +2148,7 @@ export function ChatSettingsDrawer({
                               useUIStore.getState().openCharacterDetail(c.id);
                             }}
                             className="flex min-w-0 flex-1 items-center gap-2.5 text-left transition-colors hover:opacity-80"
-                            title="Open character card"
+                            title="Abrir ficha do personagem"
                           >
                             {c.avatarPath ? (
                               <span className="relative block h-7 w-7 shrink-0 overflow-hidden rounded-full">
@@ -2177,7 +2177,7 @@ export function ChatSettingsDrawer({
                           <button
                             onClick={() => toggleCharacter(c.id)}
                             className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                            title="Remove from party"
+                            title="Remover do grupo"
                           >
                             <Trash2 size="0.6875rem" />
                           </button>
@@ -2203,7 +2203,7 @@ export function ChatSettingsDrawer({
                   search={charSearch}
                   onSearchChange={setCharSearch}
                   onClose={() => setShowCharPicker(false)}
-                  placeholder="Search characters…"
+                  placeholder="Buscar personagens…"
                 >
                   {characters
                     .filter((c) => !chatCharIds.includes(c.id))
@@ -2283,7 +2283,7 @@ export function ChatSettingsDrawer({
                   <button
                     onClick={() => updateChat.mutate({ id: chat.id, personaId: null })}
                     className="ml-auto shrink-0 rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-                    title="Remove persona"
+                    title="Remover persona"
                   >
                     <X size="0.75rem" />
                   </button>
@@ -2308,7 +2308,7 @@ export function ChatSettingsDrawer({
                   search={personaSearch}
                   onSearchChange={setPersonaSearch}
                   onClose={() => setShowPersonaPicker(false)}
-                  placeholder="Search personas..."
+                  placeholder="Buscar personas..."
                 >
                   {/* None option */}
                   <button
@@ -2324,7 +2324,7 @@ export function ChatSettingsDrawer({
                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--muted-foreground)]">
                       <X size="0.625rem" />
                     </div>
-                    <span className="flex-1 truncate text-xs">None</span>
+                    <span className="flex-1 truncate text-xs">Nenhum</span>
                     {!chat.personaId && <Check size="0.625rem" className="ml-auto shrink-0 text-[var(--primary)]" />}
                   </button>
                   {personas
@@ -2376,7 +2376,7 @@ export function ChatSettingsDrawer({
                       (p.comment && p.comment.toLowerCase().includes(personaSearch.toLowerCase())),
                   ).length === 0 && (
                     <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                      {personas.length === 0 ? "No personas created yet." : "No matches."}
+                      {personas.length === 0 ? "Nenhuma persona criada ainda." : "Nenhuma correspondência."}
                     </p>
                   )}
                 </PickerDropdown>
@@ -2431,7 +2431,7 @@ export function ChatSettingsDrawer({
                         >
                           <div
                             className="cursor-grab text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors active:cursor-grabbing"
-                            title="Drag to reorder"
+                            title="Arrastar para reordenar"
                           >
                             <GripVertical size="0.75rem" />
                           </div>
@@ -2441,7 +2441,7 @@ export function ChatSettingsDrawer({
                               useUIStore.getState().openCharacterDetail(c.id);
                             }}
                             className="flex items-center gap-2.5 min-w-0 flex-1 text-left transition-colors hover:opacity-80"
-                            title="Open character card"
+                            title="Abrir ficha do personagem"
                           >
                             {c.avatarPath ? (
                               <span className="relative block h-7 w-7 shrink-0 overflow-hidden rounded-full">
@@ -2486,7 +2486,7 @@ export function ChatSettingsDrawer({
                           <button
                             onClick={() => toggleCharacter(c.id)}
                             className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                            title="Remove from chat"
+                            title="Remover da conversa"
                           >
                             <Trash2 size="0.6875rem" />
                           </button>
@@ -2516,7 +2516,7 @@ export function ChatSettingsDrawer({
                   search={charSearch}
                   onSearchChange={setCharSearch}
                   onClose={() => setShowCharPicker(false)}
-                  placeholder="Search characters…"
+                  placeholder="Buscar personagens…"
                 >
                   {characters
                     .filter((c) => !chatCharIds.includes(c.id))
@@ -2574,7 +2574,7 @@ export function ChatSettingsDrawer({
                     <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
                       {characters.filter((c) => !chatCharIds.includes(c.id)).length === 0
                         ? "All characters already added."
-                        : "No matches."}
+                        : "Nenhuma correspondência."}
                     </p>
                   )}
                 </PickerDropdown>
@@ -2594,7 +2594,7 @@ export function ChatSettingsDrawer({
                     search=""
                     onSearchChange={() => {}}
                     onClose={() => setShowGroupPicker(false)}
-                    placeholder="Select a group…"
+                    placeholder="Selecionar um grupo…"
                   >
                     {((characterGroups ?? []) as CharacterGroup[]).map((group) => {
                       const rawIds = group.characterIds ?? [];
@@ -2872,14 +2872,14 @@ export function ChatSettingsDrawer({
                           updateMeta.mutate({ id: chat.id, groupScenarioText: groupScenarioDraft });
                         }
                       }}
-                      placeholder="Replace individual character scenarios with a shared scenario for this group chat or leave empty to keep them…"
+                      placeholder="Substitua os cenários individuais por um cenário compartilhado ou deixe vazio para mantê-los…"
                       rows={4}
                       className="w-full resize-y rounded-lg bg-[var(--secondary)] px-3 py-2 pr-8 text-xs leading-relaxed outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
                     />
                     <button
                       onClick={() => setGroupScenarioExpanded(true)}
                       className="absolute right-1.5 top-1.5 rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                      title="Expand editor"
+                      title="Expandir editor"
                     >
                       <Maximize2 size="0.75rem" />
                     </button>
@@ -2895,7 +2895,7 @@ export function ChatSettingsDrawer({
                     title="Group Scenario Override"
                     value={groupScenarioDraft}
                     onChange={setGroupScenarioDraft}
-                    placeholder="Replace individual character scenarios with a shared scenario for this group chat or leave empty to keep them…"
+                    placeholder="Substitua os cenários individuais por um cenário compartilhado ou deixe vazio para mantê-los…"
                   />
                 </div>
               )}
@@ -3311,7 +3311,7 @@ export function ChatSettingsDrawer({
                       <button
                         onClick={() => disconnectChat.mutate(chat.id)}
                         className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                        title="Disconnect"
+                        title="Desconectar"
                       >
                         <Unlink size="0.6875rem" />
                       </button>
@@ -3333,7 +3333,7 @@ export function ChatSettingsDrawer({
                   search={connectionSearch}
                   onSearchChange={setConnectionSearch}
                   onClose={() => setShowConnectionPicker(false)}
-                  placeholder="Search roleplay or game chats…"
+                  placeholder="Buscar conversas de roleplay ou jogo…"
                 >
                   {((allChats ?? []) as Chat[])
                     .filter(
@@ -3381,12 +3381,12 @@ export function ChatSettingsDrawer({
                           <span className="truncate text-xs font-medium">
                             {linked ? getConnectedChatDisplayName(linked) : "Unknown chat"}
                           </span>
-                          <p className="text-[0.625rem] text-[var(--muted-foreground)]">Conversation</p>
+                          <p className="text-[0.625rem] text-[var(--muted-foreground)]">Conversa</p>
                         </div>
                         <button
                           onClick={() => disconnectChat.mutate(chat.id)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                          title="Disconnect"
+                          title="Desconectar"
                         >
                           <Unlink size="0.6875rem" />
                         </button>
@@ -3457,12 +3457,12 @@ export function ChatSettingsDrawer({
                       <span className="truncate text-xs font-medium">
                         {linked ? getConnectedChatDisplayName(linked) : "Unknown chat"}
                       </span>
-                      <p className="text-[0.625rem] text-[var(--muted-foreground)]">Conversation</p>
+                      <p className="text-[0.625rem] text-[var(--muted-foreground)]">Conversa</p>
                     </div>
                     <button
                       onClick={() => disconnectChat.mutate(chat.id)}
                       className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                      title="Disconnect"
+                      title="Desconectar"
                     >
                       <Unlink size="0.6875rem" />
                     </button>
@@ -3497,7 +3497,7 @@ export function ChatSettingsDrawer({
                   search={connectionSearch}
                   onSearchChange={setConnectionSearch}
                   onClose={() => setShowConnectionPicker(false)}
-                  placeholder="Search conversation chats…"
+                  placeholder="Buscar conversas…"
                 >
                   {((allChats ?? []) as Chat[])
                     .filter(
@@ -3580,7 +3580,7 @@ export function ChatSettingsDrawer({
                         <button
                           onClick={() => toggleLorebook(lb.id)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                          title="Remove from chat"
+                          title="Remover da conversa"
                         >
                           <Trash2 size="0.6875rem" />
                         </button>
@@ -3588,7 +3588,7 @@ export function ChatSettingsDrawer({
                         <button
                           onClick={() => pinLorebookToChat(lb.id)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--primary)]/15 hover:text-[var(--primary)]"
-                          title="Add to chat"
+                          title="Adicionar à conversa"
                         >
                           <Plus size="0.6875rem" />
                         </button>
@@ -3615,7 +3615,7 @@ export function ChatSettingsDrawer({
                 search={lbSearch}
                 onSearchChange={setLbSearch}
                 onClose={() => setShowLbPicker(false)}
-                placeholder="Search lorebooks…"
+                placeholder="Buscar livros de lore…"
               >
                 {((lorebooks ?? []) as Array<{ id: string; name: string }>)
                   .filter((lb) => !activeLorebookIdSet.has(lb.id))
@@ -3641,7 +3641,7 @@ export function ChatSettingsDrawer({
                     {((lorebooks ?? []) as Array<{ id: string }>).filter((lb) => !activeLorebookIdSet.has(lb.id))
                       .length === 0
                       ? "All available lorebooks are already active here."
-                      : "No matches."}
+                      : "Nenhuma correspondência."}
                   </p>
                 )}
               </PickerDropdown>
@@ -4613,21 +4613,21 @@ export function ChatSettingsDrawer({
                           [
                             {
                               key: "writer",
-                              label: "Writer Agents",
+                              label: "Agentes de Escrita",
                               icon: <Feather size="0.75rem" />,
                               description:
                                 "Improve prose quality, maintain continuity, and shape the narrative direction of your roleplay.",
                             },
                             {
                               key: "tracker",
-                              label: "Tracker Agents",
+                              label: "Agentes de Rastreamento",
                               icon: <Activity size="0.75rem" />,
                               description:
                                 "Automatically track world state, character stats, quests, expressions, and other data that changes over time.",
                             },
                             {
                               key: "misc",
-                              label: "Misc Agents",
+                              label: "Agentes Diversos",
                               icon: <Puzzle size="0.75rem" />,
                               description:
                                 "Specialized utilities — image generation, combat systems, music, summaries, and other extras.",
@@ -4756,7 +4756,7 @@ export function ChatSettingsDrawer({
                                               void toggleAgent(agent.id);
                                             }}
                                             className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                                            title="Remove from chat"
+                                            title="Remover da conversa"
                                           >
                                             <Trash2 size="0.6875rem" />
                                           </button>
@@ -4871,7 +4871,7 @@ export function ChatSettingsDrawer({
                                             void toggleAgent(agent.id);
                                           }}
                                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                                          title="Remove from chat"
+                                          title="Remover da conversa"
                                         >
                                           <Trash2 size="0.6875rem" />
                                         </button>
@@ -5112,7 +5112,7 @@ export function ChatSettingsDrawer({
                             <button
                               onClick={() => toggleTool(tool.id)}
                               className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                              title="Remove from chat"
+                              title="Remover da conversa"
                             >
                               <Trash2 size="0.6875rem" />
                             </button>
@@ -5139,7 +5139,7 @@ export function ChatSettingsDrawer({
                       search={toolSearch}
                       onSearchChange={setToolSearch}
                       onClose={() => setShowToolPicker(false)}
-                      placeholder="Search functions…"
+                      placeholder="Buscar funções…"
                       footer={
                         pendingToolIds.length > 0 ? (
                           <div className="border-t border-[var(--border)] px-3 py-2">
@@ -5202,7 +5202,7 @@ export function ChatSettingsDrawer({
                         <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
                           {availableTools.filter((t) => !activeToolIds.includes(t.id)).length === 0
                             ? "All functions already added."
-                            : "No matches."}
+                            : "Nenhuma correspondência."}
                         </p>
                       )}
                     </PickerDropdown>
@@ -5749,7 +5749,7 @@ export function ChatSettingsDrawer({
                       <div className="absolute right-1 top-1/2 flex -translate-y-1/2 flex-col overflow-hidden rounded-md">
                         <button
                           type="button"
-                          aria-label="Increase trigger cadence"
+                          aria-label="Aumentar cadência de disparo"
                           disabled={addingAgentToChat}
                           onClick={() => {
                             setAgentAddPreview((current) =>
@@ -5771,7 +5771,7 @@ export function ChatSettingsDrawer({
                         </button>
                         <button
                           type="button"
-                          aria-label="Decrease trigger cadence"
+                          aria-label="Diminuir cadência de disparo"
                           disabled={addingAgentToChat}
                           onClick={() => {
                             setAgentAddPreview((current) =>
@@ -5832,7 +5832,7 @@ export function ChatSettingsDrawer({
           >
             <div className="flex items-center gap-2 border-b border-[var(--border)] px-4 py-3">
               <MessageCircle size="0.875rem" className="text-[var(--muted-foreground)]" />
-              <span className="text-sm font-semibold text-[var(--foreground)]">First Message</span>
+              <span className="text-sm font-semibold text-[var(--foreground)]">Primeira Mensagem</span>
             </div>
             <div className="px-4 py-3">
               <p className="text-sm text-[var(--foreground)]">
@@ -5909,7 +5909,7 @@ function MemoryRecallMemoriesModal({ chatId, open, onClose }: { chatId: string; 
       await exportMemories.mutateAsync();
       toast.success("Memory Recall exported.");
     } catch (err) {
-      toast.error(err instanceof Error ? `Export failed: ${err.message}` : "Export failed.");
+      toast.error(err instanceof Error ? `Falha na exportação: ${err.message}` : "Falha na exportação.");
     }
   };
 
@@ -6010,7 +6010,7 @@ function MemoryRecallMemoriesModal({ chatId, open, onClose }: { chatId: string; 
               onClick={() => refreshMemories.mutate()}
               disabled={memoriesQuery.isFetching || refreshMemories.isPending || importMemories.isPending}
               className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-50"
-              title="Rebuild memories from current chat messages"
+              title="Reconstruir memórias das mensagens atuais"
             >
               <RefreshCw
                 size="0.8125rem"
@@ -6022,7 +6022,7 @@ function MemoryRecallMemoriesModal({ chatId, open, onClose }: { chatId: string; 
               onClick={handleClear}
               disabled={memories.length === 0 || clearMemories.isPending}
               className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)] disabled:opacity-40"
-              title="Clear all memories"
+              title="Limpar todas as memórias"
             >
               <Trash2 size="0.8125rem" />
             </button>
@@ -6244,7 +6244,7 @@ function ConversationPromptSection({
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-2 rounded-lg bg-[var(--secondary)] px-3 py-2 ring-1 ring-[var(--border)]">
             <div className="min-w-0">
-              <span className="block text-[0.6875rem] font-medium text-[var(--foreground)]">System Prompt</span>
+              <span className="block text-[0.6875rem] font-medium text-[var(--foreground)]">Prompt do Sistema</span>
               <span className="block text-[0.625rem] text-[var(--muted-foreground)]">
                 {customPrompt ? "Using custom conversation prompt" : "Using default conversation prompt"}
               </span>
@@ -6265,7 +6265,7 @@ function ConversationPromptSection({
               <button
                 onClick={resetPrompt}
                 className="flex items-center justify-center rounded-lg bg-[var(--secondary)] px-2.5 py-1.5 text-[0.625rem] text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                title="Reset to default prompt"
+                title="Redefinir para prompt padrão"
               >
                 <Trash2 size="0.625rem" />
               </button>
@@ -6339,7 +6339,7 @@ function ImpersonateSettingsContent({
             <button
               onClick={() => setPromptTemplate("")}
               className="flex items-center gap-1 rounded-md bg-[var(--secondary)] px-2 py-0.5 text-[0.625rem] text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-              title="Reset to default"
+              title="Redefinir para padrão"
             >
               <RotateCcw size="0.625rem" />
               Reset
@@ -6357,7 +6357,7 @@ function ImpersonateSettingsContent({
         <div className="grid gap-2 sm:grid-cols-2">
           <label className="min-w-0 space-y-1">
             <div className="flex items-center gap-1.5">
-              <span className="text-[0.6875rem] font-semibold">Preset</span>
+              <span className="text-[0.6875rem] font-semibold">Predefinição</span>
               <HelpTooltip text="Use a specific prompt preset for roleplay impersonate generations only. Conversation mode does not use prompt presets. Falls back to the chat's preset when set to 'Use chat default'." />
             </div>
             <select
@@ -6376,7 +6376,7 @@ function ImpersonateSettingsContent({
 
           <label className="min-w-0 space-y-1">
             <div className="flex items-center gap-1.5">
-              <span className="text-[0.6875rem] font-semibold">Connection</span>
+              <span className="text-[0.6875rem] font-semibold">Conexão</span>
               <HelpTooltip text="Use a specific connection (model/provider) for impersonate generations only. Useful for routing impersonate to a cheaper or faster model." />
             </div>
             <select
@@ -7017,7 +7017,7 @@ function ScheduleEditor({
                         value={editDraft.idleResponseDelayMinutes}
                         onChange={(e) => updateDraftSetting("idleResponseDelayMinutes", e.target.value)}
                         className="w-full rounded bg-[var(--secondary)] px-1.5 py-1 text-[0.625rem] outline-none ring-1 ring-transparent focus:ring-[var(--primary)]/40"
-                        placeholder="Default"
+                        placeholder="Padrão"
                       />
                       <span className="block text-[0.5rem] text-[var(--muted-foreground)]">
                         Blank keeps the built-in 1-3 minute range.
@@ -7035,7 +7035,7 @@ function ScheduleEditor({
                         value={editDraft.dndResponseDelayMinutes}
                         onChange={(e) => updateDraftSetting("dndResponseDelayMinutes", e.target.value)}
                         className="w-full rounded bg-[var(--secondary)] px-1.5 py-1 text-[0.625rem] outline-none ring-1 ring-transparent focus:ring-[var(--primary)]/40"
-                        placeholder="Default"
+                        placeholder="Padrão"
                       />
                       <span className="block text-[0.5rem] text-[var(--muted-foreground)]">
                         Blank keeps the built-in 2-5 minute range.
@@ -7097,7 +7097,7 @@ function ScheduleEditor({
                                   value={block.activity}
                                   onChange={(e) => updateBlock(day, idx, "activity", e.target.value)}
                                   className="w-full rounded bg-[var(--secondary)] px-1.5 py-0.5 text-[0.625rem] outline-none ring-1 ring-transparent focus:ring-[var(--primary)]/40"
-                                  placeholder="Activity description"
+                                  placeholder="Descrição da atividade"
                                 />
                                 {/* Status selector */}
                                 <div className="flex gap-1">
@@ -7316,7 +7316,7 @@ function ConversationNotesSection({ chatId }: { chatId: string }) {
     const ok = await showConfirmDialog({
       title: "Delete Note",
       message: "Remove this note from the connected roleplay's prompt?",
-      confirmLabel: "Delete",
+      confirmLabel: "Excluir",
       tone: "destructive",
     });
     if (ok) deleteNote.mutate(note.id);
@@ -7357,7 +7357,7 @@ function ConversationNotesSection({ chatId }: { chatId: string }) {
               onClick={handleClear}
               disabled={clearNotes.isPending}
               className="rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)] disabled:opacity-40"
-              title="Clear all notes"
+              title="Limpar todas as notas"
             >
               <Trash2 size="0.75rem" />
             </button>

@@ -94,7 +94,7 @@ export function GameQteOverlay({ actions, timerSeconds, onSelect, onTimeout, onD
             type="button"
             onClick={handleDismiss}
             className="absolute right-3 top-3 rounded-lg p-1.5 text-white/55 transition-colors hover:bg-white/10 hover:text-white"
-            title="Close quick-time event"
+            title="Fechar evento rápido"
             aria-label="Close quick-time event"
           >
             <X size="1rem" />

@@ -69,7 +69,7 @@ export function ImagePreviewModal({ node, onClose }: { node: TreeNode; onClose: 
             <h4 className="mb-3 text-sm font-semibold text-[var(--foreground)]">File Info</h4>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-[var(--muted-foreground)]">Name</span>
+                <span className="text-[var(--muted-foreground)]">Nome</span>
                 <span className="text-right text-[var(--foreground)]">{info.name}</span>
               </div>
               <div className="flex justify-between">

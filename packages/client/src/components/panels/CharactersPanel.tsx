@@ -567,7 +567,7 @@ export function CharactersPanel() {
       !(await showConfirmDialog({
         title: "Delete Characters",
         message: `Delete ${ids.length} character${ids.length === 1 ? "" : "s"}?`,
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -634,7 +634,7 @@ export function CharactersPanel() {
             value={sort}
             onChange={(e) => setSort(e.target.value as SortOption)}
             className="h-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--secondary)] py-2 pl-2.5 pr-7 text-[0.6875rem] outline-none transition-colors focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
-            title="Sort order"
+            title="Ordem de classificação"
           >
             <option value="name-asc">A-Z</option>
             <option value="name-desc">Z-A</option>
@@ -773,14 +773,14 @@ export function CharactersPanel() {
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-400 to-purple-500 px-3 py-2.5 text-xs font-medium text-white shadow-md shadow-pink-500/15 transition-all hover:shadow-lg hover:shadow-pink-500/25 active:scale-[0.98]"
           title="New"
         >
-          <Plus size="0.8125rem" /> <span className="md:hidden">New</span>
+          <Plus size="0.8125rem" /> <span className="md:hidden">Novo</span>
         </button>
         <button
           onClick={() => openModal("import-character")}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--secondary)] px-3 py-2.5 text-xs font-medium text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] active:scale-[0.98]"
-          title="Import"
+          title="Importar"
         >
-          <Download size="0.8125rem" /> <span className="md:hidden">Import</span>
+          <Download size="0.8125rem" /> <span className="md:hidden">Importar</span>
         </button>
         <button
           onClick={() => openModal("character-maker")}
@@ -804,10 +804,10 @@ export function CharactersPanel() {
               ? "bg-[var(--primary)]/15 text-[var(--primary)] ring-1 ring-[var(--primary)]/30"
               : "bg-[var(--secondary)] text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] hover:bg-[var(--accent)]",
           )}
-          title="Select"
+          title="Selecionar"
         >
           <Check size="0.8125rem" />
-          <span className="md:hidden">Select</span>
+          <span className="md:hidden">Selecionar</span>
         </button>
       </div>
 
@@ -881,7 +881,7 @@ export function CharactersPanel() {
               setGroupsExpanded(true);
             }}
             className="rounded-lg p-1 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)] hover:text-[var(--primary)]"
-            title="Create group"
+            title="Criar grupo"
           >
             <FolderPlus size="0.8125rem" />
           </button>
@@ -973,7 +973,7 @@ export function CharactersPanel() {
                               addGroupToChat(group.memberIds);
                             }}
                             className="rounded-lg p-1 transition-all hover:bg-[var(--accent)]"
-                            title="Add all to chat"
+                            title="Adicionar todos à conversa"
                           >
                             <UserPlus size="0.6875rem" className="text-[var(--primary)]" />
                           </button>
@@ -1003,7 +1003,7 @@ export function CharactersPanel() {
                                 setEditGroupName(group.name);
                               }}
                               className="rounded-lg p-1 transition-all hover:bg-[var(--accent)]"
-                              title="Rename group"
+                              title="Renomear grupo"
                             >
                               <Pencil size="0.6875rem" />
                             </button>
@@ -1013,7 +1013,7 @@ export function CharactersPanel() {
                                 deleteGroup.mutate(group.id);
                               }}
                               className="rounded-lg p-1 transition-all hover:bg-[var(--destructive)]/15"
-                              title="Delete group"
+                              title="Excluir grupo"
                             >
                               <Trash2 size="0.6875rem" className="text-[var(--destructive)]" />
                             </button>
@@ -1087,7 +1087,7 @@ export function CharactersPanel() {
                               }}
                               disabled={isStartingChat}
                               className="rounded p-0.5 text-[var(--muted-foreground)] opacity-0 transition-all hover:bg-[var(--primary)]/10 hover:text-[var(--primary)] group-hover/member:opacity-100 disabled:cursor-not-allowed disabled:opacity-50 max-md:opacity-100"
-                              title="Start New Chat"
+                              title="Iniciar Nova Conversa"
                               aria-label={`Start New Chat with ${member.name}`}
                             >
                               <MessageCircle size="0.6875rem" />
@@ -1099,7 +1099,7 @@ export function CharactersPanel() {
                                   toggleGroupMember(group.id, memberId, group.memberIds);
                                 }}
                                 className="rounded p-0.5 opacity-0 transition-all hover:bg-[var(--destructive)]/15 group-hover/member:opacity-100"
-                                title="Remove from group"
+                                title="Remover do grupo"
                               >
                                 <UserMinus size="0.6875rem" className="text-[var(--destructive)]" />
                               </button>
@@ -1292,7 +1292,7 @@ export function CharactersPanel() {
                 {!assigningToGroup && (
                   <div
                     className="flex items-center gap-1 text-[0.625rem] text-[var(--muted-foreground)]"
-                    title="Estimated from character card text fields; actual tokenizer counts vary by model."
+                    title="Estimado a partir dos campos de texto do personagem; contagens reais variam por modelo."
                   >
                     <Hash size="0.5625rem" />
                     {formatEstimatedTokens(tokenEstimate)}
@@ -1351,7 +1351,7 @@ export function CharactersPanel() {
                       });
                     }}
                     className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-sky-400/10 hover:text-sky-400 active:scale-90"
-                    title="Duplicate"
+                    title="Duplicar"
                   >
                     <Copy size="0.75rem" />
                   </button>
@@ -1362,7 +1362,7 @@ export function CharactersPanel() {
                         !(await showConfirmDialog({
                           title: "Delete Character",
                           message: `Delete "${char.parsed?.name ?? "this character"}"? This cannot be undone.`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         }))
                       ) {
@@ -1371,7 +1371,7 @@ export function CharactersPanel() {
                       deleteCharacter.mutate(char.id);
                     }}
                     className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15 active:scale-90"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
                   </button>
@@ -1428,7 +1428,7 @@ export function CharactersPanel() {
           >
             <div className="flex items-center gap-2 border-b border-[var(--border)] px-4 py-3">
               <MessageCircle size="0.875rem" className="text-[var(--muted-foreground)]" />
-              <span className="text-sm font-semibold text-[var(--foreground)]">First Message</span>
+              <span className="text-sm font-semibold text-[var(--foreground)]">Primeira Mensagem</span>
             </div>
             <div className="px-4 py-3">
               <p className="text-sm text-[var(--foreground)]">

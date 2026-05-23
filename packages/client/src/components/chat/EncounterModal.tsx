@@ -372,7 +372,7 @@ function EncounterConfig() {
               onChange={(e) => setSpellbookId(e.target.value || null)}
               className="w-full rounded-lg border border-[var(--border)] bg-[var(--muted)]/30 px-2 py-1.5 text-xs text-[var(--foreground)]"
             >
-              <option value="">None</option>
+              <option value="">Nenhum</option>
               {spellbooks.map((lb) => (
                 <option key={lb.id} value={lb.id}>
                   {lb.name}
@@ -789,8 +789,8 @@ function EncounterModalInner() {
                       if (
                         await showConfirmDialog({
                           title: "Conclude Encounter",
-                          message: "Conclude this encounter early?",
-                          confirmLabel: "Conclude",
+                          message: "Concluir este encontro antecipadamente?",
+                          confirmLabel: "Concluir",
                           tone: "destructive",
                         })
                       ) {
@@ -808,8 +808,8 @@ function EncounterModalInner() {
                     if (
                       await showConfirmDialog({
                         title: "End Combat",
-                        message: "Close and end this combat?",
-                        confirmLabel: "End Combat",
+                        message: "Fechar e encerrar este combate?",
+                        confirmLabel: "Encerrar Combate",
                         tone: "destructive",
                       })
                     ) {

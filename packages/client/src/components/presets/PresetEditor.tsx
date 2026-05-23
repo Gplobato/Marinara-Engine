@@ -238,7 +238,7 @@ export function PresetEditor() {
       !(await showConfirmDialog({
         title: "Delete Preset",
         message: "Delete this preset?",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -949,7 +949,7 @@ function SectionsTab({
       {showGroupsPanel && (
         <div className="rounded-xl border border-sky-400/20 bg-sky-400/5 p-3 space-y-2">
           <div className="flex items-center justify-between">
-            <h4 className="text-xs font-semibold text-sky-400">Groups</h4>
+            <h4 className="text-xs font-semibold text-sky-400">Grupos</h4>
             <button
               onClick={handleAddGroup}
               className="flex items-center gap-1 rounded-lg bg-sky-400/15 px-2 py-1 text-[0.625rem] font-medium text-sky-400 hover:bg-sky-400/25 active:scale-95"
@@ -995,7 +995,7 @@ function SectionsTab({
                         setEditingGroupId(g.id);
                         setEditingGroupName(g.name);
                       }}
-                      title="Click to rename"
+                      title="Clique para renomear"
                     >
                       {g.name}
                     </span>
@@ -1009,7 +1009,7 @@ function SectionsTab({
                         await showConfirmDialog({
                           title: "Delete Group",
                           message: `Delete group "${g.name}"? Sections will be ungrouped.`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         })
                       ) {
@@ -1077,7 +1077,7 @@ function SectionsTab({
                     <div className="flex shrink-0 items-center gap-0.5">
                       <div
                         className="cursor-grab rounded p-0.5 hover:bg-[var(--accent)] active:cursor-grabbing"
-                        title="Drag to reorder"
+                        title="Arrastar para reordenar"
                         onMouseDown={() => setDragReady(idx)}
                         onMouseUp={() => setDragReady(null)}
                       >
@@ -1088,7 +1088,7 @@ function SectionsTab({
                         onClick={() => moveSectionByOffset(idx, -1)}
                         disabled={idx === 0 || onReorderSections.isPending}
                         className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:pointer-events-none disabled:opacity-30"
-                        title="Move up"
+                        title="Mover para cima"
                         aria-label={`Move ${section.name} up`}
                       >
                         <ArrowUp size="0.75rem" />
@@ -1098,7 +1098,7 @@ function SectionsTab({
                         onClick={() => moveSectionByOffset(idx, 1)}
                         disabled={idx === sections.length - 1 || onReorderSections.isPending}
                         className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:pointer-events-none disabled:opacity-30"
-                        title="Move down"
+                        title="Mover para baixo"
                         aria-label={`Move ${section.name} down`}
                       >
                         <ArrowDown size="0.75rem" />
@@ -1142,7 +1142,7 @@ function SectionsTab({
                         onClick={() => void duplicateSection(section, idx)}
                         disabled={onCreateSection.isPending || onReorderSections.isPending}
                         className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:pointer-events-none disabled:opacity-30"
-                        title="Duplicate"
+                        title="Duplicar"
                         aria-label={`Duplicate ${section.name}`}
                       >
                         <Copy size="0.75rem" />
@@ -1167,7 +1167,7 @@ function SectionsTab({
                       <button
                         onClick={() => onDeleteSection.mutate({ presetId, sectionId: section.id })}
                         className="rounded-lg p-1 hover:bg-[var(--destructive)]/15"
-                        title="Delete"
+                        title="Excluir"
                       >
                         <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
                       </button>
@@ -1200,9 +1200,9 @@ function SectionsTab({
                           }
                           className="rounded-lg bg-[var(--secondary)] px-2 py-1.5 text-xs ring-1 ring-[var(--border)] focus:outline-none"
                         >
-                          <option value="system">System</option>
-                          <option value="user">User</option>
-                          <option value="assistant">Assistant</option>
+                          <option value="system">Sistema</option>
+                          <option value="user">Usuário</option>
+                          <option value="assistant">Assistente</option>
                         </select>
                       </div>
 
@@ -1597,7 +1597,7 @@ function VariableCard({
         <div className="flex shrink-0 items-center gap-0.5">
           <div
             className="cursor-grab rounded p-0.5 hover:bg-[var(--accent)] active:cursor-grabbing"
-            title="Drag to reorder"
+            title="Arrastar para reordenar"
             onMouseDown={onGripDown}
             onMouseUp={onGripUp}
           >
@@ -1608,7 +1608,7 @@ function VariableCard({
             onClick={onMoveUp}
             disabled={!canMoveUp || isReordering}
             className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:pointer-events-none disabled:opacity-30"
-            title="Move up"
+            title="Mover para cima"
             aria-label={`Move ${varName || "variable"} up`}
           >
             <ArrowUp size="0.75rem" />
@@ -1618,7 +1618,7 @@ function VariableCard({
             onClick={onMoveDown}
             disabled={!canMoveDown || isReordering}
             className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:pointer-events-none disabled:opacity-30"
-            title="Move down"
+            title="Mover para baixo"
             aria-label={`Move ${varName || "variable"} down`}
           >
             <ArrowDown size="0.75rem" />
@@ -1655,7 +1655,7 @@ function VariableCard({
               await showConfirmDialog({
                 title: "Delete Variable",
                 message: `Delete variable "${varName}"?`,
-                confirmLabel: "Delete",
+                confirmLabel: "Excluir",
                 tone: "destructive",
               })
             ) {
@@ -1782,7 +1782,7 @@ function VariableCard({
 
           {/* Options */}
           <div className="space-y-1.5">
-            <label className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Options</label>
+            <label className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Opções</label>
             {opts.map((opt, oi) => {
               const valueBlank = !opt.value || !opt.value.trim();
               return (
@@ -1804,7 +1804,7 @@ function VariableCard({
                         updateOpts(next);
                       }}
                       className="flex-1 rounded bg-[var(--background)] px-1.5 py-0.5 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400/50"
-                      placeholder="Label…"
+                      placeholder="Rótulo…"
                     />
                     <OptionFieldInput
                       value={opt.value}
@@ -1819,12 +1819,12 @@ function VariableCard({
                           ? "bg-[var(--destructive)]/10 ring-1 ring-[var(--destructive)]/30 placeholder:text-[var(--destructive)]/40"
                           : "bg-[var(--background)] focus:ring-amber-400/50",
                       )}
-                      placeholder="Value…"
+                      placeholder="Valor…"
                     />
                     <button
                       onClick={() => setExpandedOptIdx(oi)}
                       className="shrink-0 rounded p-0.5 text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                      title="Expand value editor"
+                      title="Expandir editor de valor"
                     >
                       <Maximize2 size="0.625rem" />
                     </button>
@@ -1834,7 +1834,7 @@ function VariableCard({
                         updateOpts(opts.filter((_, i) => i !== oi));
                       }}
                       className="shrink-0 rounded p-0.5 hover:bg-[var(--destructive)]/15"
-                      title="Remove option"
+                      title="Remover opção"
                     >
                       <X size="0.625rem" className="text-[var(--destructive)]" />
                     </button>
@@ -2070,13 +2070,13 @@ function SectionContentTextarea({
             )
           }
           className="min-h-[7.5rem] w-full rounded-lg bg-[var(--secondary)] p-2.5 pr-8 font-mono text-xs text-[var(--foreground)] ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-          placeholder="Prompt content… (supports {{user}}, {{char}}, {{// comment}}, {{trim}} macros)"
+          placeholder="Conteúdo do prompt… (suporta macros {{user}}, {{char}}, {{// comment}}, {{trim}})"
         />
         <div className="absolute right-1.5 top-1.5 flex flex-col gap-0.5">
           <button
             onClick={() => setExpanded(true)}
             className="rounded p-1 text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.75rem" />
           </button>
@@ -2221,7 +2221,7 @@ function ExpandedEditorModal({
                 )
               }
               className="h-full w-full resize-none rounded-lg bg-[var(--secondary)] p-4 font-mono text-sm text-[var(--foreground)] ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-              placeholder="Prompt content… (supports macros like {{user}}, {{char}}, etc.)"
+              placeholder="Conteúdo do prompt… (suporta macros como {{user}}, {{char}}, etc.)"
             />
           </div>
           {/* Footer */}
@@ -2368,7 +2368,7 @@ function SectionNameInput({ value, onCommit }: { value: string; onCommit: (v: st
         }
       }}
       className="flex-1 rounded-lg bg-[var(--secondary)] px-2.5 py-1.5 text-xs ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-      placeholder="Section name"
+      placeholder="Nome da seção"
     />
   );
 }

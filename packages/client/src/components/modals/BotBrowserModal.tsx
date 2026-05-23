@@ -175,13 +175,13 @@ export function BotBrowserModal({ open, onClose }: Props) {
     setDetailLoading(true);
     try {
       const res = await fetch(`/api/bot-browser/chub/character/${card.fullPath}`);
-      if (!res.ok) throw new Error("Failed to load character");
+      if (!res.ok) throw new Error("Falha ao carregar personagem");
       const raw = await res.json();
       const node = raw?.data?.node ?? raw?.node;
       if (!node) throw new Error("Invalid character data");
       setDetail(node);
     } catch {
-      toast.error("Failed to load character details");
+      toast.error("Falha ao carregar personagem details");
       setSelectedCard(null);
     } finally {
       setDetailLoading(false);
@@ -193,7 +193,7 @@ export function BotBrowserModal({ open, onClose }: Props) {
     setImporting(true);
     try {
       const res = await fetch(`/api/bot-browser/chub/download/${fullPath}`);
-      if (!res.ok) throw new Error("Failed to download character card");
+      if (!res.ok) throw new Error("Falha ao baixar ficha do personagem");
       const blob = await res.blob();
       const file = new File([blob], "character.png", { type: "image/png" });
 
@@ -308,7 +308,7 @@ export function BotBrowserModal({ open, onClose }: Props) {
                     setQuery(e.target.value);
                     setPage(1);
                   }}
-                  placeholder="Search characters..."
+                  placeholder="Buscar personagens..."
                   className="w-full rounded-lg border border-[var(--border)] bg-[var(--secondary)] py-2 pl-9 pr-8 text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                 />
                 {query && (
@@ -361,7 +361,7 @@ export function BotBrowserModal({ open, onClose }: Props) {
               </div>
             ) : results.length === 0 ? (
               <div className="flex flex-1 items-center justify-center py-12 text-sm text-[var(--muted-foreground)]">
-                No characters found
+                Nenhum personagem encontrado
               </div>
             ) : (
               <>

@@ -1119,7 +1119,7 @@ export function GameCombatUI({
               type="button"
               onClick={restartCombatVoicePlayback}
               className="inline-flex h-6 w-6 items-center justify-center rounded-full text-sky-100 transition-colors hover:bg-white/10"
-              title="Restart combat voice-over"
+              title="Reiniciar narração de combate"
               aria-label="Restart combat voice-over"
             >
               <RotateCcw size={12} />
@@ -1128,7 +1128,7 @@ export function GameCombatUI({
               type="button"
               onClick={stopCombatVoicePlayback}
               className="inline-flex h-6 w-6 items-center justify-center rounded-full text-sky-100 transition-colors hover:bg-white/10"
-              title="Stop combat voice-over"
+              title="Parar narração de combate"
               aria-label="Stop combat voice-over"
             >
               <VolumeX size={12} />

@@ -68,7 +68,7 @@ export function AppDialogRenderer() {
                 onClick={dismissActiveDialog}
                 className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
               >
-                {dialog.cancelLabel ?? "Cancel"}
+                {dialog.cancelLabel ?? "Cancelar"}
               </button>
               <button
                 type="submit"
@@ -87,7 +87,7 @@ export function AppDialogRenderer() {
               onClick={dismissActiveDialog}
               className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
             >
-              {dialog.cancelLabel ?? "Cancel"}
+              {dialog.cancelLabel ?? "Cancelar"}
             </button>
             <button
               type="button"

@@ -84,7 +84,7 @@ export function ColorPicker({
   compact = false,
   label,
   helpText,
-  emptyText = "No color set — uses default",
+  emptyText = "Sem cor definida — usa padrão",
   headerAction,
 }: ColorPickerProps) {
   const isGradient = value.startsWith("linear-gradient");
@@ -298,7 +298,7 @@ export function ColorPicker({
 
               {/* Preset palette */}
               <div>
-                <p className="mb-1.5 text-[0.625rem] text-[var(--muted-foreground)]">Presets</p>
+                <p className="mb-1.5 text-[0.625rem] text-[var(--muted-foreground)]">Predefinições</p>
                 <div className="flex flex-wrap gap-1.5">
                   {PRESETS.map((color) => (
                     <button
@@ -389,7 +389,7 @@ export function ColorPicker({
 
               {/* Gradient presets */}
               <div>
-                <p className="mb-1.5 text-[0.625rem] text-[var(--muted-foreground)]">Presets</p>
+                <p className="mb-1.5 text-[0.625rem] text-[var(--muted-foreground)]">Predefinições</p>
                 <div className="grid grid-cols-4 gap-1.5">
                   {GRADIENT_PRESETS.map((g) => (
                     <button

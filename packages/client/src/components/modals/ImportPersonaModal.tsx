@@ -118,7 +118,7 @@ export function ImportPersonaModal({ open, onClose }: Props) {
         nextResults.push({
           filename: file.name,
           success: false,
-          message: err instanceof Error ? err.message : "Failed to parse file",
+          message: err instanceof Error ? err.message : "Falha ao processar arquivo",
         });
       }
     }

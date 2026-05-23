@@ -657,7 +657,7 @@ export function AgentEditor() {
       !(await showConfirmDialog({
         title: "Delete Agent",
         message: "Delete this custom agent? This cannot be undone.",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -691,7 +691,7 @@ export function AgentEditor() {
             markDirty();
           }}
           className="flex-1 bg-transparent text-lg font-semibold outline-none placeholder:text-[var(--muted-foreground)] max-md:text-base"
-          placeholder="Agent name…"
+          placeholder="Nome do agente…"
         />
         <div className="flex items-center gap-1.5 max-md:w-full max-md:justify-end max-md:border-t max-md:border-[var(--border)]/30 max-md:pt-2">
           {saveError && (
@@ -710,7 +710,7 @@ export function AgentEditor() {
               onClick={handleDelete}
               className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium text-[var(--destructive)] transition-all hover:bg-[var(--destructive)]/15 active:scale-[0.98]"
             >
-              <Trash2 size="0.8125rem" /> <span className="max-md:hidden">Delete</span>
+              <Trash2 size="0.8125rem" /> <span className="max-md:hidden">Excluir</span>
             </button>
           )}
           <button
@@ -718,7 +718,7 @@ export function AgentEditor() {
             disabled={isPending}
             className="flex items-center gap-1.5 rounded-xl bg-[var(--primary)] px-4 py-2 text-xs font-medium text-[var(--primary-foreground)] shadow-md transition-all hover:shadow-lg active:scale-[0.98] disabled:opacity-50"
           >
-            <Save size="0.8125rem" /> <span className="max-md:hidden">Save</span>
+            <Save size="0.8125rem" /> <span className="max-md:hidden">Salvar</span>
           </button>
         </div>
       </div>
@@ -1309,7 +1309,7 @@ export function AgentEditor() {
                   <div className="absolute right-1 top-1/2 flex -translate-y-1/2 flex-col overflow-hidden rounded-md">
                     <button
                       type="button"
-                      aria-label="Increase trigger cadence"
+                      aria-label="Aumentar cadência de disparo"
                       onClick={() => {
                         setLocalRunInterval(stepCadenceValue(localRunInterval, 1, customRunIntervalMeta.max));
                         markDirty();
@@ -1320,7 +1320,7 @@ export function AgentEditor() {
                     </button>
                     <button
                       type="button"
-                      aria-label="Decrease trigger cadence"
+                      aria-label="Diminuir cadência de disparo"
                       onClick={() => {
                         setLocalRunInterval(stepCadenceValue(localRunInterval, -1, customRunIntervalMeta.max));
                         markDirty();
@@ -1530,7 +1530,7 @@ export function AgentEditor() {
                       setLocalSpotifyClientId(e.target.value);
                       setDirty(true);
                     }}
-                    placeholder="Paste your Spotify app Client ID..."
+                    placeholder="Cole o Client ID do seu app Spotify..."
                     className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white placeholder-white/30 outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 font-mono"
                   />
                 </div>
@@ -1963,7 +1963,7 @@ export function AgentEditor() {
                 {/* ── Uploaded Files (Knowledge Retrieval only) ── */}
                 {isKnowledgeRetrievalAgent && (
                   <div className="space-y-1.5">
-                    <p className="text-[0.6875rem] font-medium text-white/60">Files</p>
+                    <p className="text-[0.6875rem] font-medium text-white/60">Arquivos</p>
                     {/* File list */}
                     {allKnowledgeSources && allKnowledgeSources.length > 0 && (
                       <div className="max-h-48 overflow-y-auto space-y-1 rounded-lg border border-white/10 bg-white/[0.02] p-2">
@@ -2012,7 +2012,7 @@ export function AgentEditor() {
                                   });
                                 }}
                                 className="shrink-0 p-1 rounded text-white/20 hover:text-red-400 hover:bg-red-500/10 transition-colors"
-                                title="Delete file"
+                                title="Excluir arquivo"
                               >
                                 <Trash2 size="0.75rem" />
                               </button>

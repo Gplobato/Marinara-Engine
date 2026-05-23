@@ -421,8 +421,8 @@ export function GameCharacterSheet({
                     onClick={() => void handleRegenerate()}
                     disabled={isRegenerating || isSaving}
                     className="inline-flex h-8 min-w-8 items-center justify-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)]/90 px-2 text-xs font-medium text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-[var(--foreground)] disabled:cursor-wait disabled:opacity-60 sm:h-auto sm:min-w-0 sm:px-3 sm:py-1.5"
-                    title="Regenerate this sheet from character and current game context"
-                    aria-label="Regenerate sheet"
+                    title="Regenerar esta ficha do personagem e contexto atual do jogo"
+                    aria-label="Regenerar ficha"
                   >
                     <RefreshCw size={13} className={cn(isRegenerating && "animate-spin")} />
                     <span className="hidden sm:inline">{isRegenerating ? "Regenerating..." : "Regenerate Sheet"}</span>
@@ -434,7 +434,7 @@ export function GameCharacterSheet({
                     disabled={isRegenerating}
                     className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--card)]/90 p-0 text-xs font-medium text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-[var(--foreground)] disabled:opacity-60 sm:h-auto sm:w-auto sm:min-w-0 sm:gap-1.5 sm:px-3 sm:py-1.5"
                     title="Edit Sheet"
-                    aria-label="Edit sheet"
+                    aria-label="Editar ficha"
                   >
                     <Pencil size={13} />
                     <span className="hidden sm:inline">Edit Sheet</span>
@@ -449,7 +449,7 @@ export function GameCharacterSheet({
           onClick={onClose}
           className="absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-lg p-0 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-[var(--foreground)] sm:h-auto sm:w-auto sm:p-1.5"
           aria-label="Close character sheet"
-          title="Close character sheet"
+          title="Fechar ficha do personagem"
         >
           <X className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
         </button>
@@ -516,7 +516,7 @@ export function GameCharacterSheet({
               <div className="border-b border-[var(--border)] px-5 py-4">
                 <SectionHeader
                   icon={<Pencil size={12} />}
-                  title="Sheet Details"
+                  title="Detalhes da Ficha"
                   className="text-[var(--muted-foreground)]"
                 />
                 <div className="space-y-3">
@@ -526,7 +526,7 @@ export function GameCharacterSheet({
                       type="text"
                       value={draft.class}
                       onChange={(e) => setDraft((prev) => ({ ...prev, class: e.target.value }))}
-                      placeholder="Class or role"
+                      placeholder="Classe ou função"
                       className={TEXT_INPUT_CLASS}
                     />
                   </label>
@@ -535,7 +535,7 @@ export function GameCharacterSheet({
                     <textarea
                       value={draft.shortDescription}
                       onChange={(e) => setDraft((prev) => ({ ...prev, shortDescription: e.target.value }))}
-                      placeholder="Brief character summary"
+                      placeholder="Resumo breve do personagem"
                       rows={3}
                       className={cn(TEXT_INPUT_CLASS, "resize-y")}
                     />
@@ -594,7 +594,7 @@ export function GameCharacterSheet({
                             type="text"
                             value={attr.name}
                             onChange={(e) => updateAttribute(index, "name", e.target.value)}
-                            placeholder="STR"
+                            placeholder="FOR"
                             className={TEXT_INPUT_CLASS}
                           />
                           <input
@@ -606,7 +606,7 @@ export function GameCharacterSheet({
                           <button
                             onClick={() => removeAttribute(index)}
                             className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-red-400"
-                            title="Remove attribute"
+                            title="Remover atributo"
                           >
                             <Trash2 size={13} />
                           </button>
@@ -650,13 +650,13 @@ export function GameCharacterSheet({
                         type="text"
                         value={ability}
                         onChange={(e) => updateListItem("abilities", index, e.target.value)}
-                        placeholder="Dual-wielding, Arcane shield, etc."
+                        placeholder="Dual-wielding, Escudo arcano, etc."
                         className={TEXT_INPUT_CLASS}
                       />
                       <button
                         onClick={() => removeListItem("abilities", index)}
                         className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-red-400"
-                        title="Remove ability"
+                        title="Remover habilidade"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -671,7 +671,7 @@ export function GameCharacterSheet({
                     <div className="mb-2.5 flex items-center justify-between gap-3">
                       <SectionHeader
                         icon={<Target size={11} />}
-                        title="Strengths"
+                        title="Pontos Fortes"
                         className="mb-0 text-emerald-500/80"
                       />
                       <button
@@ -689,13 +689,13 @@ export function GameCharacterSheet({
                             type="text"
                             value={strength}
                             onChange={(e) => updateListItem("strengths", index, e.target.value)}
-                            placeholder="Reliable, quick thinker, etc."
+                            placeholder="Confiável, pensador rápido, etc."
                             className={TEXT_INPUT_CLASS}
                           />
                           <button
                             onClick={() => removeListItem("strengths", index)}
                             className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-red-400"
-                            title="Remove strength"
+                            title="Remover força"
                           >
                             <Trash2 size={13} />
                           </button>
@@ -707,7 +707,7 @@ export function GameCharacterSheet({
                     <div className="mb-2.5 flex items-center justify-between gap-3">
                       <SectionHeader
                         icon={<AlertTriangle size={11} />}
-                        title="Weaknesses"
+                        title="Pontos Fracos"
                         className="mb-0 text-red-400/80"
                       />
                       <button
@@ -725,13 +725,13 @@ export function GameCharacterSheet({
                             type="text"
                             value={weakness}
                             onChange={(e) => updateListItem("weaknesses", index, e.target.value)}
-                            placeholder="Impulsive, poor swimmer, etc."
+                            placeholder="Impulsivo, mau nadador, etc."
                             className={TEXT_INPUT_CLASS}
                           />
                           <button
                             onClick={() => removeListItem("weaknesses", index)}
                             className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-red-400"
-                            title="Remove weakness"
+                            title="Remover fraqueza"
                           >
                             <Trash2 size={13} />
                           </button>
@@ -770,20 +770,20 @@ export function GameCharacterSheet({
                         type="text"
                         value={entry.key}
                         onChange={(e) => updateExtraEntry(index, "key", e.target.value)}
-                        placeholder="Skills"
+                        placeholder="Habilidades"
                         className={TEXT_INPUT_CLASS}
                       />
                       <input
                         type="text"
                         value={entry.value}
                         onChange={(e) => updateExtraEntry(index, "value", e.target.value)}
-                        placeholder="Lockpicking, survival, marksmanship"
+                        placeholder="Abrir fechaduras, sobrevivência, pontaria"
                         className={TEXT_INPUT_CLASS}
                       />
                       <button
                         onClick={() => removeExtraEntry(index)}
                         className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-red-400 max-sm:h-10"
-                        title="Remove detail"
+                        title="Remover detalhe"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -901,7 +901,7 @@ export function GameCharacterSheet({
                 <div className="grid grid-cols-2 gap-3">
                   {previewGameCard.strengths.length > 0 && (
                     <div>
-                      <SectionHeader icon={<Target size={11} />} title="Strengths" className="text-emerald-500/80" />
+                      <SectionHeader icon={<Target size={11} />} title="Pontos Fortes" className="text-emerald-500/80" />
                       <div className="space-y-0.5">
                         {previewGameCard.strengths.map((strength, index) => (
                           <div key={`${strength}-${index}`} className="text-[0.6875rem] text-[var(--foreground)]/70">
@@ -915,7 +915,7 @@ export function GameCharacterSheet({
                     <div>
                       <SectionHeader
                         icon={<AlertTriangle size={11} />}
-                        title="Weaknesses"
+                        title="Pontos Fracos"
                         className="text-red-400/80"
                       />
                       <div className="space-y-0.5">

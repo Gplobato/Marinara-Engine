@@ -41,7 +41,7 @@ export function GameChoiceCards({ choices, onSelect, onDismiss, disabled }: Game
               type="button"
               onClick={onDismiss}
               className="rounded-lg p-1 text-white/55 transition-colors hover:bg-white/10 hover:text-white"
-              title="Close choices"
+              title="Fechar escolhas"
               aria-label="Close choices"
             >
               <X size="0.875rem" />

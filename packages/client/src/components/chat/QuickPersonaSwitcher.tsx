@@ -250,7 +250,7 @@ export function QuickPersonaSwitcher({ className }: { className?: string }) {
                 ?
               </div>
               <div className="flex min-w-0 flex-1 flex-col">
-                <span className={cn("text-xs font-semibold", !activePersonaId && "text-foreground")}>None</span>
+                <span className={cn("text-xs font-semibold", !activePersonaId && "text-foreground")}>Nenhum</span>
                 <span className="text-[0.625rem] text-[var(--muted-foreground)]">No persona selected</span>
               </div>
               {!activePersonaId && <span className="ml-auto text-[0.6875rem]">✓</span>}

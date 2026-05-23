@@ -195,7 +195,7 @@ export function AgentsPanel() {
 
   return (
     <div className="flex flex-col gap-1 p-3">
-      {isLoading && <div className="py-4 text-center text-xs text-[var(--muted-foreground)]">Loading...</div>}
+      {isLoading && <div className="py-4 text-center text-xs text-[var(--muted-foreground)]">Carregando...</div>}
 
       <div className="mb-1 flex items-center gap-1 rounded-lg bg-[var(--secondary)] p-1 ring-1 ring-[var(--border)]">
         <button
@@ -224,14 +224,14 @@ export function AgentsPanel() {
 
       {/* ── Regex Scripts (moved to top) ── */}
       <PanelSection
-        title="Regex Scripts"
+        title="Scripts Regex"
         icon={<Regex size="0.8125rem" />}
         action={
           <div className="flex items-center gap-1">
             <button
               onClick={handleCreateRegex}
               className="rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--primary)]"
-              title="Create regex script"
+              title="Criar script regex"
             >
               <Plus size="0.8125rem" />
             </button>
@@ -308,7 +308,7 @@ export function AgentsPanel() {
               >
                 <button
                   className="mt-0.5 shrink-0 cursor-grab rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] active:cursor-grabbing"
-                  title="Drag to reorder"
+                  title="Arrastar para reordenar"
                   onClick={(event) => event.stopPropagation()}
                   onMouseDown={(event) => {
                     event.stopPropagation();
@@ -367,7 +367,7 @@ export function AgentsPanel() {
                       await showConfirmDialog({
                         title: "Delete Regex Script",
                         message: `Delete "${script.name}"?`,
-                        confirmLabel: "Delete",
+                        confirmLabel: "Excluir",
                         tone: "destructive",
                       })
                     ) {
@@ -478,7 +478,7 @@ export function AgentsPanel() {
             <button
               onClick={handleCreateAgent}
               className="rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--primary)]"
-              title="Create custom agent"
+              title="Criar agente personalizado"
             >
               <Plus size="0.8125rem" />
             </button>
@@ -542,7 +542,7 @@ export function AgentsPanel() {
                         await showConfirmDialog({
                           title: "Delete Agent",
                           message: `Delete "${agent.name}"?`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         })
                       ) {
@@ -567,7 +567,7 @@ export function AgentsPanel() {
           <button
             onClick={handleCreateTool}
             className="rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--primary)]"
-            title="Create custom tool"
+            title="Criar ferramenta personalizada"
           >
             <Plus size="0.8125rem" />
           </button>
@@ -609,7 +609,7 @@ export function AgentsPanel() {
                     await showConfirmDialog({
                       title: "Delete Tool",
                       message: `Delete "${tool.name}"?`,
-                      confirmLabel: "Delete",
+                      confirmLabel: "Excluir",
                       tone: "destructive",
                     })
                   ) {

@@ -239,7 +239,7 @@ export function GamePartySidebar({
                   <div className="border-b border-amber-500/10 px-2.5 py-1.5">
                     <div className="mb-1 flex items-center gap-1 text-[0.5625rem] font-semibold uppercase tracking-wider text-amber-500/50">
                       <Swords size={9} />
-                      <span>Inventory</span>
+                      <span>Inventário</span>
                     </div>
                     <div className="space-y-0.5">
                       {selectedCard.inventory.slice(0, 5).map((item) => (

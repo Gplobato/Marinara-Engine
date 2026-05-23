@@ -522,8 +522,8 @@ export function CharacterEditor() {
     if (
       !(await showConfirmDialog({
         title: "Delete Character",
-        message: "Are you sure you want to delete this character?",
-        confirmLabel: "Delete",
+        message: "Tem certeza que deseja excluir this character?",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -702,7 +702,7 @@ export function CharacterEditor() {
         }}
         disabled={!characterId || isStartingChat}
         className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--primary)] px-3 py-2 text-xs font-medium text-[var(--primary-foreground)] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 max-md:rounded-lg max-md:px-2.5 max-md:py-1.5"
-        title="Start new chat"
+        title="Iniciar nova conversa"
       >
         <MessageCircle size="1rem" />
         <span className="max-sm:hidden">Start Chat</span>
@@ -817,7 +817,7 @@ export function CharacterEditor() {
             type="button"
             onClick={handleClose}
             className="rounded-xl p-2 transition-all hover:bg-[var(--accent)] active:scale-95 max-md:rounded-lg max-md:p-1.5"
-            title="Back"
+            title="Voltar"
           >
             <ArrowLeft size="1.125rem" />
           </button>
@@ -861,7 +861,7 @@ export function CharacterEditor() {
               value={formData.name}
               onChange={(e) => updateField("name", e.target.value)}
               className="w-full bg-transparent text-lg font-bold outline-none"
-              placeholder="Character name"
+              placeholder="Nome do personagem"
             />
             <input
               value={characterComment}
@@ -870,7 +870,7 @@ export function CharacterEditor() {
                 markDirty();
               }}
               className="w-full bg-transparent text-xs text-[var(--muted-foreground)] outline-none"
-              placeholder="Title / comment (e.g. 'Modern AU version')"
+              placeholder="Título / comentário (ex: 'Versão AU Moderna')"
             />
             <p className="truncate text-[0.625rem] text-[var(--muted-foreground)]">
               {formData.creator ? `by ${formData.creator}` : "No creator"} · v{formData.character_version || "1.0"}
@@ -1109,7 +1109,7 @@ function CharacterDescriptionTab({
             type="button"
             onClick={() => setExpandedField("description")}
             className="mt-0.5 shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1182,13 +1182,13 @@ function CharacterDescriptionTab({
                     value={desc.label}
                     onChange={(event) => updateAltDescField(desc.id, "label", event.target.value)}
                     className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--input)] px-2.5 py-1 text-xs font-medium outline-none focus:border-[var(--primary)]/40"
-                    placeholder="Label (e.g. Combat Skills)"
+                    placeholder="Rótulo (ex: Habilidades de Combate)"
                   />
                   <button
                     type="button"
                     onClick={() => removeAltDesc(desc.id)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                    title="Remove extension"
+                    title="Remover extensão"
                   >
                     <X size="0.75rem" />
                   </button>
@@ -1196,7 +1196,7 @@ function CharacterDescriptionTab({
                     type="button"
                     onClick={() => setExpandedField(desc.id)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                    title="Expand editor"
+                    title="Expandir editor"
                   >
                     <Maximize2 size="0.75rem" />
                   </button>
@@ -1204,7 +1204,7 @@ function CharacterDescriptionTab({
                 <textarea
                   value={desc.content}
                   onChange={(event) => updateAltDescField(desc.id, "content", event.target.value)}
-                  placeholder="Additional description content…"
+                  placeholder="Conteúdo adicional da descrição…"
                   rows={4}
                   className="w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-3 text-sm leading-relaxed outline-none transition-colors placeholder:text-[var(--muted-foreground)]/40 focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
                 />
@@ -1233,7 +1233,7 @@ function CharacterDescriptionTab({
           title={desc.label || "Description Extension"}
           value={desc.content}
           onChange={(value) => updateAltDescField(desc.id, "content", value)}
-          placeholder="Additional description content…"
+          placeholder="Conteúdo adicional da descrição…"
         />
       ))}
     </div>
@@ -1264,7 +1264,7 @@ function TextareaTab({
           type="button"
           onClick={() => setExpanded(true)}
           className="mt-0.5 shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-          title="Expand editor"
+          title="Expandir editor"
         >
           <Maximize2 size="0.875rem" />
         </button>
@@ -1324,7 +1324,7 @@ function MetadataTab({
 
   return (
     <div className="space-y-5">
-      <SectionHeader title="Metadata" subtitle="Basic character info — name, creator, version, tags." />
+      <SectionHeader title="Metadata" subtitle="Informações básicas do personagem — nome, criador, versão, tags." />
 
       {/* Avatar Crop */}
       {avatarPreview && (
@@ -1444,7 +1444,7 @@ function MetadataTab({
                 addTag();
               }
             }}
-            placeholder="Add tag…"
+            placeholder="Adicionar tag…"
             className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-3 py-1.5 text-xs outline-none focus:border-[var(--primary)]/40"
           />
           <button
@@ -1554,7 +1554,7 @@ function CharacterVersionHistoryPanel({
     const confirmed = await showConfirmDialog({
       title: "Delete Saved Version",
       message: `Delete ${getVersionTitle(version)} from version history? This does not change the current character card.`,
-      confirmLabel: "Delete",
+      confirmLabel: "Excluir",
       tone: "destructive",
     });
     if (!confirmed) return;
@@ -1594,7 +1594,7 @@ function CharacterVersionHistoryPanel({
                 type="button"
                 onClick={() => setSelectedVersion(version)}
                 className="min-w-0 flex-1 text-left"
-                title="Compare with current card"
+                title="Comparar com ficha atual"
               >
                 <span className="block truncate text-[0.6875rem] font-medium text-[var(--foreground)]">
                   {getVersionTitle(version)}
@@ -1609,7 +1609,7 @@ function CharacterVersionHistoryPanel({
                 onClick={() => handleRestore(version)}
                 disabled={restoreVersion.isPending || deleteVersion.isPending}
                 className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-50"
-                title="Restore this version"
+                title="Restaurar esta versão"
               >
                 {restoreVersion.isPending ? (
                   <Loader2 size="0.75rem" className="animate-spin" />
@@ -1757,7 +1757,7 @@ function DialogueTab({
             type="button"
             onClick={() => setExpandedField("first_mes")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1800,7 +1800,7 @@ function DialogueTab({
                 type="button"
                 onClick={() => setExpandedField(i)}
                 className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-                title="Expand editor"
+                title="Expandir editor"
               >
                 <Maximize2 size="0.75rem" />
               </button>
@@ -1827,7 +1827,7 @@ function DialogueTab({
             type="button"
             onClick={() => setExpandedField("mes_example")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1904,7 +1904,7 @@ function AdvancedTab({
             type="button"
             onClick={() => setExpandedField("system_prompt")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1914,7 +1914,7 @@ function AdvancedTab({
           onChange={(e) => updateField("system_prompt", e.target.value)}
           rows={6}
           className="w-full resize-y rounded-xl border border-[var(--border)] bg-[var(--secondary)] p-4 text-sm outline-none placeholder:text-[var(--muted-foreground)]/40 focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
-          placeholder="Character-specific instructions inserted through {{charSysInfo}} or the character prompt block…"
+          placeholder="Instruções específicas do personagem inseridas via {{charSysInfo}} ou bloco de prompt…"
         />
       </label>
 
@@ -1928,7 +1928,7 @@ function AdvancedTab({
             type="button"
             onClick={() => setExpandedField("post_history")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1938,7 +1938,7 @@ function AdvancedTab({
           onChange={(e) => updateField("post_history_instructions", e.target.value)}
           rows={4}
           className="w-full resize-y rounded-xl border border-[var(--border)] bg-[var(--secondary)] p-4 text-sm outline-none placeholder:text-[var(--muted-foreground)]/40 focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
-          placeholder="Text inserted after the chat history but before generation…"
+          placeholder="Texto inserido após o histórico mas antes da geração…"
         />
       </label>
 
@@ -1953,7 +1953,7 @@ function AdvancedTab({
             type="button"
             onClick={() => setExpandedField("depth_prompt")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -1963,7 +1963,7 @@ function AdvancedTab({
           onChange={(e) => updateExtension("depth_prompt", { ...depthPrompt, prompt: e.target.value })}
           rows={4}
           className="w-full resize-y rounded-xl border border-[var(--border)] bg-[var(--secondary)] p-3 text-sm outline-none focus:border-[var(--primary)]/40"
-          placeholder="Prompt injected at a specific depth in the chat history…"
+          placeholder="Prompt injetado em uma profundidade específica no histórico…"
         />
         <div className="flex gap-4">
           <label className="flex items-center gap-2 text-xs">
@@ -1986,9 +1986,9 @@ function AdvancedTab({
               onChange={(e) => updateExtension("depth_prompt", { ...depthPrompt, role: e.target.value })}
               className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-2 py-1 text-xs outline-none"
             >
-              <option value="system">System</option>
-              <option value="user">User</option>
-              <option value="assistant">Assistant</option>
+              <option value="system">Sistema</option>
+              <option value="user">Usuário</option>
+              <option value="assistant">Assistente</option>
             </select>
           </label>
         </div>
@@ -1997,10 +1997,10 @@ function AdvancedTab({
       <ExpandedTextarea
         open={expandedField === "system_prompt"}
         onClose={() => setExpandedField(null)}
-        title="System Prompt"
+        title="Prompt do Sistema"
         value={formData.system_prompt}
         onChange={(value) => updateField("system_prompt", value)}
-        placeholder="Character-specific instructions inserted through {{charSysInfo}} or the character prompt block…"
+        placeholder="Instruções específicas do personagem inseridas via {{charSysInfo}} ou bloco de prompt…"
       />
       <ExpandedTextarea
         open={expandedField === "post_history"}
@@ -2008,7 +2008,7 @@ function AdvancedTab({
         title="Post-History Instructions"
         value={formData.post_history_instructions}
         onChange={(value) => updateField("post_history_instructions", value)}
-        placeholder="Text inserted after the chat history but before generation…"
+        placeholder="Texto inserido após o histórico mas antes da geração…"
       />
       <ExpandedTextarea
         open={expandedField === "depth_prompt"}
@@ -2016,7 +2016,7 @@ function AdvancedTab({
         title="Depth Prompt"
         value={depthPrompt.prompt}
         onChange={(value) => updateExtension("depth_prompt", { ...depthPrompt, prompt: value })}
-        placeholder="Prompt injected at a specific depth in the chat history…"
+        placeholder="Prompt injetado em uma profundidade específica no histórico…"
       />
     </div>
   );
@@ -2044,7 +2044,7 @@ function CharacterGalleryTab({ characterId, characterName }: { characterId: stri
         !(await showConfirmDialog({
           title: "Delete Character Image",
           message: "Delete this character gallery image?",
-          confirmLabel: "Delete",
+          confirmLabel: "Excluir",
           tone: "destructive",
         }))
       ) {
@@ -2059,7 +2059,7 @@ function CharacterGalleryTab({ characterId, characterName }: { characterId: stri
   return (
     <div className="space-y-6">
       <SectionHeader
-        title="Character Gallery"
+        title="Galeria do Personagem"
         subtitle="Keep reference art, alternate outfits, and other character images attached to this character even if chats get deleted."
       />
 
@@ -2106,7 +2106,7 @@ function CharacterGalleryTab({ characterId, characterName }: { characterId: stri
                     href={image.url}
                     download
                     className="rounded-lg bg-white/15 p-1.5 text-white transition-colors hover:bg-white/25"
-                    title="Download"
+                    title="Baixar"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <Download size="0.75rem" />
@@ -2115,7 +2115,7 @@ function CharacterGalleryTab({ characterId, characterName }: { characterId: stri
                     type="button"
                     onClick={() => void handleDelete(image)}
                     className="rounded-lg bg-red-500/35 p-1.5 text-white transition-colors hover:bg-red-500/55"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.75rem" />
                   </button>
@@ -2526,7 +2526,7 @@ function SpritesTab({
   return (
     <div className="space-y-6">
       <SectionHeader
-        title="Character Sprites"
+        title="Sprites do Personagem"
         subtitle="Upload VN-style sprites for different expressions. The Expression Engine agent will select the appropriate sprite during roleplay."
       />
 
@@ -2594,7 +2594,7 @@ function SpritesTab({
               onClick={() => folderInputRef.current?.click()}
               disabled={!!folderProgress}
               className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-center text-[0.6875rem] font-medium leading-tight text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-40 max-md:flex-1 max-md:basis-[calc(50%-0.25rem)] max-md:px-2.5"
-              title="Select a folder of PNGs — each filename becomes the expression name"
+              title="Selecionar pasta de PNGs — cada nome de arquivo vira o nome da expressão"
             >
               <FolderOpen size="0.8125rem" />
               Upload Folder
@@ -2619,7 +2619,7 @@ function SpritesTab({
                 onClick={() => setExportMenuOpen((open) => !open)}
                 disabled={exporting || allSprites.length === 0}
                 className="flex w-full min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-center text-[0.6875rem] font-medium leading-tight text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-40 max-md:px-2.5"
-                title="Choose which saved sprites to export"
+                title="Escolher quais sprites salvas exportar"
               >
                 <ImageDown size="0.8125rem" />
                 {exporting ? "Exporting..." : "Export"}
@@ -2829,7 +2829,7 @@ function SpritesTab({
                     type="button"
                     onClick={() => void downloadSpriteFile(sprite)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                    title="Download"
+                    title="Baixar"
                   >
                     <ImageDown size="0.6875rem" />
                   </button>
@@ -2845,7 +2845,7 @@ function SpritesTab({
                     type="button"
                     onClick={() => setDeleteSpriteRequest(sprite)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.6875rem" />
                   </button>
@@ -3005,7 +3005,7 @@ function StatsTab({
     <div className="space-y-6">
       <SectionHeader
         title="RPG Stats"
-        subtitle="Toggle stat tracking for this character. When enabled, the character's stats are included in the prompt and tracked by agents."
+        subtitle="Ativar rastreamento de atributos. Quando ativado, os atributos são incluídos no prompt e rastreados por agentes."
       />
 
       {/* Enable toggle */}
@@ -3068,7 +3068,7 @@ function StatsTab({
                     value={attr.name}
                     onChange={(e) => updateAttribute(i, "name", e.target.value)}
                     className="w-20 rounded-lg border border-[var(--border)] bg-[var(--input)] px-2 py-1 text-xs font-medium"
-                    placeholder="Name"
+                    placeholder="Nome"
                   />
                   <input
                     type="number"
@@ -3147,7 +3147,7 @@ function ColorsTab({
   return (
     <div className="space-y-6">
       <SectionHeader
-        title="Character Colors"
+        title="Cores do Personagem"
         subtitle="Customize how this character appears in chats. Colors are applied to the name, dialogue, and message bubble."
       />
 
@@ -3169,7 +3169,7 @@ function ColorsTab({
 
       {/* Preview card */}
       <div className="rounded-xl border border-[var(--border)] bg-black/30 p-4 space-y-3">
-        <p className="text-[0.625rem] font-medium uppercase tracking-widest text-[var(--muted-foreground)]">Preview</p>
+        <p className="text-[0.625rem] font-medium uppercase tracking-widest text-[var(--muted-foreground)]">Visualizar</p>
         <div className="flex gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-600 ring-2 ring-purple-400/20">
             <User size="1rem" className="text-white" />
@@ -3316,7 +3316,7 @@ function LorebookTab({ characterId, formData }: { characterId: string | null; fo
   return (
     <div className="space-y-4">
       <SectionHeader
-        title="Character Lorebook"
+        title="Livro de Lore do Personagem"
         subtitle="World-building entries embedded in this character. Triggered by keywords in conversation."
       />
 

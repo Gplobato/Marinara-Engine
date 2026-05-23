@@ -60,7 +60,7 @@ export function showConfirmDialog(options: Omit<ConfirmDialogState, "kind">): Pr
   return openDialog<boolean>({
     kind: "confirm",
     confirmLabel: "Confirm",
-    cancelLabel: "Cancel",
+    cancelLabel: "Cancelar",
     ...options,
   });
 }
@@ -69,7 +69,7 @@ export function showPromptDialog(options: Omit<PromptDialogState, "kind">): Prom
   return openDialog<string | null>({
     kind: "prompt",
     confirmLabel: "Confirm",
-    cancelLabel: "Cancel",
+    cancelLabel: "Cancelar",
     ...options,
   });
 }

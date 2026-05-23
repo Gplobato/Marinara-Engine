@@ -115,7 +115,7 @@ export function ChatBranchSelector({
           buttonClassName,
           className,
         )}
-        title="Switch branch"
+        title="Trocar ramificação"
       >
         <GitBranch size="0.8125rem" className="shrink-0" />
         {compact ? (

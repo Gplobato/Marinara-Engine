@@ -83,14 +83,14 @@ export function BotBrowserPanel() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search imported..."
+          placeholder="Buscar importados..."
           className="w-full rounded-lg border border-[var(--border)] bg-[var(--secondary)] py-1.5 pl-7 pr-3 text-xs text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none transition-colors focus:border-[var(--primary)]"
         />
       </div>
 
       {/* Character list */}
       {isLoading ? (
-        <div className="py-4 text-center text-xs text-[var(--muted-foreground)]">Loading...</div>
+        <div className="py-4 text-center text-xs text-[var(--muted-foreground)]">Carregando...</div>
       ) : filtered.length === 0 ? (
         <div className="py-4 text-center text-xs text-[var(--muted-foreground)]">
           {search ? "No matches" : "No imported characters yet"}

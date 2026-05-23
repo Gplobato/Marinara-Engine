@@ -345,7 +345,7 @@ function ToolbarMenu({ children }: { children: ReactNode }) {
             "border-foreground/10",
             open && "bg-[var(--accent)] border-foreground/20 text-foreground",
           )}
-          title="More options"
+          title="Mais opções"
         >
           <MoreHorizontal size="0.9375rem" />
         </button>
@@ -448,7 +448,7 @@ function ActiveContextLinksButton({
             ? "bg-foreground/15 border-foreground/20 text-foreground/90"
             : "bg-foreground/5 border-foreground/10 text-foreground/60 hover:bg-foreground/10 hover:text-foreground",
         )}
-        title="Active Context"
+        title="Contexto Ativo"
         aria-label="Active Context"
         aria-haspopup="menu"
         aria-expanded={open}
@@ -481,7 +481,7 @@ function ActiveContextLinksButton({
               <button key={id} type="button" role="menuitem" className={itemClassName} onClick={() => openLorebook(id)}>
                 <BookOpen size="0.8125rem" className={iconClassName} />
                 <span className="min-w-0 flex-1 truncate">{lorebookNameById.get(id) ?? `Lorebook ${index + 1}`}</span>
-                <span className="shrink-0 text-[0.625rem] text-foreground/45">Lorebook</span>
+                <span className="shrink-0 text-[0.625rem] text-foreground/45">Livro de Lore</span>
               </button>
             ))}
             {promptPresetId && (
@@ -493,7 +493,7 @@ function ActiveContextLinksButton({
               >
                 <FileText size="0.8125rem" className={iconClassName} />
                 <span className="min-w-0 flex-1 truncate">{presetName ?? "Prompt preset"}</span>
-                <span className="shrink-0 text-[0.625rem] text-foreground/45">Preset</span>
+                <span className="shrink-0 text-[0.625rem] text-foreground/45">Predefinição</span>
               </button>
             )}
           </div>
@@ -538,7 +538,7 @@ function SummaryButton({
               ? "bg-foreground/10 border-foreground/25 text-foreground/80 hover:bg-foreground/15 hover:text-foreground"
               : "bg-foreground/5 border-foreground/10 text-foreground/60 hover:bg-foreground/10 hover:text-foreground",
         )}
-        title="Chat Summary"
+        title="Resumo da Conversa"
       >
         <ScrollText size="0.875rem" />
       </button>
@@ -601,7 +601,7 @@ function AuthorNotesButton({ chatId, chatMeta }: { chatId: string | null; chatMe
               ? "bg-foreground/10 border-foreground/25 text-foreground/80 hover:bg-foreground/15 hover:text-foreground"
               : "bg-foreground/5 border-foreground/10 text-foreground/60 hover:bg-foreground/10 hover:text-foreground",
         )}
-        title="Author's Notes"
+        title="Notas do Autor"
       >
         <PenLine size="0.875rem" />
       </button>
@@ -1011,7 +1011,7 @@ export function ChatRoleplaySurface({
                     <AuthorNotesButton chatId={chat?.id ?? null} chatMeta={chatMeta} />
                     <RpToolbarButton
                       icon={<FolderOpen size="0.875rem" />}
-                      title="Manage Chat Files"
+                      title="Gerenciar Arquivos da Conversa"
                       onClick={onOpenFiles}
                     />
                     {showSpriteOverlay && (
@@ -1032,7 +1032,7 @@ export function ChatRoleplaySurface({
                         onClick={onToggleSpritePosition}
                       />
                     )}
-                    <RpToolbarButton icon={<Image size="0.875rem" />} title="Gallery" onClick={onOpenGallery} />
+                    <RpToolbarButton icon={<Image size="0.875rem" />} title="Galeria" onClick={onOpenGallery} />
                     {chat?.connectedChatId && (
                       <RpToolbarButton
                         icon={<ArrowRightLeft size="0.875rem" />}
@@ -1042,7 +1042,7 @@ export function ChatRoleplaySurface({
                     )}
                     <RpToolbarButton
                       icon={<Settings2 size="0.875rem" />}
-                      title="Chat Settings"
+                      title="Configurações da Conversa"
                       onClick={onOpenSettings}
                     />
                   </ToolbarMenu>
@@ -1116,7 +1116,7 @@ export function ChatRoleplaySurface({
                         <AuthorNotesButton chatId={chat?.id ?? null} chatMeta={chatMeta} />
                         <RpToolbarButton
                           icon={<FolderOpen size="0.875rem" />}
-                          title="Manage Chat Files"
+                          title="Gerenciar Arquivos da Conversa"
                           onClick={onOpenFiles}
                         />
                         {showSpriteOverlay && (
@@ -1137,7 +1137,7 @@ export function ChatRoleplaySurface({
                             onClick={onToggleSpritePosition}
                           />
                         )}
-                        <RpToolbarButton icon={<Image size="0.875rem" />} title="Gallery" onClick={onOpenGallery} />
+                        <RpToolbarButton icon={<Image size="0.875rem" />} title="Galeria" onClick={onOpenGallery} />
                         {chat?.connectedChatId && (
                           <RpToolbarButton
                             icon={<ArrowRightLeft size="0.875rem" />}
@@ -1147,7 +1147,7 @@ export function ChatRoleplaySurface({
                         )}
                         <RpToolbarButton
                           icon={<Settings2 size="0.875rem" />}
-                          title="Chat Settings"
+                          title="Configurações da Conversa"
                           onClick={onOpenSettings}
                         />
                       </ToolbarMenu>
@@ -1191,10 +1191,10 @@ export function ChatRoleplaySurface({
                       <AuthorNotesButton chatId={chat?.id ?? null} chatMeta={chatMeta} />
                       <RpToolbarButton
                         icon={<FolderOpen size="0.875rem" />}
-                        title="Manage Chat Files"
+                        title="Gerenciar Arquivos da Conversa"
                         onClick={onOpenFiles}
                       />
-                      <RpToolbarButton icon={<Image size="0.875rem" />} title="Gallery" onClick={onOpenGallery} />
+                      <RpToolbarButton icon={<Image size="0.875rem" />} title="Galeria" onClick={onOpenGallery} />
                       {chat?.connectedChatId && (
                         <RpToolbarButton
                           icon={<ArrowRightLeft size="0.875rem" />}
@@ -1204,7 +1204,7 @@ export function ChatRoleplaySurface({
                       )}
                       <RpToolbarButton
                         icon={<Settings2 size="0.875rem" />}
-                        title="Chat Settings"
+                        title="Configurações da Conversa"
                         onClick={onOpenSettings}
                       />
                     </ToolbarMenu>
@@ -1361,10 +1361,10 @@ export function ChatRoleplaySurface({
                     <button
                       onClick={onStartEncounter}
                       className="flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs text-foreground/50 transition-all hover:bg-foreground/10 hover:text-orange-300"
-                      title="Start Combat Encounter"
+                      title="Iniciar Encontro de Combate"
                     >
                       <Swords size="0.875rem" />
-                      <span>Encounter</span>
+                      <span>Encontro</span>
                     </button>
                   </div>
                 )}

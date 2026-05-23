@@ -58,7 +58,7 @@ export function CreatePresetModal({ open, onClose }: Props) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Create Preset" width="max-w-sm">
+    <Modal open={open} onClose={onClose} title="Criar Predefinição" width="max-w-sm">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-400 to-violet-500 shadow-lg shadow-purple-400/20">
@@ -86,7 +86,7 @@ export function CreatePresetModal({ open, onClose }: Props) {
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-[var(--muted-foreground)]">Description</span>
+          <span className="text-xs font-medium text-[var(--muted-foreground)]">Descrição</span>
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}

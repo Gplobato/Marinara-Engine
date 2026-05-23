@@ -378,8 +378,8 @@ export function PersonaEditor() {
     if (
       !(await showConfirmDialog({
         title: "Delete Persona",
-        message: "Are you sure you want to delete this persona?",
-        confirmLabel: "Delete",
+        message: "Tem certeza que deseja excluir this persona?",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -444,7 +444,7 @@ export function PersonaEditor() {
           type="button"
           onClick={handleClose}
           className="rounded-xl p-2 transition-all hover:bg-[var(--accent)] active:scale-95"
-          title="Back"
+          title="Voltar"
         >
           <ArrowLeft size="1.125rem" />
         </button>
@@ -494,7 +494,7 @@ export function PersonaEditor() {
             value={formData.comment}
             onChange={(e) => updateField("comment", e.target.value)}
             className="w-full bg-transparent text-xs text-[var(--muted-foreground)] outline-none"
-            placeholder="Comment (e.g. 'Modern AU version')"
+            placeholder="Comentário (ex: 'Versão AU Moderna')"
           />
           <p className="flex items-center gap-1 truncate text-xs text-[var(--muted-foreground)]">
             Your persona
@@ -1078,7 +1078,7 @@ function PersonaSpritesTab({
               onClick={() => folderInputRef.current?.click()}
               disabled={!!folderProgress}
               className="flex min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-center text-[0.6875rem] font-medium leading-tight text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-40 max-md:flex-1 max-md:basis-[calc(50%-0.25rem)] max-md:px-2.5"
-              title="Select a folder of PNGs"
+              title="Selecionar pasta de PNGs"
             >
               <FolderOpen size="0.8125rem" />
               Upload Folder
@@ -1103,7 +1103,7 @@ function PersonaSpritesTab({
                 onClick={() => setExportMenuOpen((open) => !open)}
                 disabled={exporting || allSprites.length === 0}
                 className="flex w-full min-w-0 items-center justify-center gap-1.5 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-center text-[0.6875rem] font-medium leading-tight text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:opacity-40 max-md:px-2.5"
-                title="Choose which saved sprites to export"
+                title="Escolher quais sprites salvas exportar"
               >
                 <ImageDown size="0.8125rem" />
                 {exporting ? "Exporting..." : "Export"}
@@ -1311,7 +1311,7 @@ function PersonaSpritesTab({
                     type="button"
                     onClick={() => void downloadSpriteFile(sprite)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                    title="Download"
+                    title="Baixar"
                   >
                     <ImageDown size="0.6875rem" />
                   </button>
@@ -1327,7 +1327,7 @@ function PersonaSpritesTab({
                     type="button"
                     onClick={() => setDeleteSpriteRequest(sprite)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.6875rem" />
                   </button>
@@ -1471,7 +1471,7 @@ function PersonaColorsTab({
       </button>
 
       <div className="rounded-xl border border-[var(--border)] bg-black/30 p-4 space-y-3">
-        <p className="text-[0.625rem] font-medium uppercase tracking-widest text-[var(--muted-foreground)]">Preview</p>
+        <p className="text-[0.625rem] font-medium uppercase tracking-widest text-[var(--muted-foreground)]">Visualizar</p>
         <div className="flex gap-3 flex-row-reverse">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-neutral-500 to-neutral-600 ring-2 ring-white/15">
             <User size="1rem" className="text-white" />
@@ -1725,7 +1725,7 @@ function PersonaStatsTab({
                       value={bar.name}
                       onChange={(e) => updateBar(i, "name", e.target.value)}
                       className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--input)] px-2 py-1 text-xs font-medium"
-                      placeholder="Stat name"
+                      placeholder="Nome do atributo"
                     />
                     <span className="text-[0.625rem] text-[var(--muted-foreground)]">max:</span>
                     <input
@@ -1836,7 +1836,7 @@ function PersonaStatsTab({
                       value={attr.name}
                       onChange={(e) => updateRpgAttribute(i, "name", e.target.value)}
                       className="w-20 rounded-lg border border-[var(--border)] bg-[var(--input)] px-2 py-1 text-xs font-medium"
-                      placeholder="Name"
+                      placeholder="Nome"
                     />
                     <input
                       type="number"
@@ -1956,7 +1956,7 @@ function DescriptionTab({
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-semibold">Description</h3>
+            <h3 className="text-sm font-semibold">Descrição</h3>
             <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
               Your general description. This is sent in every prompt so the AI knows who you are.
             </p>
@@ -1965,7 +1965,7 @@ function DescriptionTab({
             type="button"
             onClick={() => setExpandedField("description")}
             className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Expand editor"
+            title="Expandir editor"
           >
             <Maximize2 size="0.875rem" />
           </button>
@@ -2016,7 +2016,7 @@ function DescriptionTab({
                 addTag();
               }
             }}
-            placeholder="Add tag…"
+            placeholder="Adicionar tag…"
             className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-3 py-1.5 text-xs outline-none focus:border-emerald-400/40"
           />
           <button
@@ -2087,14 +2087,14 @@ function DescriptionTab({
                     value={desc.label}
                     onChange={(e) => updateAltDescField(desc.id, "label", e.target.value)}
                     className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--input)] px-2.5 py-1 text-xs font-medium outline-none focus:border-emerald-400/40"
-                    placeholder="Label (e.g. Combat Skills)"
+                    placeholder="Rótulo (ex: Habilidades de Combate)"
                   />
                   {/* Remove */}
                   <button
                     type="button"
                     onClick={() => removeAltDesc(desc.id)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-red-500/15 hover:text-red-400"
-                    title="Remove extension"
+                    title="Remover extensão"
                   >
                     <X size="0.75rem" />
                   </button>
@@ -2103,7 +2103,7 @@ function DescriptionTab({
                     type="button"
                     onClick={() => setExpandedField(desc.id)}
                     className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-                    title="Expand editor"
+                    title="Expandir editor"
                   >
                     <Maximize2 size="0.75rem" />
                   </button>
@@ -2112,7 +2112,7 @@ function DescriptionTab({
                 <textarea
                   value={desc.content}
                   onChange={(e) => updateAltDescField(desc.id, "content", e.target.value)}
-                  placeholder="Additional description content…"
+                  placeholder="Conteúdo adicional da descrição…"
                   rows={4}
                   className="w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-3 text-sm leading-relaxed outline-none transition-colors placeholder:text-[var(--muted-foreground)]/40 focus:border-emerald-400/40 focus:ring-1 focus:ring-emerald-400/20"
                 />
@@ -2141,7 +2141,7 @@ function DescriptionTab({
           title={desc.label || "Description Extension"}
           value={desc.content}
           onChange={(value) => updateAltDescField(desc.id, "content", value)}
-          placeholder="Additional description content…"
+          placeholder="Conteúdo adicional da descrição…"
         />
       ))}
     </div>
@@ -2184,7 +2184,7 @@ function TextareaTab({
           type="button"
           onClick={() => setExpanded(true)}
           className="shrink-0 rounded-lg p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-          title="Expand editor"
+          title="Expandir editor"
         >
           <Maximize2 size="0.875rem" />
         </button>

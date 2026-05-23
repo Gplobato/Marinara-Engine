@@ -145,7 +145,7 @@ function MultiSelectBar({
         <button
           onClick={onSelectAllAbove}
           disabled={selectedCount === 0}
-          title="Select all messages above"
+          title="Selecionar todas as mensagens acima"
           aria-label="Select all messages above"
           className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] disabled:opacity-40"
         >
@@ -161,7 +161,7 @@ function MultiSelectBar({
         <button
           onClick={onSelectAllBelow}
           disabled={selectedCount === 0}
-          title="Select all messages below"
+          title="Selecionar todas as mensagens abaixo"
           aria-label="Select all messages below"
           className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] disabled:opacity-40"
         >

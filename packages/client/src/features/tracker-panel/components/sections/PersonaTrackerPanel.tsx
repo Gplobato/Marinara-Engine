@@ -235,7 +235,7 @@ export function PersonaInventoryPanel({
         </span>
         {addMode && (
           <span className="relative z-[1]">
-            <AddRowButton title="Add item" onClick={onAddInventoryItem} />
+            <AddRowButton title="Adicionar item" onClick={onAddInventoryItem} />
           </span>
         )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--tracker-profile-dialogue-border)_42%,transparent),transparent)] opacity-80" />
@@ -357,7 +357,7 @@ export function PersonaInventoryPanel({
                         {addMode && (
                           <InlineAddRow
                             onClick={onAddPersonaStat}
-                            title="Add stat"
+                            title="Adicionar atributo"
                             className="shrink-0 rounded-[5px] border border-[color-mix(in_srgb,var(--tracker-profile-dialogue-border)_32%,transparent)] bg-[image:var(--tracker-profile-field-material)] [background-blend-mode:var(--tracker-profile-field-material-blend)]"
                           />
                         )}

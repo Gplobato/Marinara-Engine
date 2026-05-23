@@ -9,12 +9,12 @@ import { cn } from "../../lib/utils";
 import { SpotifyMiniPlayer } from "../spotify/SpotifyMiniPlayer";
 
 const RIGHT_PANEL_BUTTONS = [
-  { panel: "lorebooks" as const, icon: BookOpen, label: "Lorebooks", color: "from-amber-400 to-orange-500" },
-  { panel: "presets" as const, icon: FileText, label: "Presets", color: "from-purple-400 to-violet-500" },
-  { panel: "connections" as const, icon: Link, label: "Connections", color: "from-sky-400 to-blue-500" },
-  { panel: "agents" as const, icon: Sparkles, label: "Agents", color: "from-pink-300 to-purple-400" },
+  { panel: "lorebooks" as const, icon: BookOpen, label: "Livros de Lore", color: "from-amber-400 to-orange-500" },
+  { panel: "presets" as const, icon: FileText, label: "Predefinições", color: "from-purple-400 to-violet-500" },
+  { panel: "connections" as const, icon: Link, label: "Conexões", color: "from-sky-400 to-blue-500" },
+  { panel: "agents" as const, icon: Sparkles, label: "Agentes", color: "from-pink-300 to-purple-400" },
   { panel: "personas" as const, icon: User, label: "Personas", color: "from-emerald-400 to-teal-500" },
-  { panel: "inventory" as const, icon: Backpack, label: "Inventory", color: "from-amber-500 to-yellow-600" },
+  { panel: "inventory" as const, icon: Backpack, label: "Inventário", color: "from-amber-500 to-yellow-600" },
   { panel: "pets" as const, icon: Heart, label: "Pets", color: "from-pink-400 to-rose-500" },
 ] as const;
 
@@ -44,7 +44,7 @@ export function TopBar() {
           onClick={toggleSidebar}
           data-tour="sidebar-toggle"
           className="rounded-lg p-2 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)] hover:text-[var(--primary)] active:scale-95"
-          title="Chats"
+          title="Conversas"
         >
           <PanelLeft size="1.125rem" />
         </button>
@@ -55,7 +55,7 @@ export function TopBar() {
             closeAllDetails();
           }}
           className="rounded-lg p-2 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)] hover:text-[var(--primary)] active:scale-95"
-          title="Home"
+          title="Início"
         >
           <Home size="1.125rem" />
         </button>
@@ -65,7 +65,7 @@ export function TopBar() {
       {/* Right section - Panel toggles */}
       <nav
         data-tour="panel-buttons"
-        aria-label="Panel navigation"
+        aria-label="Navegação de painéis"
         className="flex min-w-0 flex-1 items-center justify-end gap-0.5 rounded-xl p-1 max-sm:gap-0 max-sm:p-0.5"
       >
         {/* Browser */}
@@ -77,7 +77,7 @@ export function TopBar() {
               ? "bg-[var(--accent)] text-[var(--primary)] shadow-sm"
               : "text-[var(--muted-foreground)] hover:text-[var(--primary)]",
           )}
-          title="Browser"
+          title="Navegador"
         >
           <Bot size="0.9375rem" />
           {isBotBrowserActive && (
@@ -93,7 +93,7 @@ export function TopBar() {
               ? "bg-[var(--accent)] text-[var(--primary)] shadow-sm"
               : "text-[var(--muted-foreground)] hover:text-[var(--primary)]",
           )}
-          title="Characters"
+          title="Personagens"
         >
           <Users size="0.9375rem" />
           {isCharactersPanelActive && (
@@ -140,7 +140,7 @@ export function TopBar() {
               ? "bg-[var(--accent)] text-[var(--primary)] shadow-sm"
               : "text-[var(--muted-foreground)] hover:text-[var(--primary)]",
           )}
-          title="Settings"
+          title="Configurações"
         >
           <Settings size="0.9375rem" />
           {rightPanelOpen && rightPanel === "settings" && (

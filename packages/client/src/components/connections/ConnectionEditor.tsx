@@ -498,7 +498,7 @@ export function ConnectionEditor() {
       !(await showConfirmDialog({
         title: "Delete Connection",
         message: "Delete this connection?",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -702,7 +702,7 @@ export function ConnectionEditor() {
             markDirty();
           }}
           className="min-w-0 flex-1 bg-transparent text-lg font-semibold outline-none placeholder:text-[var(--muted-foreground)]"
-          placeholder="Connection name…"
+          placeholder="Nome da conexão…"
         />
         <div className="flex shrink-0 items-center gap-1.5">
           {saveError && (
@@ -712,7 +712,7 @@ export function ConnectionEditor() {
           )}
           {savedFlash && !dirty && (
             <span className="mr-2 flex items-center gap-1 text-[0.625rem] font-medium text-emerald-400">
-              <Check size="0.6875rem" /> <span className="max-md:hidden">Saved</span>
+              <Check size="0.6875rem" /> <span className="max-md:hidden">Salvo</span>
             </span>
           )}
           {dirty && !saveError && (
@@ -723,7 +723,7 @@ export function ConnectionEditor() {
             disabled={updateConnection.isPending || saveConnectionDefaults.isPending}
             className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 px-4 py-2 text-xs font-medium text-white shadow-md transition-all hover:shadow-lg active:scale-[0.98] disabled:opacity-50"
           >
-            <Save size="0.8125rem" /> <span className="max-md:hidden">Save</span>
+            <Save size="0.8125rem" /> <span className="max-md:hidden">Salvar</span>
           </button>
           <button
             onClick={handleDelete}
@@ -1144,7 +1144,7 @@ export function ConnectionEditor() {
                     value={modelSearch}
                     onChange={(e) => setModelSearch(e.target.value)}
                     className="flex-1 bg-transparent text-sm outline-none placeholder:text-[var(--muted-foreground)]"
-                    placeholder="Search models…"
+                    placeholder="Buscar modelos…"
                     autoFocus
                     onClick={(e) => e.stopPropagation()}
                   />
@@ -1293,7 +1293,7 @@ export function ConnectionEditor() {
                             markDirty();
                           }}
                           className="mt-2 w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-sm ring-1 ring-[var(--border)] focus:outline-none focus:ring-sky-400/50"
-                          placeholder="Custom model ID…"
+                          placeholder="ID do modelo personalizado…"
                         />
                       </div>
                     ) : (
@@ -1743,7 +1743,7 @@ export function ConnectionEditor() {
                         title: "YOU DON'T WANT THIS SETTING ON!",
                         message:
                           "Fast mode is effectively a dead feature today — Claude/Anthropic removed support for downgrading current models, and Opus 4.7 has no faster variant for the SDK to route to. Turning this on does nothing useful for roleplay quality and may add overhead. The toggle exists only so we don't have to ship a new release if Anthropic re-enables it.\n\nAre you absolutely sure you want to enable it?",
-                        confirmLabel: "Enable anyway",
+                        confirmLabel: "Ativar mesmo assim",
                         cancelLabel: "Keep it off",
                         tone: "destructive",
                       });
@@ -1916,7 +1916,7 @@ export function ConnectionEditor() {
             </div>
 
             <p className="text-[0.625rem] text-[var(--muted-foreground)]">
-              <strong>Test Connection</strong> verifies your API key against the provider catalog or health endpoint.
+              <strong>Testar Conexão</strong> verifies your API key against the provider catalog or health endpoint.
               {localProvider !== "image_generation" && (
                 <>
                   {" "}

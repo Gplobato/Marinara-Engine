@@ -81,7 +81,7 @@ export const MariCapabilityNotice = memo(function MariCapabilityNotice() {
       <button
         type="button"
         onClick={handleDismiss}
-        aria-label="Dismiss notice"
+        aria-label="Dispensar aviso"
         className="shrink-0 rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
       >
         <X size="0.75rem" />

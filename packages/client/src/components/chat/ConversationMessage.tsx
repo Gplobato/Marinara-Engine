@@ -104,7 +104,7 @@ function HiddenFromAIConversationSummary({ onExpand }: { onExpand: () => void })
     >
       <EyeOff size="0.8rem" className="shrink-0" />
       <span className="min-w-0 flex-1 truncate">Hidden from AI</span>
-      <span className="shrink-0 text-[0.625rem] opacity-70">Show</span>
+      <span className="shrink-0 text-[0.625rem] opacity-70">Mostrar</span>
     </button>
   );
 }
@@ -167,7 +167,7 @@ function MessageContent({
           onImageOpen(url);
         }}
         className="block cursor-zoom-in rounded-lg text-left"
-        title="Open image"
+        title="Abrir imagem"
       >
         <img src={url} alt="GIF" className="max-h-48 max-w-full sm:max-w-xs rounded-lg" loading="lazy" />
       </button>
@@ -684,7 +684,7 @@ export const ConversationMessage = memo(function ConversationMessage({
                 "absolute -right-1 -top-1 rounded-md p-1 text-[var(--muted-foreground)]/30 opacity-0 transition-all hover:bg-red-500/20 hover:text-red-400 group-hover:opacity-100",
                 showActions && "opacity-100",
               )}
-              title="Delete"
+              title="Excluir"
             >
               <Trash2 size="0.75rem" />
             </button>
@@ -886,7 +886,7 @@ export const ConversationMessage = memo(function ConversationMessage({
                       setImageLightbox({ url: att.url || att.data, prompt: att.prompt });
                     }}
                     className="block cursor-zoom-in rounded-lg text-left"
-                    title="Open image"
+                    title="Abrir imagem"
                   >
                     <img
                       src={att.url || att.data}
@@ -897,7 +897,7 @@ export const ConversationMessage = memo(function ConversationMessage({
                   </button>
                   <button
                     onClick={() => handleRemoveAttachment(i)}
-                    title="Remove from message"
+                    title="Remover da mensagem"
                     className="absolute top-1.5 right-1.5 rounded-full bg-black/60 p-1 text-white/80 transition-opacity hover:bg-black/80 hover:text-white sm:opacity-0 sm:group-hover/att:opacity-100"
                   >
                     <X size="0.875rem" />
@@ -928,14 +928,14 @@ export const ConversationMessage = memo(function ConversationMessage({
             (showActions || forceShowActions) && "opacity-100",
           )}
         >
-          <MsgAction icon={copied ? "✓" : <Copy size="0.75rem" />} onClick={handleCopy} title="Copy" />
+          <MsgAction icon={copied ? "✓" : <Copy size="0.75rem" />} onClick={handleCopy} title="Copiar" />
           <MsgAction
             icon={<Languages size="0.75rem" />}
             onClick={() => translate(message.id, message.content, message.chatId)}
             title={translatedText ? "Hide translation" : "Translate"}
             className={translatedText ? "text-blue-400" : undefined}
           />
-          <MsgAction icon={<Pencil size="0.75rem" />} onClick={onEditClick ?? startEditing} title="Edit" />
+          <MsgAction icon={<Pencil size="0.75rem" />} onClick={onEditClick ?? startEditing} title="Editar" />
           <MsgAction
             icon={<RefreshCw size="0.75rem" />}
             onClick={() => onRegenerate?.(message.id)}
@@ -957,7 +957,7 @@ export const ConversationMessage = memo(function ConversationMessage({
             <MsgAction
               icon={<ScrollText size="0.75rem" />}
               onClick={() => setShowGenerationReplay(true)}
-              title="Stored guidance"
+              title="Orientação armazenada"
             />
           )}
           {thinking && (
@@ -966,7 +966,7 @@ export const ConversationMessage = memo(function ConversationMessage({
           <MsgAction
             icon={<Trash2 size="0.75rem" />}
             onClick={() => onDelete?.(message.id)}
-            title="Delete"
+            title="Excluir"
             className="hover:text-[var(--destructive)]"
           />
         </div>
@@ -1184,7 +1184,7 @@ export const ConversationMessage = memo(function ConversationMessage({
                       setImageLightbox({ url: att.url || att.data, prompt: att.prompt });
                     }}
                     className="block cursor-zoom-in rounded-lg text-left"
-                    title="Open image"
+                    title="Abrir imagem"
                   >
                     <img
                       src={att.url || att.data}
@@ -1195,7 +1195,7 @@ export const ConversationMessage = memo(function ConversationMessage({
                   </button>
                   <button
                     onClick={() => handleRemoveAttachment(i)}
-                    title="Remove from message"
+                    title="Remover da mensagem"
                     className="absolute top-1.5 right-1.5 rounded-full bg-black/60 p-1 text-white/80 transition-opacity hover:bg-black/80 hover:text-white sm:opacity-0 sm:group-hover/att:opacity-100"
                   >
                     <X size="0.875rem" />
@@ -1228,14 +1228,14 @@ export const ConversationMessage = memo(function ConversationMessage({
             (showActions || forceShowActions) && "opacity-100",
           )}
         >
-          <MsgAction icon={copied ? "✓" : <Copy size="0.75rem" />} onClick={handleCopy} title="Copy" />
+          <MsgAction icon={copied ? "✓" : <Copy size="0.75rem" />} onClick={handleCopy} title="Copiar" />
           <MsgAction
             icon={<Languages size="0.75rem" />}
             onClick={() => translate(message.id, renderedContent, message.chatId)}
             title={translatedText ? "Hide translation" : "Translate"}
             className={translatedText ? "text-blue-400" : undefined}
           />
-          <MsgAction icon={<Pencil size="0.75rem" />} onClick={onEditClick ?? startEditing} title="Edit" />
+          <MsgAction icon={<Pencil size="0.75rem" />} onClick={onEditClick ?? startEditing} title="Editar" />
           {canRegenerate && (
             <MsgAction
               icon={<RefreshCw size="0.75rem" />}
@@ -1259,7 +1259,7 @@ export const ConversationMessage = memo(function ConversationMessage({
             <MsgAction
               icon={<ScrollText size="0.75rem" />}
               onClick={() => setShowGenerationReplay(true)}
-              title="Stored guidance"
+              title="Orientação armazenada"
             />
           )}
           {thinking && !isUser && (
@@ -1268,7 +1268,7 @@ export const ConversationMessage = memo(function ConversationMessage({
           <MsgAction
             icon={<Trash2 size="0.75rem" />}
             onClick={() => onDelete?.(message.id)}
-            title="Delete"
+            title="Excluir"
             className="hover:text-[var(--destructive)]"
           />
         </div>

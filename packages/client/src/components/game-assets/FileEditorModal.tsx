@@ -67,7 +67,7 @@ export function FileEditorModal({ node, onClose, initialMode = "edit" }: FileEdi
       toast.success("File saved");
       onClose();
     } catch (err) {
-      toast.error(`Save failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+      toast.error(`Save failed: ${err instanceof Error ? err.message : "Erro desconhecido"}`);
     }
   }, [saveFile, node.path, content, onClose]);
 

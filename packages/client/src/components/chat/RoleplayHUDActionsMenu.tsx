@@ -239,7 +239,7 @@ export function RoleplayHUDActionsMenu({
               runs={injectableCustomRuns}
               loading={customAgentRunsLoading}
               title="Custom prompt sections"
-              emptyText="No saved prompt-section output yet."
+              emptyText="Nenhuma saída de seção de prompt salva ainda."
               countMode="latest"
               collapsible
             />
@@ -364,7 +364,7 @@ function CustomAgentRunsSection({
   collapsible?: boolean;
 }) {
   const [open, setOpen] = useState(!collapsible);
-  const countLabel = loading ? "Loading..." : runs.length > 0 ? String(runs.length) : "";
+  const countLabel = loading ? "Carregando..." : runs.length > 0 ? String(runs.length) : "";
   const heading = (
     <>
       <span className="flex items-center gap-1 text-[0.625rem] text-[var(--muted-foreground)]">
@@ -561,7 +561,7 @@ function CustomAgentRunItem({ run }: { run: AgentRunRow }) {
           </div>
           {!editing && (
             <pre className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap break-words rounded bg-[var(--secondary)]/35 p-1.5 font-sans text-[var(--muted-foreground)] leading-relaxed">
-              {preview || "Empty output"}
+              {preview || "Saída vazia"}
             </pre>
           )}
         </div>

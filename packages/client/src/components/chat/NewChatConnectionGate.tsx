@@ -11,9 +11,9 @@ import { cn } from "../../lib/utils";
 type Mode = "conversation" | "roleplay" | "game";
 
 const MODE_META: Record<Mode, { label: string; icon: React.ReactNode }> = {
-  conversation: { label: "Conversation", icon: <MessageCircle size="0.875rem" /> },
+  conversation: { label: "Conversa", icon: <MessageCircle size="0.875rem" /> },
   roleplay: { label: "Roleplay", icon: <BookOpen size="0.875rem" /> },
-  game: { label: "Game", icon: <BookOpen size="0.875rem" /> },
+  game: { label: "Jogo", icon: <BookOpen size="0.875rem" /> },
 };
 
 interface NewChatConnectionGateProps {
@@ -133,7 +133,7 @@ export function NewChatConnectionGate({ mode, onClose }: NewChatConnectionGatePr
                   disabled={createChat.isPending}
                   className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2.5 text-xs outline-none ring-1 ring-[var(--border)] transition-shadow focus:ring-[var(--primary)]/40"
                 >
-                  <option value="">Select a connection…</option>
+                  <option value="">Selecionar uma conexão…</option>
                   {connectionRows.map((connection) => (
                     <option key={connection.id} value={connection.id}>
                       {connection.name}

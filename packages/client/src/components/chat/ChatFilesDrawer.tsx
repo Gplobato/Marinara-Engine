@@ -53,7 +53,7 @@ export function ChatFilesDrawer({ chat, open, onClose }: ChatFilesDrawerProps) {
       const res = await fetch("/api/import/st-chat-into-group", { method: "POST", body: formData });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data?.success === false || data?.error) {
-        toast.error(`Import failed: ${data?.error ?? res.statusText ?? "Unknown error"}`);
+        toast.error(`Import failed: ${data?.error ?? res.statusText ?? "Erro desconhecido"}`);
         return;
       }
       toast.success(`Imported ${data.messagesImported ?? 0} messages as a new chat file`);
@@ -101,7 +101,7 @@ export function ChatFilesDrawer({ chat, open, onClose }: ChatFilesDrawerProps) {
       !(await showConfirmDialog({
         title: "Delete Chat File",
         message: "Delete this chat file? Messages will be lost.",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -303,7 +303,7 @@ export function ChatFilesDrawer({ chat, open, onClose }: ChatFilesDrawerProps) {
                           void handleRename(cf);
                         }}
                         className="rounded-lg p-1.5 transition-all hover:bg-[var(--accent)]/80 active:scale-[0.95] ring-1 ring-transparent hover:ring-[var(--border)]"
-                        title="Rename branch"
+                        title="Renomear ramificação"
                       >
                         <Pencil size="0.75rem" className="text-[var(--muted-foreground)]" />
                       </button>
@@ -314,7 +314,7 @@ export function ChatFilesDrawer({ chat, open, onClose }: ChatFilesDrawerProps) {
                         }}
                         disabled={deleteChat.isPending}
                         className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15"
-                        title="Delete branch"
+                        title="Excluir ramificação"
                       >
                         <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
                       </button>

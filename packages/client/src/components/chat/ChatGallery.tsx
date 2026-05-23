@@ -137,18 +137,18 @@ export function ChatGallery({ chatId, onIllustrate }: ChatGalleryProps) {
                     <button
                       type="button"
                       onClick={() => setLightbox(img)}
-                      aria-label="View image fullscreen"
+                      aria-label="Ver imagem em tela cheia"
                       className="rounded-md bg-white/20 p-1.5 text-white transition-colors hover:bg-white/30"
-                      title="View fullscreen"
+                      title="Ver em tela cheia"
                     >
                       <ZoomIn size="0.75rem" />
                     </button>
                     <button
                       type="button"
                       onClick={() => pinImage(img)}
-                      aria-label="Pin image to chat"
+                      aria-label="Fixar imagem na conversa"
                       className="rounded-md bg-white/20 p-1.5 text-white transition-colors hover:bg-white/30"
-                      title="Pin to chat"
+                      title="Fixar na conversa"
                     >
                       <Pin size="0.75rem" />
                     </button>
@@ -156,7 +156,7 @@ export function ChatGallery({ chatId, onIllustrate }: ChatGalleryProps) {
                   <button
                     type="button"
                     onClick={() => setConfirmDeleteId(img.id)}
-                    aria-label="Delete gallery image"
+                    aria-label="Excluir imagem da galeria"
                     className="rounded-md bg-red-500/40 p-1.5 text-white transition-colors hover:bg-red-500/60"
                   >
                     <Trash2 size="0.75rem" />
@@ -220,9 +220,9 @@ export function ChatGallery({ chatId, onIllustrate }: ChatGalleryProps) {
                     pinImage(lightbox);
                     setLightbox(null);
                   }}
-                  aria-label="Pin image to chat"
+                  aria-label="Fixar imagem na conversa"
                   className="rounded-lg bg-black/60 p-2 text-white transition-colors hover:bg-black/80"
-                  title="Pin to chat"
+                  title="Fixar na conversa"
                 >
                   <Minimize2 size="0.875rem" />
                 </button>

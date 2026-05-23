@@ -132,7 +132,7 @@ export function PresetsPanel() {
       !(await showConfirmDialog({
         title: "Delete Presets",
         message: `Delete ${ids.length} preset${ids.length === 1 ? "" : "s"}?`,
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -165,14 +165,14 @@ export function PresetsPanel() {
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-400 to-violet-500 px-3 py-2.5 text-xs font-medium text-white shadow-md shadow-purple-400/15 transition-all hover:shadow-lg hover:shadow-purple-400/25 active:scale-[0.98]"
           title="New"
         >
-          <Plus size="0.8125rem" /> <span className="md:hidden">New</span>
+          <Plus size="0.8125rem" /> <span className="md:hidden">Novo</span>
         </button>
         <button
           onClick={() => openModal("import-preset")}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--secondary)] px-3 py-2.5 text-xs font-medium text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] active:scale-[0.98]"
-          title="Import"
+          title="Importar"
         >
-          <Download size="0.8125rem" /> <span className="md:hidden">Import</span>
+          <Download size="0.8125rem" /> <span className="md:hidden">Importar</span>
         </button>
         <button
           onClick={() => {
@@ -185,9 +185,9 @@ export function PresetsPanel() {
               ? "bg-purple-400/15 text-purple-400 ring-1 ring-purple-400/30"
               : "bg-[var(--secondary)] text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] hover:bg-[var(--accent)]",
           )}
-          title="Select"
+          title="Selecionar"
         >
-          <Check size="0.8125rem" /> <span className="md:hidden">Select</span>
+          <Check size="0.8125rem" /> <span className="md:hidden">Selecionar</span>
         </button>
       </div>
 
@@ -243,7 +243,7 @@ export function PresetsPanel() {
         />
         <input
           type="text"
-          placeholder="Search presets…"
+          placeholder="Buscar predefinições…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full rounded-xl bg-[var(--secondary)] py-2 pl-8 pr-3 text-xs text-[var(--foreground)] ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
@@ -376,7 +376,7 @@ export function PresetsPanel() {
                       duplicatePreset.mutate(preset.id);
                     }}
                     className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-sky-400/10 hover:text-sky-400 active:scale-90"
-                    title="Duplicate"
+                    title="Duplicar"
                   >
                     <Copy size="0.75rem" />
                   </button>
@@ -387,7 +387,7 @@ export function PresetsPanel() {
                         await showConfirmDialog({
                           title: "Delete Preset",
                           message: `Delete "${preset.name}"?`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         })
                       ) {
@@ -395,7 +395,7 @@ export function PresetsPanel() {
                       }
                     }}
                     className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15 active:scale-90"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
                   </button>

@@ -31,69 +31,69 @@ interface TourStep {
 const STEPS: TourStep[] = [
   {
     target: null,
-    title: "Welcome to Marinara Engine!",
-    body: "Howdy! Here's a quick tutorial to show you around. Confident in your skill? Feel free to skip it!\n\n**Warning:** skipping the tutorial will make me cry.",
+    title: "Bem-vindo ao Marinara Engine!",
+    body: "Olá! Aqui está um tutorial rápido para te mostrar o app. Já conhece tudo? Fique à vontade para pular!\n\n**Aviso:** pular o tutorial vai me fazer chorar.",
     sprite: { src: "/sprites/mari/Mari_wave.png" },
   },
   {
     target: "sidebar-toggle",
-    title: "Chats Sidebar",
-    body: "This is where all your conversations live. Create new chats, search through them, and organize your history. You can have as many chats as you want!",
+    title: "Barra Lateral de Conversas",
+    body: "É aqui que ficam todas as suas conversas. Crie novas conversas, pesquise e organize seu histórico. Você pode ter quantas conversas quiser!",
     side: "right",
     sprite: { src: "/sprites/mari/Mari_point_middle_left.png" },
   },
   {
     target: "panel-buttons",
-    title: "Tab Buttons",
-    body: "These buttons (from left to right) open panels for:\n- **Browser:** browse for downloadable cards and more,\n- **Characters:** view and manage all your character cards,\n- **Lorebooks:** lorebooks with all the information you want,\n- **Presets:** section for prompts,\n- **Connections:** Set up your API connection here,\n- **Agents:** Think of them as extensions to your chats, each agent does something atop your main conversation, e.g., tracks details, creates images, etc.,\n- **Persona:** personas you play as,\n- **Settings:** settings for the entire application.\n\nCheck them all out!",
+    title: "Botões de Painel",
+    body: "Esses botões (da esquerda para a direita) abrem painéis para:\n- **Navegador:** explore fichas para download e mais,\n- **Personagens:** veja e gerencie todas as suas fichas de personagem,\n- **Livros de Lore:** livros de lore com todas as informações que você quiser,\n- **Predefinições:** seção para prompts,\n- **Conexões:** configure sua conexão de API aqui,\n- **Agentes:** pense neles como extensões das suas conversas, cada agente faz algo além da conversa principal, ex.: rastreia detalhes, cria imagens, etc.,\n- **Persona:** personas que você interpreta,\n- **Configurações:** configurações de todo o aplicativo.\n\nExplore todos!",
     side: "bottom",
     sprite: { src: "/sprites/mari/Mari_point_up_left.png", flip: true },
   },
   {
     target: "chat-area",
-    title: "Chat Area",
-    body: "This is your main workspace, where you chat with AI characters, enjoy roleplay, and read generated stories. Messages appear here in real time.",
+    title: "Área de Conversa",
+    body: "Este é seu espaço de trabalho principal, onde você conversa com personagens de IA, curte roleplay e lê histórias geradas. As mensagens aparecem aqui em tempo real.",
     side: "left",
     sprite: { src: "/sprites/mari/Mari_point_middle_left.png" },
   },
   {
     target: null,
-    title: "Three Ways to Chat",
-    body: "Marinara Engine has three chat modes:\n\n**Conversation:** Like Discord DMs. Casual texting, character schedules, statuses, and autonomous messaging. Great for slice-of-life and hanging out.\n\n**Roleplay:** Creative writing and storytelling. Rich narration, AI agents that handle tracking, narrative, and more. Perfect for adventures and immersive stories.\n\n**Game:** An RPG-flavored visual novel layer on top of your story, directed by an AI Game Master. Visual effects, tactical combat, party management, a developed plot line, and more. The most immersive experience out of all the available ones.\n\nUpon selecting any of these options, you will be presented with a setup wizard, so don't worry about anything, we'll guide you through the process step by step!",
+    title: "Três Modos de Conversa",
+    body: "O Marinara Engine tem três modos de conversa:\n\n**Conversa:** Como DMs do Discord. Mensagens casuais, agendas de personagens, status e mensagens autônomas. Ótimo para slice-of-life e bate-papo.\n\n**Roleplay:** Escrita criativa e narrativa. Narração rica, agentes de IA que cuidam do rastreamento, narrativa e mais. Perfeito para aventuras e histórias imersivas.\n\n**Jogo:** Uma camada de romance visual com sabor de RPG sobre sua história, dirigida por um Mestre de Jogo de IA. Efeitos visuais, combate tático, gerenciamento de grupo, enredo desenvolvido e mais. A experiência mais imersiva de todas.\n\nAo selecionar qualquer uma dessas opções, você verá um assistente de configuração — não se preocupe com nada, vamos te guiar passo a passo!",
     sprite: { src: "/sprites/mari/Mari_explaining.png" },
   },
   {
     target: null,
-    title: "Meet Professor Mari!",
-    body: "That's me! I'm your built-in assistant. I come pre-installed and I'm always here to help. You can message me anytime to ask questions about the app, and I can even **do things for you:** like create characters, personas, start new chats, and navigate the app.\n\n**Heads up:** when you ask me to update or edit a character or persona, I write directly to your library. Character edits keep a recoverable version snapshot you can roll back to from that character's history, but **persona edits overwrite without a snapshot — back up the persona first** if you want to keep the old version.\n\nI've set up a chat with me in the Chats sidebar already. Feel free to ask me anything after the tour!",
+    title: "Conheça a Professora Mari!",
+    body: "Sou eu! Sou sua assistente integrada. Venho pré-instalada e estou sempre aqui para ajudar. Você pode me enviar mensagens a qualquer momento para perguntar sobre o app, e posso até **fazer coisas por você:** como criar personagens, personas, iniciar novas conversas e navegar pelo app.\n\n**Atenção:** quando você me pede para atualizar ou editar um personagem ou persona, escrevo diretamente na sua biblioteca. Edições de personagens mantêm um snapshot recuperável que você pode reverter pelo histórico do personagem, mas **edições de persona sobrescrevem sem snapshot — faça backup da persona primeiro** se quiser manter a versão antiga.\n\nJá configurei uma conversa comigo na barra lateral. Fique à vontade para me perguntar qualquer coisa após o tour!",
     sprite: { src: "/sprites/mari/Mari_greet.png" },
   },
   {
     target: null,
-    title: "Set Up a Connection",
-    body: "Before you start chatting, you'll need to connect an AI provider. Click the chain-link icon (🔗) in the top-right tab buttons, then add your API key for OpenAI, Anthropic, or another provider.",
+    title: "Configure uma Conexão",
+    body: "Antes de começar a conversar, você precisará conectar um provedor de IA. Clique no ícone de corrente (🔗) nos botões de painel no canto superior direito e adicione sua chave de API para OpenAI, Anthropic ou outro provedor.",
     sprite: { src: "/sprites/mari/Mari_explaining.png" },
   },
   {
     target: null,
-    title: "Optional: Local AI Model",
-    body: "If you want Marinara to run a helper model on your own device, open the Connections panel and use the Local Model card. From there you can open Local AI Model settings, install the runtime for your machine, and then choose a curated Gemma preset or your own local model.",
-    actionLabel: "Open Local Model",
+    title: "Opcional: Modelo de IA Local",
+    body: "Se quiser que o Marinara rode um modelo auxiliar no seu próprio dispositivo, abra o painel de Conexões e use o cartão de Modelo Local. A partir daí você pode abrir as configurações de Modelo de IA Local, instalar o runtime para sua máquina e escolher uma predefinição Gemma curada ou seu próprio modelo local.",
+    actionLabel: "Abrir Modelo Local",
     actionKey: "local-model",
     sprite: { src: "/sprites/mari/Mari_thinking.png" },
   },
   {
     target: null,
-    title: "Migrating from SillyTavern?",
-    body: "If you have characters, chats, or presets from SillyTavern, you can import them all in one go from the Settings panel.",
-    actionLabel: "Take Me There",
+    title: "Migrando do SillyTavern?",
+    body: "Se você tem personagens, conversas ou predefinições do SillyTavern, pode importar tudo de uma vez pelo painel de Configurações.",
+    actionLabel: "Ir para lá",
     actionKey: "migrate",
     sprite: { src: "/sprites/mari/Mari_thinking.png" },
   },
   {
     target: null,
-    title: "You're All Set!",
-    body: "Look for the (?) icons throughout the app. Hover over them at any time to learn what each option does. Have fun exploring!\n\nAnd if you have any further questions, need help, or want to report a bug, feel free to join our Discord server! You can find the invite link on the home page.",
+    title: "Tudo Pronto!",
+    body: "Procure os ícones (?) pelo app. Passe o mouse sobre eles a qualquer momento para saber o que cada opção faz. Divirta-se explorando!\n\nE se tiver mais dúvidas, precisar de ajuda ou quiser reportar um bug, fique à vontade para entrar no nosso servidor do Discord! Você encontra o link de convite na página inicial.",
     sprite: { src: "/sprites/mari/Mari_greet.png" },
   },
 ];
@@ -323,7 +323,7 @@ function TourCardContent({
           onClick={onSkip}
           className="rounded-lg px-3 py-1.5 text-xs text-[var(--muted-foreground)] transition-colors hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
         >
-          {step === 0 ? "Skip Tutorial" : "Skip"}
+          {step === 0 ? "Pular Tutorial" : "Pular"}
         </button>
         <button
           onClick={onNext}

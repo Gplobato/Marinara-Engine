@@ -240,7 +240,7 @@ export function QuickSwitcherMobile() {
       <button
         ref={btnRef}
         onClick={() => setOpen((v) => !v)}
-        title="Quick Switcher"
+        title="Troca Rápida"
         className={cn(
           "flex h-11 w-11 items-center justify-center rounded-xl transition-all",
           open
@@ -361,7 +361,7 @@ export function QuickSwitcherMobile() {
                     ?
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col">
-                    <span className={cn("text-xs font-semibold", !activePersonaId && "text-foreground")}>None</span>
+                    <span className={cn("text-xs font-semibold", !activePersonaId && "text-foreground")}>Nenhum</span>
                     <span className="text-[0.625rem] text-[var(--muted-foreground)]">No persona selected</span>
                   </div>
                   {!activePersonaId && <span className="ml-auto text-[0.6875rem]">✓</span>}

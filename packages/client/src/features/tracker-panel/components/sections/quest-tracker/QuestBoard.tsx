@@ -39,11 +39,11 @@ export function QuestBoard({
     <div className="relative z-10 overflow-hidden pb-0.5">
       <SectionHeader
         icon={<Target size="0.6875rem" />}
-        title="Quest Board"
+        title="Quadro de Missões"
         badge={`${completedQuests}/${quests.length}`}
         badgeTitle={`${completedQuests} done, ${activeQuests} active`}
         action={action}
-        addAction={addMode ? <AddRowButton title="Add quest" onClick={onAddQuest} className="rounded-sm" /> : undefined}
+        addAction={addMode ? <AddRowButton title="Adicionar missão" onClick={onAddQuest} className="rounded-sm" /> : undefined}
         collapsed={collapsed}
         onToggle={onToggleCollapsed}
       />

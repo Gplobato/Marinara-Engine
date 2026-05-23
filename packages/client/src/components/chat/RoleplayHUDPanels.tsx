@@ -209,7 +209,7 @@ export function CombinedPlayerPanel({
                 agentType="persona-stats"
                 onRerunSingleTracker={onRerunSingleTracker}
                 busy={isTrackerRetryBusy}
-                title="Re-run persona tracker (stats + inventory)"
+                title="Reexecutar rastreador de persona (atributos + inventário)"
               />
             </div>
             <div className="space-y-2">
@@ -238,7 +238,7 @@ export function CombinedPlayerPanel({
                   agentType="character-tracker"
                   onRerunSingleTracker={onRerunSingleTracker}
                   busy={isTrackerRetryBusy}
-                  title="Re-run character tracker only"
+                  title="Reexecutar apenas rastreador de personagem"
                 />
                 <button
                   onClick={addCharacter}
@@ -262,12 +262,12 @@ export function CombinedPlayerPanel({
                       value={char.name}
                       onSave={(value) => updateCharacter(idx, { ...char, name: value })}
                       className="flex-1 !font-medium"
-                      placeholder="Name"
+                      placeholder="Nome"
                     />
                     <button
                       onClick={() => removeCharacter(idx)}
                       className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-                      title="Remove character"
+                      title="Remover personagem"
                     >
                       <X size="0.625rem" />
                     </button>
@@ -342,7 +342,7 @@ export function CombinedPlayerPanel({
                     value={item.name}
                     onSave={(value) => updateItem(idx, { ...item, name: value })}
                     className="flex-1"
-                    placeholder="Item name"
+                    placeholder="Nome do item"
                   />
                   <input
                     type="number"
@@ -354,7 +354,7 @@ export function CombinedPlayerPanel({
                   <button
                     onClick={() => removeItem(idx)}
                     className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-                    title="Remove item"
+                    title="Remover item"
                   >
                     <X size="0.5625rem" />
                   </button>
@@ -375,7 +375,7 @@ export function CombinedPlayerPanel({
                   agentType="quest"
                   onRerunSingleTracker={onRerunSingleTracker}
                   busy={isTrackerRetryBusy}
-                  title="Re-run quest tracker only"
+                  title="Reexecutar apenas rastreador de missões"
                 />
                 <button
                   onClick={addQuest}
@@ -410,7 +410,7 @@ export function CombinedPlayerPanel({
                   agentType="custom-tracker"
                   onRerunSingleTracker={onRerunSingleTracker}
                   busy={isTrackerRetryBusy}
-                  title="Re-run custom tracker only"
+                  title="Reexecutar apenas rastreador personalizado"
                 />
                 <button
                   onClick={addCustomField}
@@ -429,7 +429,7 @@ export function CombinedPlayerPanel({
                     value={field.name}
                     onSave={(value) => updateCustomField(idx, { ...field, name: value })}
                     className="flex-1 min-w-0"
-                    placeholder="Field name"
+                    placeholder="Nome do campo"
                   />
                   <span className="text-[var(--muted-foreground)]/40 text-[0.5rem]">=</span>
                   <InlineEdit
@@ -441,7 +441,7 @@ export function CombinedPlayerPanel({
                   <button
                     onClick={() => removeCustomField(idx)}
                     className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-                    title="Remove field"
+                    title="Remover campo"
                   >
                     <X size="0.5625rem" />
                   </button>
@@ -494,7 +494,7 @@ export function PersonaStatsPanel({
           agentType="persona-stats"
           onRerunSingleTracker={onRerunSingleTracker}
           busy={isTrackerRetryBusy}
-          title="Re-run persona tracker (stats + inventory)"
+          title="Reexecutar rastreador de persona (atributos + inventário)"
         />
       </div>
       <div className="p-2 space-y-2">
@@ -617,7 +617,7 @@ export function CharactersPanel({
             agentType="character-tracker"
             onRerunSingleTracker={onRerunSingleTracker}
             busy={isTrackerRetryBusy}
-            title="Re-run character tracker only"
+            title="Reexecutar apenas rastreador de personagem"
           />
           {trackerConfig && (
             <button
@@ -655,7 +655,7 @@ export function CharactersPanel({
                     fileInputRef.current?.click();
                   }}
                   className="shrink-0 rounded-full overflow-hidden ring-1 ring-purple-400/40 hover:ring-purple-400/80 transition-all"
-                  title="Change avatar"
+                  title="Alterar avatar"
                 >
                   <img src={char.avatarPath} alt={char.name} className="w-8 h-8 object-cover" />
                 </button>
@@ -675,12 +675,12 @@ export function CharactersPanel({
                 value={char.name}
                 onSave={(value) => updateCharacter(idx, { ...char, name: value })}
                 className="flex-1 !font-medium"
-                placeholder="Name"
+                placeholder="Nome"
               />
               <button
                 onClick={() => removeCharacter(idx)}
                 className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-                title="Remove character"
+                title="Remover personagem"
               >
                 <X size="0.625rem" />
               </button>
@@ -788,7 +788,7 @@ export function InventoryPanel({ items, onUpdate }: InventoryPanelProps) {
               value={item.name}
               onSave={(value) => updateItem(idx, { ...item, name: value })}
               className="flex-1 min-w-0"
-              placeholder="Item name"
+              placeholder="Nome do item"
             />
             <input
               type="number"
@@ -800,7 +800,7 @@ export function InventoryPanel({ items, onUpdate }: InventoryPanelProps) {
             <button
               onClick={() => removeItem(idx)}
               className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-              title="Remove item"
+              title="Remover item"
             >
               <X size="0.5625rem" />
             </button>
@@ -853,7 +853,7 @@ export function QuestsPanel({ quests, onUpdate, onRerunSingleTracker, isTrackerR
             agentType="quest"
             onRerunSingleTracker={onRerunSingleTracker}
             busy={isTrackerRetryBusy}
-            title="Re-run quest tracker only"
+            title="Reexecutar apenas rastreador de missões"
           />
           <button
             onClick={addQuest}
@@ -916,7 +916,7 @@ export function CustomTrackerPanel({
             agentType="custom-tracker"
             onRerunSingleTracker={onRerunSingleTracker}
             busy={isTrackerRetryBusy}
-            title="Re-run custom tracker only"
+            title="Reexecutar apenas rastreador personalizado"
           />
           <button
             onClick={addField}
@@ -935,7 +935,7 @@ export function CustomTrackerPanel({
               value={field.name}
               onSave={(value) => updateField(idx, { ...field, name: value })}
               className="flex-1 min-w-0"
-              placeholder="Field name"
+              placeholder="Nome do campo"
             />
             <span className="text-[var(--muted-foreground)]/40 text-[0.5rem]">=</span>
             <InlineEdit
@@ -947,7 +947,7 @@ export function CustomTrackerPanel({
             <button
               onClick={() => removeField(idx)}
               className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-              title="Remove field"
+              title="Remover campo"
             >
               <X size="0.5625rem" />
             </button>
@@ -1006,7 +1006,7 @@ export function CombinedWorldPanel({
             agentType="world-state"
             onRerunSingleTracker={onRerunSingleTracker}
             busy={isTrackerRetryBusy}
-            title="Re-run world state tracker only"
+            title="Reexecutar apenas rastreador de estado do mundo"
           />
           <button
             onClick={onClose}
@@ -1326,7 +1326,7 @@ function StatBarEditable({
             value={stat.name}
             onSave={onUpdateName}
             className="!text-[0.625rem] !font-medium !text-[var(--foreground)]/80"
-            placeholder="Stat name"
+            placeholder="Nome do atributo"
           />
         ) : (
           <span className="text-[0.625rem] font-medium text-[var(--foreground)]/80">{stat.name}</span>
@@ -1351,7 +1351,7 @@ function StatBarEditable({
         <button
           type="button"
           onClick={onRemove}
-          title="Remove stat"
+          title="Remover atributo"
           aria-label={`Remove ${stat.name || "stat"}`}
           className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded bg-[var(--popover)]/90 text-[var(--muted-foreground)]/45 opacity-0 shadow-sm ring-1 ring-[var(--border)]/70 transition-all hover:text-[var(--destructive)] hover:opacity-100 focus-visible:opacity-100 group-hover/stat:opacity-80 max-md:opacity-80"
         >
@@ -1420,7 +1420,7 @@ function QuestCardEditable({
           value={quest.name}
           onSave={(value) => onUpdate({ ...quest, name: value })}
           className={cn("flex-1 !font-medium", quest.completed && "line-through opacity-50")}
-          placeholder="Quest name"
+          placeholder="Nome da missão"
         />
         {total > 0 && (
           <span className="text-[0.5625rem] text-[var(--muted-foreground)]/60">
@@ -1430,7 +1430,7 @@ function QuestCardEditable({
         <button
           onClick={onRemove}
           className="text-[var(--muted-foreground)]/40 hover:text-red-500 transition-colors shrink-0"
-          title="Remove quest"
+          title="Remover missão"
         >
           <X size="0.5625rem" />
         </button>

@@ -26,7 +26,7 @@ export function CreateLorebookModal({ open, onClose }: Props) {
   });
 
   return (
-    <Modal open={open} onClose={onClose} title="Create Lorebook">
+    <Modal open={open} onClose={onClose} title="Criar Livro de Lore">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg shadow-amber-400/20">
@@ -51,11 +51,11 @@ export function CreateLorebookModal({ open, onClose }: Props) {
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-[var(--muted-foreground)]">Description</span>
+          <span className="text-xs font-medium text-[var(--muted-foreground)]">Descrição</span>
           <textarea
             value={form.description}
             onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-            placeholder="Brief description of this lorebook..."
+            placeholder="Breve descrição deste livro de lore..."
             rows={3}
             className="resize-none rounded-lg bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]"
           />
@@ -64,7 +64,7 @@ export function CreateLorebookModal({ open, onClose }: Props) {
         {createLorebook.isError && (
           <div className="flex items-center gap-2 rounded-lg bg-[var(--destructive)]/10 p-2.5 text-xs text-[var(--destructive)]">
             <AlertCircle size="0.75rem" className="shrink-0" />
-            {createLorebook.error instanceof Error ? createLorebook.error.message : "Failed to create lorebook"}
+            {createLorebook.error instanceof Error ? createLorebook.error.message : "Falha ao criar livro de lore"}
           </div>
         )}
 

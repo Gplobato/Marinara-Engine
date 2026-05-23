@@ -89,7 +89,7 @@ const TOP_BAR_SELECTOR = '[data-component="TopBar"]';
 
 function MainPaneFallback() {
   return (
-    <div className="flex flex-1 items-center justify-center text-sm text-[var(--muted-foreground)]">Loading...</div>
+    <div className="flex flex-1 items-center justify-center text-sm text-[var(--muted-foreground)]">Carregando...</div>
   );
 }
 /** Mounts children once `open` becomes true, then keeps them mounted so state persists.
@@ -132,7 +132,7 @@ function MountOnceWhenOpened({
 
 function SidePanelFallback() {
   return (
-    <div className="flex h-full items-center justify-center text-sm text-[var(--muted-foreground)]">Loading...</div>
+    <div className="flex h-full items-center justify-center text-sm text-[var(--muted-foreground)]">Carregando...</div>
   );
 }
 
@@ -701,7 +701,7 @@ export function AppShell() {
       <aside
         data-tour="sidebar"
         data-component="ChatSidebarPanel"
-        aria-label="Chat list"
+        aria-label="Lista de conversas"
         className={cn(
           "mari-sidebar flex-shrink-0 overflow-hidden bg-[var(--background)]/80 backdrop-blur-xl",
           sidebarDragWidth == null && "transition-[width] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",
@@ -825,7 +825,7 @@ export function AppShell() {
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 350 }}
               data-component="RightPanelMobile"
-              aria-label="Settings and tools panel"
+              aria-label="Painel de configurações e ferramentas"
               className="mari-right-panel !fixed inset-y-0 right-0 z-50 !w-full shadow-2xl overflow-hidden bg-[var(--background)]/80 backdrop-blur-xl pt-[env(safe-area-inset-top)]"
             >
               <Suspense fallback={<SidePanelFallback />}>
@@ -837,7 +837,7 @@ export function AppShell() {
       ) : (
         <aside
           data-component="RightPanelDesktop"
-          aria-label="Settings and tools panel"
+          aria-label="Painel de configurações e ferramentas"
           className={cn(
             "mari-right-panel flex-shrink-0 overflow-hidden bg-[var(--background)]/80 backdrop-blur-xl",
             rightPanelDragWidth == null && "transition-[width] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",

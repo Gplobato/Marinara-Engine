@@ -441,7 +441,7 @@ function NpcsView({
                     type="button"
                     onClick={() => handleNpcPortraitAvatarClick(entry.npc.name)}
                     className="rounded-full transition-transform hover:scale-[1.05] focus:outline-none focus:ring-2 focus:ring-white/20"
-                    title="Upload or replace NPC portrait"
+                    title="Enviar ou substituir retrato de NPC"
                   >
                     {entry.npc.avatarUrl ? (
                       <img
@@ -468,7 +468,7 @@ function NpcsView({
                         (portraitGenerating || mobilePortraitActionsNpc === entry.npc.name.trim().toLowerCase()) &&
                           "max-md:opacity-100",
                       )}
-                      title="Generate NPC portrait"
+                      title="Gerar retrato de NPC"
                     >
                       {portraitGenerating ? (
                         <Loader2 size="0.6rem" className="animate-spin" />
@@ -495,7 +495,7 @@ function NpcsView({
                   type="button"
                   onClick={() => onNpcRemove(entry.originalName)}
                   disabled={isRemoving}
-                  title="Remove this NPC from the journal"
+                  title="Remover este NPC do diário"
                   className="rounded p-1 text-white/35 transition-colors hover:bg-red-500/15 hover:text-red-300 disabled:opacity-40"
                 >
                   <Trash2 size={11} />

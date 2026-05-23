@@ -54,7 +54,7 @@ export function ExpandedTextarea({ open, onClose, title, value, onChange, placeh
                 className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
               >
                 <Minimize2 size="0.875rem" />
-                <span className="max-md:hidden">Collapse</span>
+                <span className="max-md:hidden">Recolher</span>
               </button>
             </div>
           </div>

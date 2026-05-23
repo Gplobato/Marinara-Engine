@@ -235,7 +235,7 @@ export function CyoaChoices({ messages }: Props) {
           title={isEditing ? "Cancel editing choices" : "Edit CYOA choices"}
         >
           <Pencil size="0.625rem" />
-          <span>{isEditing ? "Cancel" : "Edit"}</span>
+          <span>{isEditing ? "Cancelar" : "Edit"}</span>
         </button>
         <button
           type="button"
@@ -244,7 +244,7 @@ export function CyoaChoices({ messages }: Props) {
           }}
           disabled={isStreaming || isEditing || isRerolling || updateMessageExtra.isPending}
           className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--muted)]/20 px-2 py-1 text-[0.5625rem] text-[var(--foreground)]/60 transition-all hover:border-[var(--border)] hover:bg-[var(--muted)]/40 hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-black/35 dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80"
-          title="Re-roll CYOA choices using the latest chat context"
+          title="Rolar novamente as escolhas CYOA com o contexto atual"
         >
           {isRerolling ? <Loader2 size="0.625rem" className="animate-spin" /> : <Dices size="0.625rem" />}
           <span>{isRerolling ? "Rolling" : "Re-roll"}</span>
@@ -281,7 +281,7 @@ export function CyoaChoices({ messages }: Props) {
               className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--muted)]/20 px-3 py-1.5 text-[0.625rem] text-[var(--foreground)]/70 transition-colors hover:bg-[var(--muted)]/40 hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-black/35 dark:text-white/60"
             >
               <X size="0.75rem" />
-              <span>Cancel</span>
+              <span>Cancelar</span>
             </button>
             <button
               type="button"

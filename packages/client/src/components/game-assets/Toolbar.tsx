@@ -186,7 +186,7 @@ export function Toolbar({
             type="button"
             onClick={onClose}
             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-            title="Close assets"
+            title="Fechar recursos"
             aria-label="Close assets"
           >
             <X size="0.875rem" />
@@ -276,7 +276,7 @@ export function Toolbar({
                 ? "border-[var(--primary)]/40 bg-[var(--primary)]/10 text-[var(--primary)]"
                 : "border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--accent)]",
             )}
-            title="Select assets for this game"
+            title="Selecionar recursos para este jogo"
             aria-label="Select assets for this game"
             aria-pressed={assetSelection.active}
           >
@@ -295,7 +295,7 @@ export function Toolbar({
           className="flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
         >
           <Upload size="0.875rem" />
-          <span className="max-sm:hidden">Upload</span>
+          <span className="max-sm:hidden">Enviar</span>
         </button>
 
         <button
@@ -307,7 +307,7 @@ export function Toolbar({
           )}
         >
           <Plus size="0.875rem" />
-          <span className="max-sm:hidden">New</span>
+          <span className="max-sm:hidden">Novo</span>
         </button>
         {dropdown(
           newOpen,

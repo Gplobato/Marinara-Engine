@@ -40,7 +40,7 @@ export function TrackerSidebarHeader({
     <button
       type="button"
       onClick={onClose}
-      title="Close trackers"
+      title="Fechar rastreadores"
       aria-label="Close tracker panel"
       className="flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-[var(--background)]/45 text-[var(--primary)] ring-1 ring-[var(--primary)]/25 transition-all hover:bg-[var(--primary)]/12 hover:ring-[var(--primary)]/40 active:scale-90"
     >

@@ -207,7 +207,7 @@ export function ToolEditor() {
       !(await showConfirmDialog({
         title: "Delete Tool",
         message: "Delete this custom tool? This cannot be undone.",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -418,7 +418,7 @@ export function ToolEditor() {
                         setLocalParams(next);
                         markDirty();
                       }}
-                      placeholder="Description of this parameter…"
+                      placeholder="Descrição deste parâmetro…"
                       className="w-full rounded-lg bg-[var(--secondary)] px-2 py-1.5 text-xs ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-[var(--ring)]"
                     />
                   </div>

@@ -33,15 +33,15 @@ const PetPanel = lazy(() =>
 );
 
 const PANEL_CONFIG: Record<string, { title: string; icon: ReactNode; gradient: string }> = {
-  "bot-browser": { title: "Browser", icon: <Bot size="0.875rem" />, gradient: "from-cyan-400 to-blue-500" },
-  characters: { title: "Characters", icon: <Users size="0.875rem" />, gradient: "from-pink-400 to-rose-500" },
-  lorebooks: { title: "Lorebooks", icon: <BookOpen size="0.875rem" />, gradient: "from-amber-400 to-orange-500" },
-  presets: { title: "Presets", icon: <FileText size="0.875rem" />, gradient: "from-purple-400 to-violet-500" },
-  connections: { title: "Connections", icon: <Link size="0.875rem" />, gradient: "from-sky-400 to-blue-500" },
-  agents: { title: "Agents", icon: <Sparkles size="0.875rem" />, gradient: "from-pink-300 to-purple-400" },
+  "bot-browser": { title: "Navegador", icon: <Bot size="0.875rem" />, gradient: "from-cyan-400 to-blue-500" },
+  characters: { title: "Personagens", icon: <Users size="0.875rem" />, gradient: "from-pink-400 to-rose-500" },
+  lorebooks: { title: "Livros de Lore", icon: <BookOpen size="0.875rem" />, gradient: "from-amber-400 to-orange-500" },
+  presets: { title: "Predefinições", icon: <FileText size="0.875rem" />, gradient: "from-purple-400 to-violet-500" },
+  connections: { title: "Conexões", icon: <Link size="0.875rem" />, gradient: "from-sky-400 to-blue-500" },
+  agents: { title: "Agentes", icon: <Sparkles size="0.875rem" />, gradient: "from-pink-300 to-purple-400" },
   personas: { title: "Personas", icon: <User size="0.875rem" />, gradient: "from-emerald-400 to-teal-500" },
-  settings: { title: "Settings", icon: <Settings size="0.875rem" />, gradient: "from-gray-400 to-gray-500" },
-  inventory: { title: "Inventory", icon: <Backpack size="0.875rem" />, gradient: "from-amber-500 to-yellow-600" },
+  settings: { title: "Configurações", icon: <Settings size="0.875rem" />, gradient: "from-gray-400 to-gray-500" },
+  inventory: { title: "Inventário", icon: <Backpack size="0.875rem" />, gradient: "from-amber-500 to-yellow-600" },
   pets: { title: "Pets", icon: <Heart size="0.875rem" />, gradient: "from-pink-400 to-rose-500" },
 };
 
@@ -63,7 +63,7 @@ const mountedPanels = new Set<string>();
 
 function PanelFallback() {
   return (
-    <div className="flex h-full items-center justify-center text-sm text-[var(--muted-foreground)]">Loading...</div>
+    <div className="flex h-full items-center justify-center text-sm text-[var(--muted-foreground)]">Carregando...</div>
   );
 }
 

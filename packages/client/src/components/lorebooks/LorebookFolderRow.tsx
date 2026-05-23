@@ -126,12 +126,12 @@ export function LorebookFolderRow({
     async (e: ReactMouseEvent) => {
       e.stopPropagation();
       const confirmed = await showConfirmDialog({
-        title: "Delete Folder",
+        title: "Excluir Pasta",
         message:
           entryCount > 0
             ? `Delete this folder? The ${entryCount} entr${entryCount === 1 ? "y" : "ies"} inside will be moved back to the root level.`
             : "Delete this folder?",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       });
       if (!confirmed) return;

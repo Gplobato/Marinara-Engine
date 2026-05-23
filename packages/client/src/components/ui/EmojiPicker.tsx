@@ -1224,7 +1224,7 @@ export function EmojiPicker({ open, onClose, onSelect, anchorRef, containerRef }
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search emojis..."
+          placeholder="Buscar emojis..."
           className="w-full rounded-md bg-[var(--secondary)] px-2.5 py-1.5 text-xs outline-none placeholder:text-[var(--muted-foreground)]/50"
           autoFocus
         />

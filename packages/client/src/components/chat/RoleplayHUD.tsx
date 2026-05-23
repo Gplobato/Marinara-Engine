@@ -445,8 +445,8 @@ function TrackerPanelToggleButton({ onToggle }: { onToggle: () => void }) {
       data-tracker-panel-toggle="roleplay-hud"
       onClick={onToggle}
       className={cn(WIDGET, "text-foreground/50 hover:border-foreground/20 hover:text-foreground/75")}
-      title="Show Tracker Panel"
-      aria-label="Show Tracker Panel"
+      title="Mostrar Painel de Rastreamento"
+      aria-label="Mostrar Painel de Rastreamento"
     >
       <TrackerPanelIcon size="1.05rem" strokeWidth={1.95} className="shrink-0" />
       <span className="sr-only">Tracker Panel</span>
@@ -612,7 +612,7 @@ function ActionsGroup({
           "group flex items-center gap-1.5 md:gap-1 rounded-lg border border-[var(--border)] bg-[var(--card)]/80 backdrop-blur-md px-2 py-1.5 md:px-2 md:py-2 md:h-10 transition-all hover:bg-[var(--card)] dark:border-foreground/10 dark:bg-black/40 dark:hover:bg-black/60 cursor-pointer select-none",
           agentsOpen && "bg-[var(--card)] border-[var(--border)] dark:bg-black/60 dark:border-foreground/20",
         )}
-        title="Agents & Actions"
+        title="Agentes & Ações"
       >
         <Sparkles
           size="0.875rem"
@@ -1211,7 +1211,7 @@ function QuestsWidget({
         ref={buttonRef}
         onClick={() => setOpen(!open)}
         className={cn(WIDGET, "text-emerald-300")}
-        title="Active Quests"
+        title="Missões Ativas"
       >
         {currentObjective ? (
           <span className="widget-scroll-text w-full px-0.5 text-center text-[0.375rem] font-semibold leading-[1.15] max-md:text-[0.5rem]">

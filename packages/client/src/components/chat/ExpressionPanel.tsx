@@ -68,7 +68,7 @@ export function ExpressionPanel({ characterIds, messages, characterMap, isRolepl
             ? "border-white/5 bg-black/30 text-white/40 hover:bg-black/50 hover:text-white/70"
             : "border-[var(--border)] bg-[var(--card)] text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
         )}
-        title="Show expressions"
+        title="Mostrar expressões"
       >
         <ChevronLeft size="0.875rem" />
       </button>
@@ -105,7 +105,7 @@ export function ExpressionPanel({ characterIds, messages, characterMap, isRolepl
               ? "text-white/40 hover:bg-white/10 hover:text-white/70"
               : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
           )}
-          title="Collapse panel"
+          title="Recolher painel"
         >
           <ChevronRight size="0.875rem" />
         </button>

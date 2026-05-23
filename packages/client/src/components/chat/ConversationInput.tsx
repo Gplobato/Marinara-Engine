@@ -1593,7 +1593,7 @@ export function ConversationInput({
               ? "bg-foreground/10 text-foreground/75"
               : "text-foreground/40 hover:bg-foreground/10 hover:text-foreground/70",
           )}
-          title="Attach file"
+          title="Anexar arquivo"
         >
           <Plus size="1rem" />
         </button>
@@ -1818,7 +1818,7 @@ export function ConversationInput({
                       onClick={() => void handleDeleteSavedStatus(status)}
                       disabled={updatePersona.isPending}
                       className="mr-1 rounded-md p-1.5 text-[var(--muted-foreground)] opacity-70 transition-colors hover:text-[var(--destructive)] disabled:opacity-40 sm:opacity-0 sm:group-hover:opacity-100"
-                      title="Remove saved status"
+                      title="Remover status salvo"
                     >
                       <Trash2 size="0.75rem" />
                     </button>

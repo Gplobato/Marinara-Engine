@@ -329,7 +329,7 @@ export function ChatArea() {
         return;
       }
 
-      const label = mode === "conversation" ? "Conversation" : mode === "game" ? "Game" : "Roleplay";
+      const label = mode === "conversation" ? "Conversa" : mode === "game" ? "Jogo" : "Roleplay";
       createChat.mutate(
         { name: `New ${label}`, mode, characterIds: [] },
         {
@@ -1604,7 +1604,7 @@ export function ChatArea() {
             >
               <QuickStartCard
                 icon={<MessageSquare size="1.125rem" />}
-                label="Conversation"
+                label="Conversa"
                 bg="linear-gradient(135deg, #4de5dd, #3ab8b1)"
                 shadowColor="rgba(77,229,221,0.15)"
                 tooltip="General chat with one or more characters, or a model itself"
@@ -1620,7 +1620,7 @@ export function ChatArea() {
               />
               <QuickStartCard
                 icon={<Theater size="1.125rem" />}
-                label="Game"
+                label="Jogo"
                 bg="linear-gradient(135deg, #e15c8c, #c94776)"
                 shadowColor="rgba(225,92,140,0.15)"
                 tooltip="AI-managed singleplayer RPG with a Game Master, party, dice, maps, and quests"
@@ -1715,7 +1715,7 @@ export function ChatArea() {
               <button
                 onClick={() => useUIStore.getState().setHasCompletedOnboarding(false)}
                 className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[0.625rem] text-[var(--muted-foreground)]/40 transition-colors hover:bg-[var(--secondary)]/60 hover:text-[var(--muted-foreground)]"
-                title="Replay tutorial"
+                title="Repetir tutorial"
               >
                 <HelpCircle size="0.75rem" />
                 Replay Tutorial

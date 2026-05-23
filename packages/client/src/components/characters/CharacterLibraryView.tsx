@@ -185,7 +185,7 @@ function CharacterLibraryDetailCard({
               <div className="flex shrink-0 flex-col items-end gap-1.5">
                 <span
                   className="inline-flex items-center gap-1 rounded-full bg-[var(--secondary)] px-2.5 py-1 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)]"
-                  title="Estimated from character card text fields; actual tokenizer counts vary by model."
+                  title="Estimado a partir dos campos de texto do personagem; contagens reais variam por modelo."
                 >
                   <Hash size="0.75rem" />
                   {formatEstimatedTokens(tokenEstimate)}
@@ -351,7 +351,7 @@ export function CharacterLibraryView() {
             <button
               onClick={closeCharacterLibrary}
               className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[var(--border)]/60 bg-[var(--secondary)]/80 text-[var(--muted-foreground)] transition-all hover:border-[var(--primary)]/35 hover:text-[var(--primary)] md:h-10 md:w-10"
-              title="Close library"
+              title="Fechar biblioteca"
             >
               <ArrowLeft size="0.95rem" />
             </button>
@@ -539,7 +539,7 @@ export function CharacterLibraryView() {
                         <div className="mt-auto flex flex-wrap gap-1 sm:gap-1.5">
                           <span
                             className="inline-flex items-center gap-1 rounded-full bg-[var(--secondary)] px-1.5 py-0.5 text-[0.5625rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] sm:px-2 sm:py-1 sm:text-[0.625rem]"
-                            title="Estimated from character card text fields; actual tokenizer counts vary by model."
+                            title="Estimado a partir dos campos de texto do personagem; contagens reais variam por modelo."
                           >
                             <Hash size="0.5625rem" />
                             {formatEstimatedTokens(tokenEstimate)}

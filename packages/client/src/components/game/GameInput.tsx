@@ -430,7 +430,7 @@ export function GameInput({
               <button
                 onClick={onClearPendingMove}
                 className="shrink-0 text-sky-100/60 transition-colors hover:text-sky-100"
-                title="Clear destination"
+                title="Limpar destino"
               >
                 ✕
               </button>
@@ -460,7 +460,7 @@ export function GameInput({
                 >
                   <Users size={14} className="shrink-0" />
                   <span className="flex-1">Talk to Party</span>
-                  {addressMode === "party" && <span className="text-[0.625rem] uppercase tracking-wide">On</span>}
+                  {addressMode === "party" && <span className="text-[0.625rem] uppercase tracking-wide">Ligado</span>}
                 </button>
               )}
               <button
@@ -474,7 +474,7 @@ export function GameInput({
               >
                 <MessageCircle size={14} className="shrink-0" />
                 <span className="flex-1">Talk to GM</span>
-                {addressMode === "gm" && <span className="text-[0.625rem] uppercase tracking-wide">On</span>}
+                {addressMode === "gm" && <span className="text-[0.625rem] uppercase tracking-wide">Ligado</span>}
               </button>
             </div>
           )}
@@ -519,7 +519,7 @@ export function GameInput({
               ? "text-blue-400 hover:bg-foreground/10"
               : "text-foreground/40 hover:bg-foreground/10 hover:text-foreground/70",
           )}
-          title="Attach files"
+          title="Anexar arquivos"
         >
           <Paperclip size={18} />
         </button>
@@ -563,7 +563,7 @@ export function GameInput({
               type="button"
               onClick={() => setQueuedDice(null)}
               className="ml-1 text-[var(--muted-foreground)]/60 transition-colors hover:text-[var(--foreground)]"
-              title="Clear queued roll"
+              title="Limpar rolagem na fila"
             >
               ✕
             </button>

@@ -146,10 +146,10 @@ const MATCHING_SOURCE_OPTIONS: Array<{ value: LorebookMatchingSource; label: str
 ];
 
 const GENERATION_TRIGGER_OPTIONS: Array<{ value: string; label: string }> = [
-  { value: "conversation", label: "Conversation" },
+  { value: "conversation", label: "Conversa" },
   { value: "roleplay", label: "Roleplay" },
   { value: "visual_novel", label: "VN" },
-  { value: "game", label: "Game" },
+  { value: "game", label: "Jogo" },
   { value: "chat", label: "Chat reply" },
   { value: "continue", label: "Continue" },
   { value: "autonomous", label: "Autonomous" },
@@ -307,7 +307,7 @@ export function LorebookEntryRow({
         !(await showConfirmDialog({
           title: "Delete Entry",
           message: "Delete this lorebook entry?",
-          confirmLabel: "Delete",
+          confirmLabel: "Excluir",
           tone: "destructive",
         }))
       ) {
@@ -1186,7 +1186,7 @@ function ExpandedDrawer({
           onBlur={flushAutosave}
           rows={2}
           className="w-full resize-y rounded-lg bg-[var(--secondary)] px-2.5 py-2 text-sm ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-          placeholder="Brief summary of what this entry is about (used by Knowledge Router agent)."
+          placeholder="Resumo breve desta entrada (usado pelo agente Roteador de Conhecimento)."
         />
       </FieldGroup>
 
@@ -1233,7 +1233,7 @@ function ExpandedDrawer({
           <div className="grid gap-3 lg:grid-cols-3">
             <div className="space-y-2 rounded-lg bg-[var(--secondary)]/45 p-2 ring-1 ring-[var(--border)]">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[0.6875rem] font-medium">Characters</span>
+                <span className="text-[0.6875rem] font-medium">Personagens</span>
                 <FilterModeSelect
                   value={form.characterFilterMode ?? "any"}
                   onChange={(value) => update({ characterFilterMode: value })}
@@ -1243,7 +1243,7 @@ function ExpandedDrawer({
                 values={characters.map((character) => ({ value: character.id, label: character.name }))}
                 selected={form.characterFilterIds ?? []}
                 onChange={(next) => update({ characterFilterIds: next })}
-                emptyLabel="No characters available."
+                emptyLabel="Nenhum personagem disponível."
               />
             </div>
 
@@ -1259,7 +1259,7 @@ function ExpandedDrawer({
                 values={characterTags.map((tag) => ({ value: tag, label: tag }))}
                 selected={form.characterTagFilters ?? []}
                 onChange={(next) => update({ characterTagFilters: next })}
-                emptyLabel="No character tags available."
+                emptyLabel="Nenhuma tag de personagem disponível."
               />
             </div>
 
@@ -1275,7 +1275,7 @@ function ExpandedDrawer({
                 values={GENERATION_TRIGGER_OPTIONS}
                 selected={form.generationTriggerFilters ?? []}
                 onChange={(next) => update({ generationTriggerFilters: next })}
-                emptyLabel="No trigger filters available."
+                emptyLabel="Nenhum filtro de gatilho disponível."
               />
             </div>
           </div>
@@ -1291,7 +1291,7 @@ function ExpandedDrawer({
               values={MATCHING_SOURCE_OPTIONS}
               selected={form.additionalMatchingSources ?? []}
               onChange={(next) => update({ additionalMatchingSources: next as LorebookMatchingSource[] })}
-              emptyLabel="No sources available."
+              emptyLabel="Nenhuma fonte disponível."
             />
           </div>
         </div>
@@ -1309,7 +1309,7 @@ function ExpandedDrawer({
           onBlur={flushAutosave}
           onCommit={flushAutosave}
           rows={5}
-          placeholder="The content that will be injected into the prompt when this entry activates…"
+          placeholder="Conteúdo que será injetado no prompt quando esta entrada ativar…"
           title="Edit Content"
         />
         <p className="mt-1 flex items-center gap-1 text-[0.625rem] text-[var(--muted-foreground)]">
@@ -1361,9 +1361,9 @@ function ExpandedDrawer({
           onChange={(e) => update({ role: e.target.value as "system" | "user" | "assistant" })}
           className="w-full max-w-xs rounded-lg bg-[var(--secondary)] px-2 py-1.5 text-xs ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
         >
-          <option value="system">System</option>
-          <option value="user">User</option>
-          <option value="assistant">Assistant</option>
+          <option value="system">Sistema</option>
+          <option value="user">Usuário</option>
+          <option value="assistant">Assistente</option>
         </select>
       </FieldGroup>
 
@@ -1404,7 +1404,7 @@ function ExpandedDrawer({
       >
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-[0.6875rem] text-[var(--muted-foreground)]">Group</label>
+            <label className="mb-1 block text-[0.6875rem] text-[var(--muted-foreground)]">Grupo</label>
             <input
               value={form.group ?? ""}
               onChange={(e) => update({ group: e.target.value })}

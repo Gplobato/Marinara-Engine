@@ -200,7 +200,7 @@ export function STBulkImportModal({ open, onClose }: Props) {
         setPhase("input");
       }
     } catch (err) {
-      setError(err instanceof Error ? `Failed to connect to server: ${err.message}` : "Failed to connect to server");
+      setError(err instanceof Error ? `Falha ao conectar ao servidor: ${err.message}` : "Falha ao conectar ao servidor");
       setPhase("input");
     }
   }, [folderPath, folderToken]);
@@ -401,7 +401,7 @@ export function STBulkImportModal({ open, onClose }: Props) {
                   onClick={handleBrowse}
                   disabled={phase === "scanning" || picking}
                   className="flex items-center justify-center gap-1 rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-medium transition-all hover:bg-[var(--secondary)] active:scale-95 disabled:opacity-50"
-                  title="Browse for folder"
+                  title="Procurar pasta"
                 >
                   {picking ? <Loader2 size="0.875rem" className="animate-spin" /> : <FolderOpen size="0.875rem" />}
                   Browse

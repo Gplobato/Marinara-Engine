@@ -48,7 +48,7 @@ export function CreateConnectionModal({ open, onClose }: Props) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Create Connection" width="max-w-sm">
+    <Modal open={open} onClose={onClose} title="Criar Conexão" width="max-w-sm">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 shadow-lg shadow-sky-400/20">

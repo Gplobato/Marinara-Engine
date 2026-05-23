@@ -196,7 +196,7 @@ export function ExpandableTextarea({
         <button
           onClick={() => setExpanded(true)}
           className="absolute right-2 top-2 rounded-md p-1 text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-          title="Expand editor"
+          title="Expandir editor"
         >
           <Maximize2 size="0.8125rem" />
         </button>

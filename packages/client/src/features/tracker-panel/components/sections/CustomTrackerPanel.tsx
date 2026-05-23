@@ -88,7 +88,7 @@ function CustomFieldList({
                   <InlineEdit
                     value={field.name}
                     onSave={(name) => updateField(index, { ...field, name: name || "Field" })}
-                    placeholder="Field"
+                    placeholder="Campo"
                     className={cn("min-w-0 px-0.5 py-0 font-medium", allowWrap && "min-h-5")}
                     editHintMode={allowWrap ? "overlay" : "inline"}
                     previewLineCount={allowWrap ? 2 : undefined}
@@ -137,7 +137,7 @@ function CustomFieldList({
                     type="button"
                     onClick={() => removeField(index)}
                     className="absolute right-1 top-1/2 flex h-4 w-4 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--background)]/85 text-[var(--destructive)] shadow-sm ring-1 ring-[var(--border)]/70 backdrop-blur-sm transition-all hover:bg-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--primary)] active:scale-90"
-                    title="Remove field"
+                    title="Remover campo"
                     aria-label={`Remove ${visibleText(field.name, "field")}`}
                   >
                     <X size="0.5625rem" />
@@ -182,7 +182,7 @@ export function CustomTrackerPanel({
           addAction={
             addMode ? (
               <AddRowButton
-                title="Add custom stat"
+                title="Adicionar atributo personalizado"
                 onClick={() => onUpdateFields([...fields, { name: "New Field", value: "" }])}
                 className="rounded-sm"
               />

@@ -153,8 +153,8 @@ export function SpriteFrameEditor({ imageUrl, label, applying = false, onApply, 
               type="button"
               onClick={onClose}
               className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-              aria-label="Close frame editor"
-              title="Close"
+              aria-label="Fechar editor de quadro"
+              title="Fechar"
             >
               <X size="0.875rem" />
             </button>

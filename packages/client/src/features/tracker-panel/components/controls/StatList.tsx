@@ -292,7 +292,7 @@ export function StatList({
 }) {
   if (stats.length === 0) {
     return onAdd && addMode ? (
-      <InlineAddRow onClick={onAdd} title="Add stat" className="border-t-0" />
+      <InlineAddRow onClick={onAdd} title="Adicionar atributo" className="border-t-0" />
     ) : (
       <EmptySection>No stats tracked.</EmptySection>
     );
@@ -367,7 +367,7 @@ export function StatList({
       {onAdd && addMode && (
         <InlineAddRow
           onClick={onAdd}
-          title="Add stat"
+          title="Adicionar atributo"
           className={cn(
             fillAvailable && "shrink-0",
             density === "tight"

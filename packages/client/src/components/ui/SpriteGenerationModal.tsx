@@ -1415,7 +1415,7 @@ export function SpriteGenerationModal({
                       className="flex h-20 w-20 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-[var(--border)] text-[var(--muted-foreground)] transition-colors hover:border-[var(--primary)]/40 hover:text-[var(--primary)]"
                     >
                       <ImagePlus size={18} />
-                      <span className="text-[0.5625rem]">Upload</span>
+                      <span className="text-[0.5625rem]">Enviar</span>
                     </button>
                   )}
                 </div>
@@ -1945,8 +1945,8 @@ export function SpriteGenerationModal({
                           type="button"
                           onClick={handleCloseCellFrame}
                           className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                          aria-label="Close frame editor"
-                          title="Close"
+                          aria-label="Fechar editor de quadro"
+                          title="Fechar"
                         >
                           <X size={14} />
                         </button>
@@ -2049,7 +2049,7 @@ export function SpriteGenerationModal({
                               "bg-[var(--primary)] text-white ring-[var(--primary)] hover:bg-[var(--primary)] hover:text-white",
                           )}
                           aria-label={`Frame ${cell.expression}`}
-                          title="Frame sprite"
+                          title="Enquadrar sprite"
                         >
                           <Crop size={13} />
                         </button>

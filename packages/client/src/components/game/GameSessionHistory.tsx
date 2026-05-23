@@ -443,7 +443,7 @@ export function GameSessionHistory({
                         }
                         rows={5}
                         disabled={savingCurrentSecrets}
-                        placeholder="One plot twist per line"
+                        placeholder="Uma reviravolta por linha"
                         className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                       />
                     </label>
@@ -627,7 +627,7 @@ export function GameSessionHistory({
                                 <button
                                   onClick={() => void onRegenerateLorebook?.(session.sessionNumber)}
                                   disabled={isRegeneratingLorebook}
-                                  title="Regenerate the Game Lorebook Keeper entries for this latest session"
+                                  title="Regenerar entradas do Guardião de Lore para esta sessão"
                                   className="inline-flex items-center gap-1 rounded-md bg-[var(--secondary)] px-2 py-1 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                   <BookOpen
@@ -641,7 +641,7 @@ export function GameSessionHistory({
                                 <button
                                   onClick={() => void onUpdatePlotArcs(session.sessionNumber)}
                                   disabled={isUpdatingPlotArcs || isRegenerating}
-                                  title="Update game plot arcs from this session"
+                                  title="Atualizar arcos de enredo desta sessão"
                                   className="inline-flex items-center gap-1 rounded-md bg-[var(--secondary)] px-2 py-1 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                   <GitBranch size={11} className={isUpdatingPlotArcs ? "animate-pulse" : undefined} />
@@ -652,7 +652,7 @@ export function GameSessionHistory({
                                 <button
                                   onClick={() => void onRegenerateSession(session.sessionNumber)}
                                   disabled={isRegenerating}
-                                  title="Regenerate this session conclusion"
+                                  title="Regenerar conclusão desta sessão"
                                   className="inline-flex items-center gap-1 rounded-md bg-[var(--secondary)] px-2 py-1 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                   <RefreshCw size={11} className={isRegenerating ? "animate-spin" : undefined} />
@@ -698,7 +698,7 @@ export function GameSessionHistory({
                                 }
                                 disabled={isSaving}
                                 rows={4}
-                                placeholder="How the next session should resume"
+                                placeholder="Como a próxima sessão deve retomar"
                                 className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                               />
                             </label>
@@ -741,7 +741,7 @@ export function GameSessionHistory({
                                 }
                                 disabled={isSaving}
                                 rows={4}
-                                placeholder="One continuity fact per line, including discoveries, twists, and reveals"
+                                placeholder="Um fato de continuidade por linha, incluindo descobertas e reviravoltas"
                                 className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                               />
                             </label>
@@ -756,7 +756,7 @@ export function GameSessionHistory({
                                 }
                                 disabled={isSaving}
                                 rows={4}
-                                placeholder="One moment per line"
+                                placeholder="Um momento por linha"
                                 className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                               />
                             </label>
@@ -771,7 +771,7 @@ export function GameSessionHistory({
                                 }
                                 disabled={isSaving}
                                 rows={4}
-                                placeholder="One small preference, habit, promise, or past detail per line"
+                                placeholder="Uma preferência, hábito, promessa ou detalhe por linha"
                                 className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                               />
                             </label>
@@ -786,7 +786,7 @@ export function GameSessionHistory({
                                 }
                                 disabled={isSaving}
                                 rows={4}
-                                placeholder="One update per line"
+                                placeholder="Uma atualização por linha"
                                 className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
                               />
                             </label>

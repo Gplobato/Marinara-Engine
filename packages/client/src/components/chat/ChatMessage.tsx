@@ -131,7 +131,7 @@ function HiddenFromAIMessageSummary({ roleplay, onExpand }: { roleplay?: boolean
     >
       <EyeOff size="0.8rem" className="shrink-0" />
       <span className="min-w-0 flex-1 truncate">Hidden from AI</span>
-      <span className="shrink-0 text-[0.625rem] opacity-70">Show</span>
+      <span className="shrink-0 text-[0.625rem] opacity-70">Mostrar</span>
     </button>
   );
 }
@@ -193,7 +193,7 @@ const EditTextarea = memo(function EditTextarea({
           onClick={onCancel}
           aria-label="Cancel edit"
           className="rounded-md p-1 text-white/40 hover:bg-white/10 hover:text-white/70"
-          title="Cancel (Esc)"
+          title="Cancelar (Esc)"
         >
           <X size="0.8125rem" />
         </button>
@@ -202,7 +202,7 @@ const EditTextarea = memo(function EditTextarea({
           onClick={handleSave}
           aria-label="Save edit"
           className="rounded-md p-1 text-emerald-400/70 hover:bg-emerald-400/10 hover:text-emerald-400"
-          title="Save (Cmd+Enter)"
+          title="Salvar (Cmd+Enter)"
         >
           <Check size="0.8125rem" />
         </button>
@@ -1477,7 +1477,7 @@ export const ChatMessage = memo(function ChatMessage({
                 "absolute -right-1 -top-1 rounded-md p-1 text-white/20 opacity-0 transition-all hover:bg-red-500/20 hover:text-red-400 group-hover:opacity-100",
                 showActions && "opacity-100",
               )}
-              title="Delete"
+              title="Excluir"
             >
               <Trash2 size="0.75rem" />
             </button>
@@ -1536,7 +1536,7 @@ export const ChatMessage = memo(function ChatMessage({
                     "absolute right-2 top-2 rounded-md p-1 text-white/20 opacity-0 transition-all hover:bg-red-500/20 hover:text-red-400 group-hover:opacity-100",
                     showActions && "opacity-100",
                   )}
-                  title="Delete"
+                  title="Excluir"
                 >
                   <Trash2 size="0.75rem" />
                 </button>
@@ -1854,7 +1854,7 @@ export const ChatMessage = memo(function ChatMessage({
                         type="button"
                         onClick={() => openImageLightbox(att.url || att.data, att.prompt)}
                         className="block"
-                        title="Open image"
+                        title="Abrir imagem"
                         aria-label={`Open ${att.filename || att.name || "image"}`}
                       >
                         <img
@@ -1868,8 +1868,8 @@ export const ChatMessage = memo(function ChatMessage({
                       <button
                         type="button"
                         onClick={() => handleRemoveAttachment(i)}
-                        aria-label="Remove image from message"
-                        title="Remove from message"
+                        aria-label="Remover imagem da mensagem"
+                        title="Remover da mensagem"
                         className="absolute top-1.5 right-1.5 rounded-full bg-black/60 p-1 text-white/80 transition-opacity hover:bg-black/80 hover:text-white sm:opacity-0 sm:group-hover/att:opacity-100"
                       >
                         <X size="0.875rem" />
@@ -1905,7 +1905,7 @@ export const ChatMessage = memo(function ChatMessage({
               <ActionBtn
                 icon={copied ? "\u2713" : <Copy size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={handleCopy}
-                title="Copy"
+                title="Copiar"
                 dark
               />
               <ActionBtn
@@ -1915,7 +1915,7 @@ export const ChatMessage = memo(function ChatMessage({
                 className={translatedText ? "text-blue-400/80 hover:text-blue-300" : undefined}
                 dark
               />
-              <ActionBtn icon={<Pencil size={MESSAGE_ACTION_ICON_SIZE} />} onClick={startEditing} title="Edit" dark />
+              <ActionBtn icon={<Pencil size={MESSAGE_ACTION_ICON_SIZE} />} onClick={startEditing} title="Editar" dark />
               <ActionBtn
                 icon={<RefreshCw size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={() => onRegenerate?.(message.id)}
@@ -1957,7 +1957,7 @@ export const ChatMessage = memo(function ChatMessage({
                 <ActionBtn
                   icon={<ScrollText size={MESSAGE_ACTION_ICON_SIZE} />}
                   onClick={() => setShowGenerationReplay(true)}
-                  title="Stored guidance"
+                  title="Orientação armazenada"
                   dark
                 />
               )}
@@ -1973,7 +1973,7 @@ export const ChatMessage = memo(function ChatMessage({
                 <ActionBtn
                   icon={<GitBranch size={MESSAGE_ACTION_ICON_SIZE} />}
                   onClick={() => onBranch(message.id)}
-                  title="Branch from here"
+                  title="Ramificar daqui"
                   dark
                 />
               )}
@@ -1981,7 +1981,7 @@ export const ChatMessage = memo(function ChatMessage({
                 <ActionBtn
                   icon={<GitBranch size={MESSAGE_ACTION_ICON_SIZE} />}
                   onClick={() => onCloneSceneFromHere(message.id)}
-                  title="Clone from here"
+                  title="Clonar daqui"
                   disabled={isCloneSceneFromHereDisabled}
                   dark
                 />
@@ -1989,7 +1989,7 @@ export const ChatMessage = memo(function ChatMessage({
               <ActionBtn
                 icon={<Trash2 size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={() => onDelete?.(message.id)}
-                title="Delete"
+                title="Excluir"
                 className="hover:text-red-400"
                 dark
               />
@@ -2013,7 +2013,7 @@ export const ChatMessage = memo(function ChatMessage({
                       <ActionBtn
                         icon={<RefreshCw size={MESSAGE_ACTION_ICON_SIZE} />}
                         onClick={handleRestartTTS}
-                        title="Restart speaking"
+                        title="Reiniciar fala"
                         className="text-sky-400 hover:text-sky-300"
                         dark
                       />
@@ -2281,7 +2281,7 @@ export const ChatMessage = memo(function ChatMessage({
                       type="button"
                       onClick={() => openImageLightbox(att.url || att.data, att.prompt)}
                       className="block"
-                      title="Open image"
+                      title="Abrir imagem"
                       aria-label={`Open ${att.filename || att.name || "image"}`}
                     >
                       <img
@@ -2295,8 +2295,8 @@ export const ChatMessage = memo(function ChatMessage({
                     <button
                       type="button"
                       onClick={() => handleRemoveAttachment(i)}
-                      aria-label="Remove image from message"
-                      title="Remove from message"
+                      aria-label="Remover imagem da mensagem"
+                      title="Remover da mensagem"
                       className="absolute top-1.5 right-1.5 rounded-full bg-black/60 p-1 text-white/80 transition-opacity hover:bg-black/80 hover:text-white sm:opacity-0 sm:group-hover/att:opacity-100"
                     >
                       <X size="0.875rem" />
@@ -2348,7 +2348,7 @@ export const ChatMessage = memo(function ChatMessage({
             <ActionBtn
               icon={copied ? "✓" : <Copy size={MESSAGE_ACTION_ICON_SIZE} />}
               onClick={handleCopy}
-              title="Copy"
+              title="Copiar"
             />
             <ActionBtn
               icon={<Languages size={MESSAGE_ACTION_ICON_SIZE} />}
@@ -2356,7 +2356,7 @@ export const ChatMessage = memo(function ChatMessage({
               title={translatedText ? "Hide translation" : "Translate"}
               className={translatedText ? "text-blue-500" : undefined}
             />
-            <ActionBtn icon={<Pencil size={MESSAGE_ACTION_ICON_SIZE} />} onClick={startEditing} title="Edit" />
+            <ActionBtn icon={<Pencil size={MESSAGE_ACTION_ICON_SIZE} />} onClick={startEditing} title="Editar" />
             <ActionBtn
               icon={<RefreshCw size={MESSAGE_ACTION_ICON_SIZE} />}
               onClick={() => onRegenerate?.(message.id)}
@@ -2380,7 +2380,7 @@ export const ChatMessage = memo(function ChatMessage({
               <ActionBtn
                 icon={<ScrollText size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={() => setShowGenerationReplay(true)}
-                title="Stored guidance"
+                title="Orientação armazenada"
               />
             )}
             {thinking && !isUser && (
@@ -2394,14 +2394,14 @@ export const ChatMessage = memo(function ChatMessage({
               <ActionBtn
                 icon={<GitBranch size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={() => onBranch(message.id)}
-                title="Branch from here"
+                title="Ramificar daqui"
               />
             )}
             {onCloneSceneFromHere && (
               <ActionBtn
                 icon={<GitBranch size={MESSAGE_ACTION_ICON_SIZE} />}
                 onClick={() => onCloneSceneFromHere(message.id)}
-                title="Clone from here"
+                title="Clonar daqui"
                 disabled={isCloneSceneFromHereDisabled}
               />
             )}
@@ -2419,7 +2419,7 @@ export const ChatMessage = memo(function ChatMessage({
             <ActionBtn
               icon={<Trash2 size={MESSAGE_ACTION_ICON_SIZE} />}
               onClick={() => onDelete?.(message.id)}
-              title="Delete"
+              title="Excluir"
               className="hover:text-[var(--destructive)]"
             />
             {ttsEnabled && (
@@ -2441,7 +2441,7 @@ export const ChatMessage = memo(function ChatMessage({
                     <ActionBtn
                       icon={<RefreshCw size={MESSAGE_ACTION_ICON_SIZE} />}
                       onClick={handleRestartTTS}
-                      title="Restart speaking"
+                      title="Reiniciar fala"
                       className="text-sky-500"
                     />
                   </>

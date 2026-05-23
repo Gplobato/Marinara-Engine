@@ -7732,7 +7732,7 @@ export function GameSurface({
               // Create game structure first, then run setup
               createGame.mutate(
                 {
-                  name: wizardGameName || chat?.name || "New Game",
+                  name: wizardGameName || chat?.name || "Novo Jogo",
                   setupConfig: config,
                   chatId: activeChatId,
                   connectionId: conns.gmConnectionId,
@@ -7839,7 +7839,7 @@ export function GameSurface({
                   disabled={isStreaming || startGame.isPending || updateChat.isPending}
                   className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs text-[var(--foreground)] outline-none ring-1 ring-[var(--border)] transition-all focus:ring-[var(--primary)]/40 disabled:opacity-60 dark:bg-white/10"
                 >
-                  <option value="">None</option>
+                  <option value="">Nenhum</option>
                   <option value="random">Random</option>
                   {languageConnections.map((connection) => (
                     <option key={connection.id} value={connection.id}>
@@ -8005,14 +8005,14 @@ export function GameSurface({
                   <button
                     onClick={() => setTutorialOpen(true)}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="Game Mode Tutorial"
+                    title="Tutorial do Modo Jogo"
                   >
                     <HelpCircle size={14} />
                   </button>
                   <button
                     onClick={() => setHistoryOpen(true)}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="History"
+                    title="Histórico"
                   >
                     <History size={14} />
                   </button>
@@ -8025,7 +8025,7 @@ export function GameSurface({
                     <button
                       onClick={handleRequestEndSession}
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                      title="End Session"
+                      title="Encerrar Sessão"
                     >
                       <Square size={13} />
                     </button>
@@ -8042,7 +8042,7 @@ export function GameSurface({
                   <button
                     onClick={() => setJournalOpen(true)}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="Journal"
+                    title="Diário"
                   >
                     <BookOpen size={14} />
                   </button>
@@ -8078,14 +8078,14 @@ export function GameSurface({
                   <button
                     onClick={() => setGalleryOpen(true)}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="Gallery"
+                    title="Galeria"
                   >
                     <Image size={14} />
                   </button>
                   <button
                     onClick={openGameAssetsBrowser}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="Game Assets"
+                    title="Recursos do Jogo"
                   >
                     <Folder size={14} />
                   </button>
@@ -8093,8 +8093,8 @@ export function GameSurface({
                     <button
                       onClick={() => setRetryMenuOpen((open) => !open)}
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                      title="Retry..."
-                      aria-label="Retry..."
+                      title="Tentar novamente..."
+                      aria-label="Tentar novamente..."
                     >
                       <RotateCcw
                         size={14}
@@ -8152,7 +8152,7 @@ export function GameSurface({
                   <button
                     onClick={onOpenSettings}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/80 backdrop-blur-md transition-colors hover:bg-black/60 hover:text-white"
-                    title="Chat Settings"
+                    title="Configurações da Conversa"
                   >
                     <Settings2 size={14} />
                   </button>
@@ -8171,7 +8171,7 @@ export function GameSurface({
                         setMobileRetryMenuOpen(false);
                       }}
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/85 backdrop-blur-md transition-colors hover:bg-black/65 hover:text-white"
-                      title="Game actions"
+                      title="Ações do jogo"
                     >
                       <MoreHorizontal size={15} />
                     </button>
@@ -8184,7 +8184,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/85 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Game Mode Tutorial"
+                          title="Tutorial do Modo Jogo"
                         >
                           <HelpCircle size={14} />
                         </button>
@@ -8194,7 +8194,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="History"
+                          title="Histórico"
                         >
                           <History size={14} />
                         </button>
@@ -8204,8 +8204,8 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Active World Info"
-                          aria-label="Active World Info"
+                          title="Informações do Mundo Ativas"
+                          aria-label="Informações do Mundo Ativas"
                         >
                           <Globe size={14} />
                         </button>
@@ -8216,7 +8216,7 @@ export function GameSurface({
                               setMobileActionsOpen(false);
                             }}
                             className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10"
-                            title="End Session"
+                            title="Encerrar Sessão"
                           >
                             <Square size={13} />
                           </button>
@@ -8239,7 +8239,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Journal"
+                          title="Diário"
                         >
                           <BookOpen size={14} />
                         </button>
@@ -8283,7 +8283,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Gallery"
+                          title="Galeria"
                         >
                           <Image size={14} />
                         </button>
@@ -8293,7 +8293,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Game Assets"
+                          title="Recursos do Jogo"
                         >
                           <Folder size={14} />
                         </button>
@@ -8301,8 +8301,8 @@ export function GameSurface({
                           <button
                             onClick={() => setMobileRetryMenuOpen((v) => !v)}
                             className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                            title="Retry"
-                            aria-label="Retry"
+                            title="Tentar Novamente"
+                            aria-label="Tentar novamente"
                           >
                             <RotateCcw
                               size={14}
@@ -8370,7 +8370,7 @@ export function GameSurface({
                             setMobileActionsOpen(false);
                           }}
                           className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                          title="Chat Settings"
+                          title="Configurações da Conversa"
                         >
                           <Settings2 size={14} />
                         </button>
@@ -8590,7 +8590,7 @@ export function GameSurface({
                           type="button"
                           onClick={() => setCombatLogsOpen(true)}
                           className="flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/65 px-3 py-1.5 text-xs font-semibold text-white/80 shadow-lg backdrop-blur-md transition-colors hover:bg-black/80 hover:text-white"
-                          title="Open combat logs"
+                          title="Abrir logs de combate"
                         >
                           <ScrollText size={13} />
                           Logs
@@ -8600,7 +8600,7 @@ export function GameSurface({
                           onClick={handleReturnToPreCombatTurn}
                           disabled={!latestAssistantMsg?.id}
                           className="flex items-center gap-1.5 rounded-lg border border-amber-300/25 bg-amber-500/20 px-3 py-1.5 text-xs font-semibold text-amber-100 shadow-lg backdrop-blur-md transition-colors hover:bg-amber-500/30 disabled:opacity-50"
-                          title="Exit combat and remove the turn that started it"
+                          title="Sair do combate e remover o turno que o iniciou"
                         >
                           <RotateCcw size={13} />
                           Previous Turn
@@ -8893,7 +8893,7 @@ export function GameSurface({
                           type="button"
                           onClick={() => setCombatLogsOpen(false)}
                           className="rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                          title="Close logs"
+                          title="Fechar logs"
                         >
                           <X size={16} />
                         </button>
@@ -9092,7 +9092,7 @@ export function GameSurface({
 
       {imagePromptReviewModal}
 
-      <Modal open={interruptModalOpen} onClose={closeInterruptModal} title="Attempt to Interrupt?" width="max-w-md">
+      <Modal open={interruptModalOpen} onClose={closeInterruptModal} title="Tentar Interromper?" width="max-w-md">
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-red-500/15">
@@ -9127,7 +9127,7 @@ export function GameSurface({
             <button
               onClick={() => confirmInterrupt("risky")}
               className="rounded-lg bg-red-500/20 px-3 py-1.5 text-xs font-semibold text-red-200 ring-1 ring-red-500/40 transition-colors hover:bg-red-500/30"
-              title="Attempt an in-fiction interruption — outcomes can fail"
+              title="Tentar uma interrupção na ficção — pode falhar"
             >
               Yes
             </button>

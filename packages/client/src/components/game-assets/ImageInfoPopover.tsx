@@ -56,7 +56,7 @@ export function ImageInfoPopover({ node, onClose }: { node: TreeNode; onClose: (
       {info ? (
         <div className="space-y-2 text-xs">
           <div className="flex justify-between">
-            <span className="text-[var(--muted-foreground)]">Name</span>
+            <span className="text-[var(--muted-foreground)]">Nome</span>
             <span className="text-right text-[var(--foreground)]">{info.name}</span>
           </div>
           <div className="flex justify-between">
@@ -83,7 +83,7 @@ export function ImageInfoPopover({ node, onClose }: { node: TreeNode; onClose: (
           </div>
         </div>
       ) : (
-        <div className="text-sm text-[var(--muted-foreground)]">Loading...</div>
+        <div className="text-sm text-[var(--muted-foreground)]">Carregando...</div>
       )}
     </div>
   );

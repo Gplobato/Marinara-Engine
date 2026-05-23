@@ -35,7 +35,7 @@ export function ProfessorMariWorkingWindow({ visible, className }: ProfessorMari
         type="button"
         onClick={() => setDismissed(true)}
         className="absolute right-2 top-2 rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-        title="Close"
+        title="Fechar"
       >
         <X size="0.8125rem" />
       </button>

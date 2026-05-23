@@ -229,7 +229,7 @@ export function LorebookMakerModal({ open, onClose }: Props) {
 
       if (lbId) openLorebookDetail(lbId);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save lorebook");
+      setError(err instanceof Error ? err.message : "Falha ao salvar livro de lore");
     } finally {
       setSaving(false);
     }
@@ -253,7 +253,7 @@ export function LorebookMakerModal({ open, onClose }: Props) {
               onChange={(e) => setConnectionId(e.target.value)}
               className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 pr-8 text-sm outline-none focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
             >
-              {connections.length === 0 && <option value="">No connections available</option>}
+              {connections.length === 0 && <option value="">Nenhuma conexão disponível</option>}
               {connections.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name} ({c.model})
@@ -293,7 +293,7 @@ export function LorebookMakerModal({ open, onClose }: Props) {
         {/* Entry count + Prompt */}
         <div className="flex gap-3">
           <div className="w-24 space-y-1.5">
-            <label className="text-xs font-medium text-[var(--muted-foreground)]">Entries</label>
+            <label className="text-xs font-medium text-[var(--muted-foreground)]">Entradas</label>
             <input
               type="number"
               value={entryCount}

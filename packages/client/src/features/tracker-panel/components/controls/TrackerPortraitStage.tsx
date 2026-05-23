@@ -303,7 +303,7 @@ export function TrackerPortraitStage({
               event.stopPropagation();
               resetPortraitView();
             }}
-            title="Reset portrait view"
+            title="Redefinir visualização do retrato"
             aria-label="Reset portrait view"
             className={PORTRAIT_VIEW_BUTTON_CLASS}
           >

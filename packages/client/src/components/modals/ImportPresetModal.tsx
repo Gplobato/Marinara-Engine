@@ -61,7 +61,7 @@ export function ImportPresetModal({ open, onClose }: Props) {
         nextResults.push({
           filename: file.name,
           success: false,
-          message: error instanceof Error ? error.message : "Failed to parse file",
+          message: error instanceof Error ? error.message : "Falha ao processar arquivo",
         });
       }
     }

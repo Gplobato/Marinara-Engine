@@ -176,7 +176,7 @@ export function ChoiceSelectionModal({
   );
 
   return (
-    <Modal open={open} onClose={onClose} title="Configure Preset Variables" width="max-w-lg">
+    <Modal open={open} onClose={onClose} title="Configurar Variáveis da Predefinição" width="max-w-lg">
       {variables.length === 0 ? (
         isLoading ? (
           <div className="flex items-center justify-center p-8">

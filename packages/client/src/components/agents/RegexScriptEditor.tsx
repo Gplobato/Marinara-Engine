@@ -263,7 +263,7 @@ export function RegexScriptEditor() {
       !(await showConfirmDialog({
         title: "Delete Regex Script",
         message: "Delete this regex script? This cannot be undone.",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -315,7 +315,7 @@ export function RegexScriptEditor() {
             markDirty();
           }}
           className="flex-1 bg-transparent text-lg font-semibold outline-none placeholder:text-[var(--muted-foreground)]"
-          placeholder="Script name…"
+          placeholder="Nome do script…"
         />
         <div className="flex items-center gap-1.5">
           {saveError && (
@@ -526,7 +526,7 @@ export function RegexScriptEditor() {
                       markDirty();
                     }}
                     className="flex-1 rounded-lg bg-[var(--secondary)] px-3 py-1.5 font-mono text-xs ring-1 ring-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-                    placeholder="String to trim…"
+                    placeholder="String para cortar…"
                   />
                   <button
                     onClick={() => {
@@ -562,7 +562,7 @@ export function RegexScriptEditor() {
               <div className="flex items-center gap-2.5">
                 <button
                   type="button"
-                  aria-label="Toggle Prompt Only"
+                  aria-label="Apenas Prompt"
                   aria-pressed={localPromptOnly}
                   onClick={() => {
                     setLocalPromptOnly((v) => !v);

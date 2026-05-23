@@ -389,7 +389,7 @@ function TrackerPanelCardOrderSetting() {
           type="button"
           onClick={() => setTrackerPanelSectionOrder([...TRACKER_DATA_PANEL_SECTIONS])}
           disabled={isDefaultOrder}
-          title="Reset tracker card order"
+          title="Redefinir ordem dos cartões de rastreamento"
           aria-label="Reset tracker card order"
           className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--secondary)] hover:text-[var(--foreground)] active:scale-95 disabled:cursor-default disabled:opacity-35 disabled:hover:bg-transparent disabled:hover:text-[var(--muted-foreground)]"
         >
@@ -1120,7 +1120,7 @@ function GeneralSettings() {
         label="Up Arrow edits last message"
         checked={editLastMessageOnArrowUp}
         onChange={setEditLastMessageOnArrowUp}
-        help="In Conversation and Roleplay modes, press Up Arrow while the chat input is empty to open the most recent message in the chat for editing — whether it's yours or the AI's."
+        help="Nos modos Conversa e Roleplay, pressione Seta para Cima com o campo vazio para abrir a mensagem mais recente in the chat for editing — whether it's yours or the AI's."
       />
 
       <div className="rounded-xl bg-[var(--secondary)]/50 p-4 ring-1 ring-[var(--border)]">
@@ -1179,7 +1179,7 @@ function GeneralSettings() {
             onClick={() => {
               rescanGameAssets()
                 .then(() => toast.success("Game assets rescanned."))
-                .catch(() => toast.error("Failed to rescan game assets."));
+                .catch(() => toast.error("Falha ao reescanear recursos do jogo."));
             }}
             className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--secondary)] px-2.5 py-1.5 text-[0.6875rem] font-medium text-[var(--muted-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
           >
@@ -1216,7 +1216,7 @@ function GeneralSettings() {
             </select>
           </label>
           <label className="flex min-w-0 flex-col gap-1">
-            <span className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Folder</span>
+            <span className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Pasta</span>
             <input
               value={assetSubcategory}
               onChange={(e) => setAssetSubcategory(e.target.value)}
@@ -1387,7 +1387,7 @@ function AppearanceSettings() {
       queryClient.invalidateQueries({ queryKey: ["custom-fonts"] });
     },
     onError: (err: Error) => {
-      toast.error(err.message || "Failed to download font");
+      toast.error(err.message || "Falha ao baixar fonte");
     },
   });
 
@@ -1442,8 +1442,8 @@ function AppearanceSettings() {
           onChange={(e) => setTheme(e.target.value as "dark" | "light")}
           className="rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]"
         >
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
+          <option value="dark">Escuro</option>
+          <option value="light">Claro</option>
         </select>
       </label>
 
@@ -1534,7 +1534,7 @@ function AppearanceSettings() {
           <option value="12">Tiny</option>
           <option value="14">Small</option>
           <option value="16">Medium</option>
-          <option value="17">Default</option>
+          <option value="17">Padrão</option>
           <option value="19">Large</option>
           <option value="22">Huge</option>
         </select>
@@ -2322,7 +2322,7 @@ function BackgroundPicker({ selected, onSelect }: { selected: string | null; onS
                                 setRenamingFile(itemKey);
                               }}
                               className="shrink-0 rounded-md p-0.5 text-[var(--muted-foreground)] opacity-0 transition-opacity hover:text-[var(--primary)] group-hover:opacity-100"
-                              title="Rename"
+                              title="Renomear"
                             >
                               <Pencil size="0.5625rem" />
                             </button>
@@ -2372,7 +2372,7 @@ function BackgroundPicker({ selected, onSelect }: { selected: string | null; onS
                               ? "bg-[var(--primary)]/20 text-[var(--primary)]"
                               : "text-[var(--muted-foreground)]/60 hover:text-[var(--primary)]",
                           )}
-                          title="Edit tags"
+                          title="Editar tags"
                         >
                           <Tag size="0.5625rem" />
                         </button>
@@ -2392,7 +2392,7 @@ function BackgroundPicker({ selected, onSelect }: { selected: string | null; onS
                             }
                             if (e.key === "Escape") setEditingTags(null);
                           }}
-                          placeholder="Add tag…"
+                          placeholder="Adicionar tag…"
                           className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--background)] px-1.5 py-0.5 text-[0.625rem] text-[var(--foreground)] outline-none focus:border-[var(--primary)]"
                           autoFocus
                           list={`tag-suggestions-${itemKey}`}
@@ -2501,7 +2501,7 @@ function ThemesSettings() {
       setEditorOpen(false);
     } catch (err) {
       console.error("[ThemesSettings] Failed to save theme:", err);
-      toast.error("Failed to save theme. Check the browser console for details.");
+      toast.error("Falha ao salvar tema. Verifique o console do navegador.");
     }
   }, [createTheme, editingId, setActiveTheme, themeCss, themeName, updateTheme]);
 
@@ -2587,7 +2587,7 @@ function ThemesSettings() {
           type="text"
           value={themeName}
           onChange={(e) => setThemeName(e.target.value)}
-          placeholder="Theme name..."
+          placeholder="Nome do tema..."
           className="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 text-xs text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]/50"
         />
 
@@ -2674,7 +2674,7 @@ function ThemesSettings() {
             setActiveTheme.mutate(null, {
               onError: (err) => {
                 console.error("[ThemesSettings] Failed to reset active theme:", err);
-                toast.error("Failed to reset the active theme.");
+                toast.error("Falha ao redefinir o tema ativo.");
               },
             })
           }
@@ -2706,7 +2706,7 @@ function ThemesSettings() {
                 setActiveTheme.mutate(t.id, {
                   onError: (err) => {
                     console.error("[ThemesSettings] Failed to activate theme:", err);
-                    toast.error("Failed to activate theme.");
+                    toast.error("Falha ao ativar tema.");
                   },
                 })
               }
@@ -2747,12 +2747,12 @@ function ThemesSettings() {
                     toast.success(`Theme "${t.name}" removed`);
                   } catch (err) {
                     console.error("[ThemesSettings] Failed to remove theme:", err);
-                    toast.error("Failed to remove theme.");
+                    toast.error("Falha ao remover tema.");
                   }
                 })();
               }}
               className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
-              title="Remove theme"
+              title="Remover tema"
             >
               <Trash2 size="0.6875rem" />
             </button>
@@ -2921,7 +2921,7 @@ function ExtensionsSettings() {
             <button
               onClick={() => deleteExtension.mutate(ext.id)}
               className="rounded p-0.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
-              title="Remove extension"
+              title="Remover extensão"
             >
               <Trash2 size="0.6875rem" />
             </button>
@@ -3049,7 +3049,7 @@ function getProfileImportErrorMessage(data: unknown) {
     if (typeof record.message === "string") return record.message;
     if (typeof record.error === "string") return record.error;
   }
-  return "Unknown error";
+  return "Erro desconhecido";
 }
 
 function normalizeProfileImportWarnings(warnings: unknown): ProfileImportWarning[] {
@@ -3205,7 +3205,7 @@ function ImportSettings() {
         qc.invalidateQueries();
         toast.success(`Imported ${data.name ?? data.type} successfully!`);
       } else {
-        toast.error(`Import failed: ${data.error ?? res.statusText ?? "Unknown error"}`);
+        toast.error(`Import failed: ${data.error ?? res.statusText ?? "Erro desconhecido"}`);
       }
     } catch (err) {
       if (err instanceof Error && err.message === "parse") {
@@ -3274,7 +3274,7 @@ function ImportSettings() {
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
-        throw new Error(data.message ?? data.error ?? res.statusText ?? "Unknown error");
+        throw new Error(data.message ?? data.error ?? res.statusText ?? "Erro desconhecido");
       }
       let importCompleted = false;
       for await (const event of readProfileImportStream(res)) {
@@ -3305,7 +3305,7 @@ function ImportSettings() {
           throw new Error(getProfileImportErrorMessage(event.data));
         }
         if (event.type === "done") {
-          if (event.data?.success === false) throw new Error(event.data.error ?? event.data.message ?? "Unknown error");
+          if (event.data?.success === false) throw new Error(event.data.error ?? event.data.message ?? "Erro desconhecido");
           importCompleted = true;
           qc.invalidateQueries();
           const imported = event.data?.imported;
@@ -3588,7 +3588,7 @@ function ImportButton({
           toast.success("Imported successfully!");
         }
       } else {
-        toast.error(`Import failed: ${data.error ?? "Unknown error"}`);
+        toast.error(`Import failed: ${data.error ?? "Erro desconhecido"}`);
       }
     } catch {
       toast.error("Import failed.");
@@ -3660,7 +3660,7 @@ function AdvancedSettings() {
     try {
       const res = await api.raw(`/backup/export-profile?format=${format}`);
       if (!res.ok) {
-        const failure = await readProfileExportFailure(res, "Export failed");
+        const failure = await readProfileExportFailure(res, "Falha na exportação");
         if (
           format === "native" &&
           failure.code === "PROFILE_EXPORT_JSON_TOO_LARGE" &&
@@ -3670,7 +3670,7 @@ function AdvancedSettings() {
             title: "Export profile as ZIP?",
             message: failure.message,
             confirmLabel: "Export ZIP",
-            cancelLabel: "Cancel",
+            cancelLabel: "Cancelar",
           });
           if (confirmed) {
             await handleExportProfile("zip");
@@ -3688,7 +3688,7 @@ function AdvancedSettings() {
       URL.revokeObjectURL(url);
       toast.success(profileExportSuccessMessages[format]);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to export profile");
+      toast.error(err instanceof Error ? err.message : "Falha ao exportar perfil");
     } finally {
       setExportingProfile(false);
     }
@@ -3711,7 +3711,7 @@ function AdvancedSettings() {
       await forceRefreshSpa();
     } catch (err) {
       setRefreshingSpa(false);
-      toast.error(err instanceof Error ? err.message : "Failed to refresh the app");
+      toast.error(err instanceof Error ? err.message : "Falha ao atualizar o aplicativo");
     }
   };
 
@@ -3789,7 +3789,7 @@ function AdvancedSettings() {
       toast.success("Backup downloaded!");
       qc.invalidateQueries({ queryKey: ["backups"] });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to create backup");
+      toast.error(err instanceof Error ? err.message : "Falha ao criar backup");
     } finally {
       setCreatingBackup(false);
     }
@@ -3923,7 +3923,7 @@ function AdvancedSettings() {
     if (mode === "all") {
       clearAllData.mutate(undefined, {
         onSuccess: () => toast.success("All selected data was cleared. Runtime caches were reset immediately."),
-        onError: () => toast.error("Failed to clear all data."),
+        onError: () => toast.error("Falha ao limpar todos os dados."),
         onSettled: () => setConfirmAction(null),
       });
       return;
@@ -3931,7 +3931,7 @@ function AdvancedSettings() {
 
     expungeData.mutate(selectedScopes, {
       onSuccess: () => toast.success("Selected data was cleared. Runtime caches were reset immediately."),
-      onError: () => toast.error("Failed to clear selected data."),
+      onError: () => toast.error("Falha ao limpar dados selecionados."),
       onSettled: () => setConfirmAction(null),
     });
   };
@@ -4126,7 +4126,7 @@ function AdvancedSettings() {
         {updateCheck.isError && (
           <div className="flex items-center gap-1.5 rounded-lg bg-[var(--destructive)]/10 px-2.5 py-2 text-xs text-[var(--destructive)]">
             <AlertTriangle size="0.8125rem" className="shrink-0" />
-            Could not check for updates. Try again later.
+            Não foi possível verificar atualizações. Tente novamente mais tarde.
           </div>
         )}
 

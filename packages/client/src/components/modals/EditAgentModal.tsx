@@ -124,18 +124,18 @@ export function EditAgentModal({ open, onClose, agent }: Props) {
 
         {/* Name */}
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-[var(--muted-foreground)]">Name</span>
+          <span className="text-xs font-medium text-[var(--muted-foreground)]">Nome</span>
           <input
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            placeholder="Agent name..."
+            placeholder="Nome do agente..."
             className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-sm outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]"
           />
         </label>
 
         {/* Description */}
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-[var(--muted-foreground)]">Description</span>
+          <span className="text-xs font-medium text-[var(--muted-foreground)]">Descrição</span>
           <input
             value={form.description}
             onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}

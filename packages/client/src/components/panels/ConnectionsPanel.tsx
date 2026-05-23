@@ -392,7 +392,7 @@ function ConnectionRow({
               onMove();
             }}
             className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)] hover:text-[var(--foreground)] active:scale-90"
-            title="Move to folder"
+            title="Mover para pasta"
           >
             <FolderOpen size="0.75rem" />
           </button>
@@ -407,7 +407,7 @@ function ConnectionRow({
             });
           }}
           className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-sky-400/10 hover:text-sky-400 active:scale-90"
-          title="Duplicate"
+          title="Duplicar"
         >
           <Copy size="0.75rem" />
         </button>
@@ -418,7 +418,7 @@ function ConnectionRow({
               !(await showConfirmDialog({
                 title: "Delete Connection",
                 message: `Delete "${conn.name}"? This cannot be undone.`,
-                confirmLabel: "Delete",
+                confirmLabel: "Excluir",
                 tone: "destructive",
               }))
             ) {
@@ -427,7 +427,7 @@ function ConnectionRow({
             deleteConnection.mutate(conn.id);
           }}
           className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15 active:scale-90"
-          title="Delete"
+          title="Excluir"
         >
           <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
         </button>
@@ -514,7 +514,7 @@ function ConnectionFolderRow({
             setRenaming(true);
           }}
           className="shrink-0 rounded-md p-1 opacity-0 transition-all hover:bg-[var(--accent)] group-hover:opacity-100 max-md:opacity-100"
-          title="Rename folder"
+          title="Renomear pasta"
         >
           <Pencil size="0.75rem" className="text-[var(--muted-foreground)]" />
         </button>
@@ -629,9 +629,9 @@ export function ConnectionsPanel() {
 
   const handleDeleteFolder = async (folder: ConnectionFolder) => {
     const ok = await showConfirmDialog({
-      title: "Delete Folder",
+      title: "Excluir Pasta",
       message: `Delete folder "${folder.name}"? Connections inside will move back to Unfiled.`,
-      confirmLabel: "Delete",
+      confirmLabel: "Excluir",
       tone: "destructive",
     });
     if (!ok) return;
@@ -726,7 +726,7 @@ export function ConnectionsPanel() {
           <div className="animate-float flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400/20 to-blue-500/20">
             <Link size="1.25rem" className="text-sky-400" />
           </div>
-          <p className="text-xs text-[var(--muted-foreground)]">No connections yet</p>
+          <p className="text-xs text-[var(--muted-foreground)]">Nenhuma conexão ainda</p>
         </div>
       )}
 
@@ -807,7 +807,7 @@ export function ConnectionsPanel() {
       <Modal
         open={movingConnectionId !== null}
         onClose={() => setMovingConnectionId(null)}
-        title="Move to Folder"
+        title="Mover para Pasta"
         width="max-w-xs"
       >
         {movingConnection && (

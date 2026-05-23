@@ -275,7 +275,7 @@ export function EchoChamberPanel({ hiddenOnMobile = false }: EchoChamberPanelPro
                 }
               }}
               className="rounded p-0.5 text-white/20 transition-colors hover:bg-white/10 hover:text-white/50"
-              title="Clear messages"
+              title="Limpar mensagens"
             >
               <Trash2 size="0.5625rem" />
             </button>

@@ -38,7 +38,7 @@ export function CreatePersonaModal({ open, onClose }: Props) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Create Persona" width="max-w-sm">
+    <Modal open={open} onClose={onClose} title="Criar Persona" width="max-w-sm">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-400/20">

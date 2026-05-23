@@ -38,7 +38,7 @@ import { ExportFormatDialog, type ExportFormatChoice } from "../ui/ExportFormatD
 
 const CATEGORIES: Array<{ id: LorebookCategory | "all" | "active"; label: string; icon: typeof Globe }> = [
   { id: "all", label: "All", icon: Layers },
-  { id: "active", label: "Active", icon: Zap },
+  { id: "active", label: "Ativo", icon: Zap },
   { id: "world", label: "World", icon: Globe },
   { id: "character", label: "Character", icon: Users },
   { id: "npc", label: "NPC", icon: UserRound },
@@ -180,7 +180,7 @@ export function LorebooksPanel() {
         }
         if (activeTag === tag) setActiveTag(null);
       } catch {
-        toast.error("Failed to remove tag from some lorebooks");
+        toast.error("Falha ao remover tag de alguns livros de lore");
       }
     },
     [lorebooks, updateLorebook, activeTag],
@@ -289,7 +289,7 @@ export function LorebooksPanel() {
         );
         toast.success(`Exported ${selectedLorebookIds.size} lorebook${selectedLorebookIds.size === 1 ? "" : "s"}`);
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : "Failed to export lorebooks");
+        toast.error(error instanceof Error ? error.message : "Falha ao exportar livros de lore");
       } finally {
         setExportingSelected(false);
       }
@@ -305,7 +305,7 @@ export function LorebooksPanel() {
       !(await showConfirmDialog({
         title: "Delete Lorebooks",
         message: `Delete ${ids.length} lorebook${ids.length === 1 ? "" : "s"}? All entries inside them will be lost.`,
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -361,7 +361,7 @@ export function LorebooksPanel() {
           await uploadLorebookImage.mutateAsync({ id: lorebookId, image });
           toast.success("Lorebook picture updated");
         } catch (error) {
-          toast.error(error instanceof Error ? error.message : "Failed to upload lorebook picture");
+          toast.error(error instanceof Error ? error.message : "Falha ao enviar imagem do livro de lore");
         } finally {
           imageTargetLorebookIdRef.current = null;
         }
@@ -392,14 +392,14 @@ export function LorebooksPanel() {
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 px-3 py-2.5 text-xs font-medium text-white shadow-md shadow-amber-400/15 transition-all hover:shadow-lg hover:shadow-amber-400/25 active:scale-[0.98]"
           title="New"
         >
-          <Plus size="0.8125rem" /> <span className="md:hidden">New</span>
+          <Plus size="0.8125rem" /> <span className="md:hidden">Novo</span>
         </button>
         <button
           onClick={() => openModal("import-lorebook")}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--secondary)] px-3 py-2.5 text-xs font-medium text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] active:scale-[0.98]"
-          title="Import"
+          title="Importar"
         >
-          <Download size="0.8125rem" /> <span className="md:hidden">Import</span>
+          <Download size="0.8125rem" /> <span className="md:hidden">Importar</span>
         </button>
         <button
           onClick={() => openModal("lorebook-maker")}
@@ -419,9 +419,9 @@ export function LorebooksPanel() {
               ? "bg-amber-400/15 text-amber-400 ring-1 ring-amber-400/30"
               : "bg-[var(--secondary)] text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] hover:bg-[var(--accent)]",
           )}
-          title="Select"
+          title="Selecionar"
         >
-          <Check size="0.8125rem" /> <span className="md:hidden">Select</span>
+          <Check size="0.8125rem" /> <span className="md:hidden">Selecionar</span>
         </button>
       </div>
 
@@ -486,7 +486,7 @@ export function LorebooksPanel() {
           />
           <input
             type="text"
-            placeholder="Search lorebooks"
+            placeholder="Buscar livros de lore"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-xl bg-[var(--secondary)] py-2 pl-8 pr-3 text-xs text-[var(--foreground)] ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
@@ -497,7 +497,7 @@ export function LorebooksPanel() {
             value={sort}
             onChange={(e) => setSort(e.target.value as typeof sort)}
             className="h-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--secondary)] py-2 pl-2.5 pr-7 text-[0.6875rem] outline-none transition-colors focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
-            title="Sort order"
+            title="Ordem de classificação"
           >
             <option value="name-asc">A-Z</option>
             <option value="name-desc">Z-A</option>
@@ -541,7 +541,7 @@ export function LorebooksPanel() {
           <button
             onClick={() => setTagsExpanded(!tagsExpanded)}
             className="flex items-center gap-1 rounded-lg px-1.5 py-1 text-[0.625rem] text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-            title={tagsExpanded ? "Collapse tags" : "Expand tags"}
+            title={tagsExpanded ? "Recolher tags" : "Expandir tags"}
           >
             <Tag size="0.6875rem" />
             {tagsExpanded ? <ChevronUp size="0.625rem" /> : <ChevronDown size="0.625rem" />}
@@ -606,7 +606,7 @@ export function LorebooksPanel() {
             <BookOpen size="1.25rem" className="text-amber-400" />
           </div>
           <p className="text-xs text-[var(--muted-foreground)]">
-            {searchQuery ? "No lorebooks match your search" : "No lorebooks yet"}
+            {searchQuery ? "Nenhum livro de lore corresponde à busca" : "Nenhum livro de lore ainda"}
           </p>
         </div>
       )}
@@ -643,7 +643,7 @@ export function LorebooksPanel() {
                               await showConfirmDialog({
                                 title: "Delete Lorebook",
                                 message: `Delete "${lb.name}"? All entries will be lost.`,
-                                confirmLabel: "Delete",
+                                confirmLabel: "Excluir",
                                 tone: "destructive",
                               })
                             ) {
@@ -678,7 +678,7 @@ export function LorebooksPanel() {
                         await showConfirmDialog({
                           title: "Delete Lorebook",
                           message: `Delete "${lb.name}"? All entries will be lost.`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         })
                       ) {
@@ -808,7 +808,7 @@ function LorebookRow({
               onDelete();
             }}
             className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15 active:scale-90"
-            title="Delete"
+            title="Excluir"
           >
             <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
           </button>

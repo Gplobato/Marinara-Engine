@@ -110,7 +110,7 @@ export function FolderTree({
                 ? "border-[var(--border)] text-[var(--muted-foreground)] hover:border-[var(--primary)]"
                 : "border-[var(--primary)]/40 bg-[var(--primary)] text-white hover:opacity-90")
             }
-            title="Select assets for this game"
+            title="Selecionar recursos para este jogo"
             aria-label={`Select ${node.name} assets for this game`}
           >
             <FolderSelectionMark status={selectionStatus} />

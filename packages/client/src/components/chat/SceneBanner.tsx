@@ -50,7 +50,7 @@ export function SceneBanner({ variant, sceneChatId, sceneChatName, originChatId,
               background: "var(--muted)",
               color: "var(--muted-foreground)",
             }}
-            title="Return to conversation"
+            title="Voltar para a conversa"
           >
             <ArrowLeft size={12} />
             Back to conversation
@@ -136,7 +136,7 @@ export function EndSceneBar({
       message:
         "This will create a new roleplay chat from the current scene and detach the original scene from its conversation. No scene summary or character memory will be written back to the original conversation.",
       confirmLabel: "Convert",
-      cancelLabel: "Cancel",
+      cancelLabel: "Cancelar",
       tone: "destructive",
     });
     if (confirmed && !isForking) onFork?.(sceneChatId, "convert");
@@ -153,7 +153,7 @@ export function EndSceneBar({
             color: "var(--card-foreground)",
             border: "1px solid var(--border)",
           }}
-          title="Return to conversation"
+          title="Voltar para a conversa"
         >
           <ArrowLeft size={12} />
           Back to conversation

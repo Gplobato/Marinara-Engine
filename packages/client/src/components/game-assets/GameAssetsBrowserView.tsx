@@ -364,7 +364,7 @@ export function GameAssetsBrowserView() {
     if (msg.includes("Invalid category"))
       return `Please navigate to a category folder (music, sfx, ambient, sprites, backgrounds) before uploading.`;
     if (msg.includes("Invalid upload")) return `Upload failed for ${file.name}. Please check the file and try again.`;
-    return `Failed to upload ${file.name}: ${msg || "Unknown error"}`;
+    return `Falha ao enviar ${file.name}: ${msg || "Erro desconhecido"}`;
   }, []);
 
   const handleUpload = useCallback(
@@ -429,7 +429,7 @@ export function GameAssetsBrowserView() {
         await copyAsset.mutateAsync({ path: node.path, targetFolder });
         toast.success("Copied");
       } catch (err) {
-        toast.error(`Copy failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+        toast.error(`Copy failed: ${err instanceof Error ? err.message : "Erro desconhecido"}`);
       }
     },
     [copyAsset, selectedPath],
@@ -566,7 +566,7 @@ export function GameAssetsBrowserView() {
         handleClearSelection();
       }
     } catch (err) {
-      toast.error(`Action failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+      toast.error(`Action failed: ${err instanceof Error ? err.message : "Erro desconhecido"}`);
     }
     setModal(null);
     setModalValue("");
@@ -632,7 +632,7 @@ export function GameAssetsBrowserView() {
       setEditingDescription(false);
       toast.success("Description saved");
     } catch (err) {
-      toast.error(`Failed to save description: ${err instanceof Error ? err.message : "Unknown error"}`);
+      toast.error(`Falha ao salvar descrição: ${err instanceof Error ? err.message : "Erro desconhecido"}`);
     }
   }, [updateDescription, selectedPath, descriptionValue]);
 
@@ -794,7 +794,7 @@ export function GameAssetsBrowserView() {
             <button
               onClick={handleClearSelection}
               className="rounded-md p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-              title="Clear selection"
+              title="Limpar seleção"
             >
               <X size="0.875rem" />
             </button>
@@ -807,7 +807,7 @@ export function GameAssetsBrowserView() {
         {/* Sidebar tree */}
         <div className="w-56 overflow-y-auto border-r border-[var(--border)]/40 bg-[var(--card)]/30 p-2 max-md:hidden">
           {isLoading ? (
-            <div className="p-4 text-sm text-[var(--muted-foreground)]">Loading...</div>
+            <div className="p-4 text-sm text-[var(--muted-foreground)]">Carregando...</div>
           ) : tree ? (
             <FolderTree
               node={tree}
@@ -1029,7 +1029,7 @@ export function GameAssetsBrowserView() {
             {modal.type === "delete" ? (
               <div className="mb-4 text-sm text-[var(--muted-foreground)]">
                 <p>
-                  Are you sure you want to delete{" "}
+                  Tem certeza que deseja excluir{" "}
                   <strong className="text-[var(--foreground)]">{modal.node.name}</strong>?
                 </p>
                 {modal.node.type === "folder" && (
@@ -1037,7 +1037,7 @@ export function GameAssetsBrowserView() {
                     {(() => {
                       const itemCount = countItems(modal.node);
                       if (itemCount === 0) {
-                        return <p>This folder is empty.</p>;
+                        return <p>Esta pasta está vazia.</p>;
                       }
                       return (
                         <>
@@ -1085,13 +1085,13 @@ export function GameAssetsBrowserView() {
             ) : modal.type === "bulk-delete" ? (
               <div className="mb-4 text-sm text-[var(--muted-foreground)]">
                 <p>
-                  Are you sure you want to delete{" "}
+                  Tem certeza que deseja excluir{" "}
                   <strong className="text-[var(--foreground)]">
                     {selectedPaths.size} file{selectedPaths.size !== 1 ? "s" : ""}
                   </strong>
                   ?
                 </p>
-                <p className="mt-1 text-xs text-[var(--destructive)]">This action cannot be undone.</p>
+                <p className="mt-1 text-xs text-[var(--destructive)]">Esta ação não pode ser desfeita.</p>
               </div>
             ) : (
               <input

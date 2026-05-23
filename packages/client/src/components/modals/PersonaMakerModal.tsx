@@ -134,7 +134,7 @@ export function PersonaMakerModal({ open, onClose }: Props) {
               onChange={(e) => setConnectionId(e.target.value)}
               className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-3 py-2 pr-8 text-sm outline-none focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
             >
-              {connections.length === 0 && <option value="">No connections available</option>}
+              {connections.length === 0 && <option value="">Nenhuma conexão disponível</option>}
               {connections.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name} ({c.model})

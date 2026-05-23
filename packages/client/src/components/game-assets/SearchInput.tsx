@@ -30,7 +30,7 @@ export function SearchInput({ search, onSearch }: { search: string; onSearch: (v
         <button
           onClick={() => setExpanded(true)}
           className="rounded-lg border border-(--border) bg-(--background) p-1.5 text-(--muted-foreground) transition-colors hover:bg-(--accent) hover:text-(--foreground) sm:hidden"
-          title="Search in folder"
+          title="Buscar na pasta"
         >
           <Search size="0.875rem" />
         </button>
@@ -53,7 +53,7 @@ export function SearchInput({ search, onSearch }: { search: string; onSearch: (v
               onSearch("");
             }
           }}
-          placeholder="Search in folder..."
+          placeholder="Buscar na pasta..."
           className="h-8 w-48 rounded-lg border border-(--border) bg-(--background) pl-7 pr-7 text-sm text-(--foreground) outline-none transition-colors focus:border-(--primary)/50 focus:ring-1 focus:ring-(--primary)/20 max-sm:absolute max-sm:right-0 max-sm:top-1/2 max-sm:w-48 max-sm:-translate-y-1/2"
         />
         {expanded && (

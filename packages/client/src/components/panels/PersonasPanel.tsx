@@ -349,7 +349,7 @@ export function PersonasPanel() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search personas"
+            placeholder="Buscar personas"
             className="w-full rounded-xl border border-[var(--border)] bg-[var(--secondary)] py-2 pl-8 pr-3 text-xs outline-none transition-colors placeholder:text-[var(--muted-foreground)]/50 focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
           />
         </div>
@@ -358,7 +358,7 @@ export function PersonasPanel() {
             value={sort}
             onChange={(e) => setSort(e.target.value as SortOption)}
             className="h-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--secondary)] py-2 pl-2.5 pr-7 text-[0.6875rem] outline-none transition-colors focus:border-[var(--primary)]/40 focus:ring-1 focus:ring-[var(--primary)]/20"
-            title="Sort order"
+            title="Ordem de classificação"
           >
             <option value="name-asc">A-Z</option>
             <option value="name-desc">Z-A</option>
@@ -465,14 +465,14 @@ export function PersonasPanel() {
           title="New"
         >
           <Plus size="0.8125rem" />
-          <span className="md:hidden">New</span>
+          <span className="md:hidden">Novo</span>
         </button>
         <button
           onClick={() => openModal("import-persona")}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--secondary)] px-3 py-2.5 text-xs font-medium text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] transition-all hover:bg-[var(--accent)] active:scale-[0.98]"
-          title="Import"
+          title="Importar"
         >
-          <Download size="0.8125rem" /> <span className="md:hidden">Import</span>
+          <Download size="0.8125rem" /> <span className="md:hidden">Importar</span>
         </button>
         <button
           onClick={() => openModal("persona-maker")}
@@ -495,10 +495,10 @@ export function PersonasPanel() {
               ? "bg-emerald-400/15 text-emerald-400 ring-1 ring-emerald-400/30"
               : "bg-[var(--secondary)] text-[var(--secondary-foreground)] ring-1 ring-[var(--border)] hover:bg-[var(--accent)]",
           )}
-          title="Select"
+          title="Selecionar"
         >
           <Check size="0.8125rem" />
-          <span className="md:hidden">Select</span>
+          <span className="md:hidden">Selecionar</span>
         </button>
       </div>
 
@@ -567,7 +567,7 @@ export function PersonasPanel() {
               setGroupsExpanded(true);
             }}
             className="rounded-lg p-1 text-[var(--muted-foreground)] transition-all hover:bg-[var(--accent)] hover:text-[var(--primary)]"
-            title="Create group"
+            title="Criar grupo"
           >
             <FolderPlus size="0.8125rem" />
           </button>
@@ -666,7 +666,7 @@ export function PersonasPanel() {
                               ? "bg-[var(--primary)]/15 text-[var(--primary)]"
                               : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
                           )}
-                          title="Assign personas"
+                          title="Atribuir personas"
                         >
                           <UserPlus size="0.75rem" />
                         </button>
@@ -677,7 +677,7 @@ export function PersonasPanel() {
                             setEditGroupName(group.name);
                           }}
                           className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                          title="Rename"
+                          title="Renomear"
                         >
                           <Pencil size="0.75rem" />
                         </button>
@@ -688,7 +688,7 @@ export function PersonasPanel() {
                               !(await showConfirmDialog({
                                 title: "Delete Group",
                                 message: `Delete group "${group.name}"?`,
-                                confirmLabel: "Delete",
+                                confirmLabel: "Excluir",
                                 tone: "destructive",
                               }))
                             ) {
@@ -699,7 +699,7 @@ export function PersonasPanel() {
                             if (assigningToGroup === group.id) setAssigningToGroup(null);
                           }}
                           className="rounded-lg p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
-                          title="Delete group"
+                          title="Excluir grupo"
                         >
                           <Trash2 size="0.75rem" />
                         </button>
@@ -753,7 +753,7 @@ export function PersonasPanel() {
                                       toggleGroupMember(group.id, pid, group.memberIds);
                                     }}
                                     className="rounded p-0.5 text-[var(--muted-foreground)] opacity-0 transition-all hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)] group-hover/member:opacity-100 max-md:opacity-100"
-                                    title="Remove from group"
+                                    title="Remover do grupo"
                                   >
                                     <UserMinus size="0.625rem" />
                                   </button>
@@ -856,7 +856,7 @@ export function PersonasPanel() {
               <button
                 onClick={(e) => handleAvatarClick(e, persona.id)}
                 className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-sm group/avatar"
-                title="Change avatar"
+                title="Alterar avatar"
               >
                 {/* Inner clip wrapper — needed because new-format avatarCrop renders the
                     <img> with position:absolute and dimensions larger than the container.
@@ -915,7 +915,7 @@ export function PersonasPanel() {
                         activatePersona.mutate(persona.id);
                       }}
                       className="rounded-lg p-1.5 text-emerald-400 transition-all active:scale-90 hover:bg-emerald-400/10"
-                      title="Set as active"
+                      title="Definir como ativo"
                     >
                       <Star size="0.75rem" />
                     </button>
@@ -930,7 +930,7 @@ export function PersonasPanel() {
                       });
                     }}
                     className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all active:scale-90 hover:bg-sky-400/10 hover:text-sky-400"
-                    title="Duplicate"
+                    title="Duplicar"
                   >
                     <Copy size="0.75rem" />
                   </button>
@@ -941,7 +941,7 @@ export function PersonasPanel() {
                         !(await showConfirmDialog({
                           title: "Delete Persona",
                           message: `Delete "${persona.name}"? This cannot be undone.`,
-                          confirmLabel: "Delete",
+                          confirmLabel: "Excluir",
                           tone: "destructive",
                         }))
                       ) {
@@ -950,7 +950,7 @@ export function PersonasPanel() {
                       deletePersona.mutate(persona.id);
                     }}
                     className="rounded-lg p-1.5 transition-all hover:bg-[var(--destructive)]/15 active:scale-90"
-                    title="Delete"
+                    title="Excluir"
                   >
                     <Trash2 size="0.75rem" className="text-[var(--destructive)]" />
                   </button>

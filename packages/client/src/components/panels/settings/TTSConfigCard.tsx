@@ -875,7 +875,7 @@ export function TTSConfigCard() {
                     disabled={fetchingVoices || voiceOptions.length === 0}
                     className={cn(INPUT_CLS, "flex-1 cursor-pointer appearance-none")}
                   >
-                    {source === "elevenlabs" && <option value="">Select an ElevenLabs voice</option>}
+                    {source === "elevenlabs" && <option value="">Selecionar uma voz ElevenLabs</option>}
                     {fetchingVoices && <option value="">Loading voices…</option>}
                     {!fetchingVoices && voiceOptions.length === 0 && !voicesError && (
                       <option value="">
@@ -896,7 +896,7 @@ export function TTSConfigCard() {
                   onClick={() => void refetchVoices()}
                   disabled={fetchingVoices || !savedConfig?.enabled}
                   className="flex shrink-0 items-center gap-1 rounded-xl bg-[var(--secondary)] px-3 py-2 text-xs ring-1 ring-[var(--border)] transition-colors hover:ring-rose-400/60 disabled:opacity-50"
-                  title="Refresh voices from provider"
+                  title="Atualizar vozes do provedor"
                 >
                   <RefreshCw size="0.75rem" className={cn(fetchingVoices && "animate-spin")} />
                 </button>
@@ -923,8 +923,8 @@ export function TTSConfigCard() {
             <FieldRow label="Character Voices" help="Assign voices to specific characters from your Characters tab.">
               <div className="space-y-2 rounded-lg border border-[var(--border)] bg-[var(--secondary)]/40 p-2">
                 <div className="grid gap-2 text-[0.625rem] font-semibold uppercase tracking-wide text-[var(--muted-foreground)] sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto]">
-                  <span>Character</span>
-                  <span>Voice</span>
+                  <span>Personagem</span>
+                  <span>Voz</span>
                   <span className="hidden sm:block" />
                 </div>
                 {voiceAssignments.length === 0 && (
@@ -970,7 +970,7 @@ export function TTSConfigCard() {
                       type="button"
                       onClick={() => handleRemoveVoiceAssignment(index)}
                       className="flex h-9 items-center justify-center rounded-lg border border-[var(--border)] px-2 text-[var(--muted-foreground)] transition-colors hover:border-rose-400/50 hover:text-rose-300 sm:w-9"
-                      title="Remove character voice"
+                      title="Remover voz do personagem"
                     >
                       <X size="0.75rem" />
                     </button>
@@ -1050,7 +1050,7 @@ export function TTSConfigCard() {
                     onClick={() => void refetchVoices()}
                     disabled={fetchingVoices || !savedConfig?.enabled}
                     className="flex shrink-0 items-center justify-center gap-1 rounded-xl bg-[var(--secondary)] px-3 py-2 text-xs ring-1 ring-[var(--border)] transition-colors hover:ring-rose-400/60 disabled:opacity-50"
-                    title="Refresh voices from provider"
+                    title="Atualizar vozes do provedor"
                   >
                     <RefreshCw size="0.75rem" className={cn(fetchingVoices && "animate-spin")} />
                   </button>

@@ -231,7 +231,7 @@ export function AvatarCropWidget({ src, alt, crop, onChange, onRemove, removing 
             type="button"
             onClick={reset}
             className="inline-flex items-center gap-1 rounded-lg bg-[var(--accent)] px-2 py-1 text-[0.625rem] font-medium text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-            title="Reset to centered max-square crop"
+            title="Redefinir para corte quadrado centralizado"
           >
             <RotateCcw size="0.625rem" /> Reset
           </button>
@@ -241,7 +241,7 @@ export function AvatarCropWidget({ src, alt, crop, onChange, onRemove, removing 
               onClick={onRemove}
               disabled={removing}
               className="inline-flex items-center gap-1 rounded-lg bg-[var(--destructive)]/10 px-2 py-1 text-[0.625rem] font-medium text-[var(--destructive)] transition-colors hover:bg-[var(--destructive)]/15 disabled:opacity-45"
-              title="Remove avatar"
+              title="Remover avatar"
             >
               <Trash2 size="0.625rem" /> {removing ? "Removing..." : "Remove"}
             </button>
@@ -325,7 +325,7 @@ export function AvatarCropWidget({ src, alt, crop, onChange, onRemove, removing 
 
         {/* Live preview — circle avatar at typical sidebar size */}
         <div className="flex shrink-0 flex-col items-center gap-2">
-          <span className="text-[0.625rem] text-[var(--muted-foreground)]">Preview</span>
+          <span className="text-[0.625rem] text-[var(--muted-foreground)]">Visualizar</span>
           <div className="relative h-24 w-24 overflow-hidden rounded-full bg-black/20 ring-2 ring-[var(--border)]">
             <img src={src} alt={alt} className="h-full w-full object-cover" style={getAvatarCropStyle(previewCrop)} />
           </div>

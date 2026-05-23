@@ -3391,7 +3391,7 @@ export function GameNarration({
           <button
             onClick={handleResume}
             className="flex items-center gap-1 self-stretch rounded-lg border border-amber-400/40 bg-amber-400/15 px-2 text-xs font-semibold text-amber-100 transition-colors hover:bg-amber-400/25 hover:text-amber-50 sm:px-2.5 dark:border-amber-400/40 dark:bg-amber-400/15 dark:text-amber-100 dark:hover:bg-amber-400/25"
-            title="Resume narration — your interrupt has not been committed."
+            title="Retomar narração — sua interrupção não foi confirmada."
             aria-label="Resume"
           >
             <Play size={11} fill="currentColor" />
@@ -3501,7 +3501,7 @@ export function GameNarration({
                 type="button"
                 onClick={(event) => handleRestartGameVoiceButtonClick(event, voiceKey)}
                 className="inline-flex h-5 w-5 items-center justify-center rounded-full text-sky-200 transition-colors hover:bg-[var(--muted)]/40 dark:hover:bg-white/10"
-                title="Restart voice-over"
+                title="Reiniciar narração"
               >
                 <RotateCcw size={11} />
               </button>
@@ -3509,7 +3509,7 @@ export function GameNarration({
                 type="button"
                 onClick={handleStopGameVoiceButtonClick}
                 className="inline-flex h-5 w-5 items-center justify-center rounded-full text-sky-200 transition-colors hover:bg-[var(--muted)]/40 dark:hover:bg-white/10"
-                title="Stop voice-over"
+                title="Parar narração"
               >
                 <VolumeX size={11} />
               </button>
@@ -3577,7 +3577,7 @@ export function GameNarration({
     if (seg.type === "system") {
       return (
         <div key={seg.id} className="rounded-lg border border-cyan-400/15 bg-cyan-950/15 px-2.5 py-2 text-cyan-50/80">
-          <div className="mb-1 text-[0.6rem] font-semibold uppercase tracking-wide text-cyan-200/80">System</div>
+          <div className="mb-1 text-[0.6rem] font-semibold uppercase tracking-wide text-cyan-200/80">Sistema</div>
           <div
             className="whitespace-pre-wrap break-words text-xs leading-relaxed"
             style={narrationFontStyle}
@@ -3831,7 +3831,7 @@ export function GameNarration({
                             type="button"
                             onClick={(event) => handleNpcPortraitAvatarClick(event, active.speaker)}
                             className="rounded-xl transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-white/30"
-                            title="Upload or replace NPC portrait"
+                            title="Enviar ou substituir retrato de NPC"
                           >
                             {activeAvatar ? (
                               <CroppedAvatar
@@ -3869,7 +3869,7 @@ export function GameNarration({
                                 (activePortraitGenerating || isMobilePortraitActionsVisible(active.speaker)) &&
                                   "max-md:opacity-100",
                               )}
-                              title="Generate NPC portrait"
+                              title="Gerar retrato de NPC"
                             >
                               {activePortraitGenerating ? (
                                 <Loader2 size="0.75rem" className="animate-spin" />
@@ -3986,7 +3986,7 @@ export function GameNarration({
                             type="button"
                             onClick={() => setEditingContent(active.content)}
                             className="absolute right-1.5 top-1.5 hidden rounded p-1 text-[var(--muted-foreground)]/40 transition-colors hover:bg-[var(--muted)]/30 hover:text-[var(--muted-foreground)] md:block dark:text-white/20 dark:hover:bg-white/10 dark:hover:text-white/60"
-                            title="Edit"
+                            title="Editar"
                           >
                             <Pencil size={11} />
                           </button>
@@ -4003,7 +4003,7 @@ export function GameNarration({
                               setEditingContent(null);
                             }}
                             className="absolute right-1.5 top-1.5 rounded bg-emerald-500/20 p-1 text-emerald-300 transition-colors hover:bg-emerald-500/30"
-                            title="Save"
+                            title="Salvar"
                           >
                             <Check size={11} />
                           </button>
@@ -4018,7 +4018,7 @@ export function GameNarration({
                               "absolute top-1.5 hidden rounded p-1 text-[var(--muted-foreground)]/40 transition-colors hover:bg-[var(--muted)]/30 hover:text-[var(--muted-foreground)] md:block dark:text-white/20 dark:hover:bg-white/10 dark:hover:text-white/60",
                               activeCanEditSegment ? "right-7" : "right-1.5",
                             )}
-                            title="Copy"
+                            title="Copiar"
                           >
                             {copiedMessageKey === activeCopyKey ? <Check size={11} /> : <Copy size={11} />}
                           </button>
@@ -4055,7 +4055,7 @@ export function GameNarration({
                   {onOpenInventory && (
                     <button onClick={onOpenInventory} className={cn("relative", NARRATION_META_BTN)}>
                       <Package size={12} />
-                      <span className="hidden sm:inline">Inventory</span>
+                      <span className="hidden sm:inline">Inventário</span>
                       {(inventoryCount ?? 0) > 0 && (
                         <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-0.5 text-[0.55rem] font-bold text-black">
                           {inventoryCount}
@@ -4117,7 +4117,7 @@ export function GameNarration({
                     type="button"
                     onClick={() => setEditingContent(active.content)}
                     className="absolute right-1.5 top-1.5 hidden rounded p-1 text-[var(--muted-foreground)]/40 transition-colors hover:bg-[var(--muted)]/30 hover:text-[var(--muted-foreground)] md:block dark:text-white/20 dark:hover:bg-white/10 dark:hover:text-white/60"
-                    title="Edit"
+                    title="Editar"
                   >
                     <Pencil size={11} />
                   </button>
@@ -4133,7 +4133,7 @@ export function GameNarration({
                       setEditingContent(null);
                     }}
                     className="absolute right-1.5 top-1.5 rounded bg-emerald-500/20 p-1 text-emerald-300 transition-colors hover:bg-emerald-500/30"
-                    title="Save"
+                    title="Salvar"
                   >
                     <Check size={11} />
                   </button>
@@ -4148,7 +4148,7 @@ export function GameNarration({
                       "absolute top-1.5 hidden rounded p-1 text-[var(--muted-foreground)]/40 transition-colors hover:bg-[var(--muted)]/30 hover:text-[var(--muted-foreground)] md:block dark:text-white/20 dark:hover:bg-white/10 dark:hover:text-white/60",
                       activeCanEditSegment ? "right-7" : "right-1.5",
                     )}
-                    title="Copy"
+                    title="Copiar"
                   >
                     {copiedMessageKey === activeCopyKey ? <Check size={11} /> : <Copy size={11} />}
                   </button>
@@ -4173,7 +4173,7 @@ export function GameNarration({
                   {onOpenInventory && (
                     <button onClick={onOpenInventory} className={cn("relative", NARRATION_META_BTN)}>
                       <Package size={12} />
-                      <span className="hidden sm:inline">Inventory</span>
+                      <span className="hidden sm:inline">Inventário</span>
                       {(inventoryCount ?? 0) > 0 && (
                         <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-0.5 text-[0.55rem] font-bold text-black">
                           {inventoryCount}
@@ -4222,7 +4222,7 @@ export function GameNarration({
                       void handleCopyMessage(activeCopyKey, activeCopyText);
                     }}
                     className="absolute right-1.5 top-1.5 hidden rounded p-1 text-amber-200/45 transition-colors hover:bg-amber-100/10 hover:text-amber-100/70 md:block"
-                    title="Copy"
+                    title="Copiar"
                   >
                     {copiedMessageKey === activeCopyKey ? <Check size={11} /> : <Copy size={11} />}
                   </button>
@@ -4316,7 +4316,7 @@ export function GameNarration({
                   <p className="text-[0.65rem] text-white/45">
                     Showing {visibleLogEntries.length} of {logEntries.length}
                     {sessionHistoryTokens > 0 && (
-                      <span title="Approximate tokens in the current session's loaded chat history.">
+                      <span title="Tokens aproximados no histórico carregado da sessão atual.">
                         {" | ~"}
                         {formatTokenEstimate(sessionHistoryTokens)} tokens
                       </span>
@@ -4331,7 +4331,7 @@ export function GameNarration({
                       type="button"
                       onClick={loadOlderLogs}
                       className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.65rem] font-medium text-white/65 transition-colors hover:bg-white/10 hover:text-white"
-                      title="Load older logs"
+                      title="Carregar logs anteriores"
                     >
                       Older ({hiddenLogCount})
                     </button>
@@ -4339,7 +4339,7 @@ export function GameNarration({
                       type="button"
                       onClick={showAllLogs}
                       className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.65rem] font-medium text-white/65 transition-colors hover:bg-white/10 hover:text-white"
-                      title="Load the entire session log"
+                      title="Carregar todo o log da sessão"
                     >
                       All
                     </button>
@@ -4481,7 +4481,7 @@ export function GameNarration({
                           onPointerDown={stopLogActionPointerDown}
                           onClick={(event) => handleLogCopyButtonClick(event, copyKey, copyText)}
                           className="rounded p-1 text-white/45 opacity-100 transition-all hover:bg-white/10 hover:text-white/60 md:text-white/20 md:opacity-0 md:group-hover/logseg:opacity-100"
-                          title="Copy"
+                          title="Copiar"
                         >
                           {copiedMessageKey === copyKey ? <Check size={11} /> : <Copy size={11} />}
                         </button>
@@ -4572,7 +4572,7 @@ export function GameNarration({
                                   type="button"
                                   onClick={(event) => handleRestartGameVoiceButtonClick(event, voiceKey)}
                                   className="inline-flex h-5 w-5 items-center justify-center rounded-full text-sky-200 transition-colors hover:bg-white/10"
-                                  title="Restart voice-over"
+                                  title="Reiniciar narração"
                                 >
                                   <RotateCcw size={11} />
                                 </button>
@@ -4580,7 +4580,7 @@ export function GameNarration({
                                   type="button"
                                   onClick={handleStopGameVoiceButtonClick}
                                   className="inline-flex h-5 w-5 items-center justify-center rounded-full text-sky-200 transition-colors hover:bg-white/10"
-                                  title="Stop voice-over"
+                                  title="Parar narração"
                                 >
                                   <VolumeX size={11} />
                                 </button>
@@ -4619,7 +4619,7 @@ export function GameNarration({
                                 restoreLogScrollTop(scrollTop);
                               }}
                               className="rounded p-1 text-white/45 opacity-100 transition-all hover:bg-white/10 hover:text-white/60 md:text-white/20 md:opacity-0 md:group-hover/logseg:opacity-100"
-                              title="Edit"
+                              title="Editar"
                             >
                               <Pencil size={11} />
                             </button>
@@ -4642,7 +4642,7 @@ export function GameNarration({
                                 restoreLogScrollTop(scrollTop);
                               }}
                               className="rounded bg-emerald-500/20 p-1 text-emerald-300 transition-colors hover:bg-emerald-500/30"
-                              title="Save"
+                              title="Salvar"
                             >
                               <Check size={11} />
                             </button>
@@ -4669,7 +4669,7 @@ export function GameNarration({
                             key={`${sourceMessageId}:${sourceSegmentIndex}:speaker`}
                             className="mb-1 w-full rounded border border-white/10 bg-black/40 px-2 py-1 text-[0.7rem] font-semibold text-white/90 outline-none focus:border-white/30"
                             defaultValue={editingLogSeg?.speaker ?? ""}
-                            placeholder="Speaker name"
+                            placeholder="Nome do falante"
                             onChange={(e) => {
                               logEditDraftRef.current = {
                                 ...logEditDraftRef.current,
@@ -4741,7 +4741,7 @@ export function GameNarration({
                                   type="button"
                                   onClick={(event) => handleNpcPortraitAvatarClick(event, seg.speaker)}
                                   className="rounded-lg transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-white/20"
-                                  title="Upload or replace NPC portrait"
+                                  title="Enviar ou substituir retrato de NPC"
                                 >
                                   {logAvatar ? (
                                     <CroppedAvatar
@@ -4774,7 +4774,7 @@ export function GameNarration({
                                       (logPortraitGenerating || isMobilePortraitActionsVisible(seg.speaker)) &&
                                         "max-md:opacity-100",
                                     )}
-                                    title="Generate NPC portrait"
+                                    title="Gerar retrato de NPC"
                                   >
                                     {logPortraitGenerating ? (
                                       <Loader2 size="0.6rem" className="animate-spin" />

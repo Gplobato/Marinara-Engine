@@ -168,7 +168,7 @@ export function QuickReplyMenu({ actions, disabled = false }: QuickReplyMenuProp
         onClick={() => setOpen((v) => !v)}
         onKeyDown={handleTriggerKeyDown}
         disabled={isDisabled}
-        aria-label="Quick replies"
+        aria-label="Respostas rápidas"
         aria-haspopup="menu"
         aria-expanded={open}
         className={cn(
@@ -179,7 +179,7 @@ export function QuickReplyMenu({ actions, disabled = false }: QuickReplyMenuProp
               ? "text-foreground/40 hover:bg-foreground/10 hover:text-foreground/70 active:scale-90"
               : "text-foreground/20",
         )}
-        title="Quick replies"
+        title="Respostas rápidas"
       >
         <MoreHorizontal size="1rem" />
       </button>
@@ -190,7 +190,7 @@ export function QuickReplyMenu({ actions, disabled = false }: QuickReplyMenuProp
             <motion.div
               key="quick-replies-rail"
               role="menu"
-              aria-label="Quick replies"
+              aria-label="Respostas rápidas"
               aria-orientation="vertical"
               className="flex flex-col items-center gap-1.5"
               initial="closed"

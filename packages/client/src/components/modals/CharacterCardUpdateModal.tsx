@@ -138,7 +138,7 @@ export function CharacterCardUpdateModal({ open, onClose }: Props) {
       });
       closeAndAdvance();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to apply character updates");
+      setError(err instanceof Error ? err.message : "Falha ao aplicar atualizações do personagem");
     }
   };
 
@@ -149,7 +149,7 @@ export function CharacterCardUpdateModal({ open, onClose }: Props) {
   const queueNote = pending.length > 1 ? ` (${pending.length - 1} more queued)` : "";
 
   return (
-    <Modal open={open} onClose={closeAndAdvance} title="Review Character Card Updates" width="max-w-2xl">
+    <Modal open={open} onClose={closeAndAdvance} title="Revisar Atualizações da Ficha do Personagem" width="max-w-2xl">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-fuchsia-500 shadow-lg shadow-violet-400/20">

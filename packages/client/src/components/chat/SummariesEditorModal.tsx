@@ -390,7 +390,7 @@ export function SummariesEditorModal({ chat, open, onClose }: SummariesEditorMod
                   <div className="space-y-2 border-t border-[var(--border)] px-3 py-2">
                     {/* Summary textarea */}
                     <div className="space-y-1">
-                      <label className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Summary</label>
+                      <label className="text-[0.625rem] font-medium text-[var(--muted-foreground)]">Resumo</label>
                       <AutoSizingTextarea
                         value={current.summary}
                         onChange={(next) => updateEntry(entry.kind, entry.key, { ...current, summary: next })}
@@ -422,7 +422,7 @@ export function SummariesEditorModal({ chat, open, onClose }: SummariesEditorMod
                                 updateEntry(entry.kind, entry.key, { ...current, keyDetails: nextDetails });
                               }}
                               className="shrink-0 self-start rounded-md p-1.5 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
-                              title="Delete key detail"
+                              title="Excluir detalhe chave"
                             >
                               <Trash2 size="0.75rem" />
                             </button>

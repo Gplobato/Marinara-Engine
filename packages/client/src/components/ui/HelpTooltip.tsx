@@ -85,7 +85,7 @@ export function HelpTooltip({ text, size = "0.75rem", side = "top", className, w
     <span ref={wrapRef} className={cn("relative inline-flex", className)} onMouseLeave={() => setShow(false)}>
       <button
         type="button"
-        aria-label="Show help"
+        aria-label="Mostrar ajuda"
         className="inline-flex cursor-help items-center rounded-full text-[var(--muted-foreground)] opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]/40"
         onMouseEnter={() => setShow(true)}
         onPointerDown={(event) => {

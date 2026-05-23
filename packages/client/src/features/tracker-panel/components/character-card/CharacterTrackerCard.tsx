@@ -225,7 +225,7 @@ export function CharacterTrackerCard({
             type="button"
             onClick={onRemove}
             className={CHARACTER_REMOVE_BUTTON_CLASS}
-            title="Remove character"
+            title="Remover personagem"
             aria-label={`Remove ${visibleText(character.name, "character")}`}
           >
             <X size="0.6875rem" />
@@ -346,7 +346,7 @@ export function CharacterTrackerCard({
                 <InlineEdit
                   value={name}
                   onSave={(nextName) => updateCustomField(name, nextName, value)}
-                  placeholder="Field"
+                  placeholder="Campo"
                   className="min-w-0 px-0.5 py-0 font-medium"
                   scrollOnHover
                 />

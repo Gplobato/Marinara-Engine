@@ -84,7 +84,7 @@ export function CreateCharacterModal({ open, onClose }: Props) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Create Character" width="max-w-sm">
+    <Modal open={open} onClose={onClose} title="Criar Personagem" width="max-w-sm">
       <div className="flex flex-col items-center gap-4">
         {/* Avatar picker */}
         <button
@@ -109,7 +109,7 @@ export function CreateCharacterModal({ open, onClose }: Props) {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Character name..."
+            placeholder="Nome do personagem..."
             autoFocus
             onKeyDown={(e) => {
               if (e.key === "Enter") handleCreate();

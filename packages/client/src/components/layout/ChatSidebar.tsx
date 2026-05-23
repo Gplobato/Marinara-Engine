@@ -84,32 +84,32 @@ const MODE_CONFIG: Record<
 > = {
   conversation: {
     icon: <MessageSquare size="0.875rem" />,
-    label: "Conversation",
-    shortLabel: "CONVO",
+    label: "Conversa",
+    shortLabel: "CONV",
     bg: "linear-gradient(135deg, #4de5dd, #3ab8b1)",
-    description: "A straightforward AI conversation — no roleplay elements.",
+    description: "Uma conversa direta com IA — sem elementos de roleplay.",
   },
   roleplay: {
     icon: <BookOpen size="0.875rem" />,
     label: "Roleplay",
     shortLabel: "RP",
     bg: "linear-gradient(135deg, #eb8951, #d97530)",
-    description: "Immersive roleplay with characters, game state tracking, and world simulation.",
+    description: "Roleplay imersivo com personagens, rastreamento de estado e simulação de mundo.",
   },
   visual_novel: {
     icon: <Theater size="0.875rem" />,
-    label: "Visual Novel",
-    shortLabel: "VN",
+    label: "Romance Visual",
+    shortLabel: "RV",
     bg: "linear-gradient(135deg, #e15c8c, #c94776)",
-    description: "A full game experience with backgrounds, sprites, text boxes, and choices.",
+    description: "Experiência completa de jogo com cenários, sprites, caixas de texto e escolhas.",
     comingSoon: true,
   },
   game: {
     icon: <Theater size="0.875rem" />,
-    label: "Game",
-    shortLabel: "GM",
+    label: "Jogo",
+    shortLabel: "JOGO",
     bg: "linear-gradient(135deg, #e15c8c, #c94776)",
-    description: "AI-managed singleplayer RPG with a Game Master, party, dice, maps, and quests.",
+    description: "RPG solo gerenciado por IA com Mestre, grupo, dados, mapas e missões.",
   },
 };
 
@@ -536,9 +536,9 @@ export function ChatSidebar() {
     async (id: string) => {
       if (
         await showConfirmDialog({
-          title: "Delete Folder",
-          message: "Delete this folder? Chats will be moved to the top level.",
-          confirmLabel: "Delete",
+          title: "Excluir Pasta",
+          message: "Excluir esta pasta? As conversas serão movidas para o nível superior.",
+          confirmLabel: "Excluir",
           tone: "destructive",
         })
       ) {
@@ -572,9 +572,9 @@ export function ChatSidebar() {
     if (selectedChatIds.size === 0) return;
     if (
       !(await showConfirmDialog({
-        title: "Delete Chats",
+        title: "Excluir Conversas",
         message: `Delete ${selectedChatIds.size} chat${selectedChatIds.size > 1 ? "s" : ""}?`,
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -599,7 +599,7 @@ export function ChatSidebar() {
         setBatchExportOpen(false);
         exitMultiSelect();
       } catch (err) {
-        toast.error(err instanceof Error ? `Export failed: ${err.message}` : "Export failed");
+        toast.error(err instanceof Error ? `Falha na exportação: ${err.message}` : "Falha na exportação");
       }
     },
     [selectedChatIds, bulkExportChats, exitMultiSelect],
@@ -636,9 +636,9 @@ export function ChatSidebar() {
             if (editorDirty) {
               if (
                 !(await showConfirmDialog({
-                  title: "Unsaved Changes",
-                  message: "You have unsaved changes. Discard and continue?",
-                  confirmLabel: "Discard",
+                  title: "Alterações Não Salvas",
+                  message: "Você tem alterações não salvas. Descartar e continuar?",
+                  confirmLabel: "Descartar",
                   tone: "destructive",
                 }))
               ) {
@@ -825,7 +825,7 @@ export function ChatSidebar() {
               setMovingChatId(chat.id);
             }}
             className="shrink-0 rounded-md p-1 opacity-0 transition-all hover:bg-[var(--accent)] group-hover:opacity-100 max-md:opacity-100"
-            title="Move to folder"
+            title="Mover para pasta"
           >
             <FolderOpen size="0.75rem" className="text-[var(--muted-foreground)]" />
           </button>
@@ -841,9 +841,9 @@ export function ChatSidebar() {
               } else {
                 if (
                   await showConfirmDialog({
-                    title: "Delete Chat",
-                    message: "Delete this chat?",
-                    confirmLabel: "Delete",
+                    title: "Excluir Conversa",
+                    message: "Excluir esta conversa?",
+                    confirmLabel: "Excluir",
                     tone: "destructive",
                   })
                 ) {
@@ -862,7 +862,7 @@ export function ChatSidebar() {
   };
 
   return (
-    <nav data-component="ChatSidebar" aria-label="Chat navigation" className="mari-chat-sidebar flex h-full flex-col">
+    <nav data-component="ChatSidebar" aria-label="Navegação de conversas" className="mari-chat-sidebar flex h-full flex-col">
       {/* Header */}
       <div className="mari-sidebar-header relative flex h-12 items-center justify-between bg-[var(--card)]/80 px-4 backdrop-blur-sm">
         <div className="absolute inset-x-0 bottom-0 h-px bg-[var(--border)]/30" />
@@ -871,14 +871,14 @@ export function ChatSidebar() {
           <button
             onClick={handleNewChatFromTab}
             className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-[var(--sidebar-accent)] hover:text-[var(--primary)] active:scale-90"
-            title={`New ${activeTab === "conversation" ? "Conversation" : activeTab === "game" ? "Game" : "Roleplay"}`}
+            title={`New ${activeTab === "conversation" ? "Conversa" : activeTab === "game" ? "Jogo" : "Roleplay"}`}
           >
             <Plus size="1rem" />
           </button>
           <button
             onClick={() => setSidebarOpen(false)}
             className="rounded-lg p-1.5 text-[var(--muted-foreground)] transition-all hover:bg-[var(--sidebar-accent)] hover:text-[var(--primary)] active:scale-90 md:hidden"
-            title="Close"
+            title="Fechar"
           >
             <X size="1rem" />
           </button>
@@ -938,7 +938,7 @@ export function ChatSidebar() {
               value={sort}
               onChange={(e) => setSort(e.target.value as ChatSortOption)}
               className="w-full appearance-none rounded-lg bg-[var(--secondary)] py-2 pl-2.5 pr-7 text-[0.6875rem] text-[var(--foreground)] outline-none ring-1 ring-transparent transition-all focus:ring-[var(--primary)]/40"
-              title="Sort chats"
+              title="Ordenar conversas"
             >
               <option value="newest">Sort: Newest</option>
               <option value="oldest">Sort: Oldest</option>
@@ -961,7 +961,7 @@ export function ChatSidebar() {
                     ? "bg-[var(--primary)]/15 text-[var(--primary)]"
                     : "text-[var(--muted-foreground)] hover:bg-[var(--sidebar-accent)]/40 hover:text-[var(--foreground)]",
                 )}
-                title={tagsExpanded ? "Collapse tags" : "Expand tags"}
+                title={tagsExpanded ? "Recolher tags" : "Expandir tags"}
               >
                 <Tag size="0.6875rem" className="shrink-0" />
                 <span className="max-w-full truncate">
@@ -1032,7 +1032,7 @@ export function ChatSidebar() {
               disabled={isFetching}
               className="mt-1 rounded-lg bg-[var(--primary)]/15 px-3 py-1.5 text-[0.6875rem] font-medium text-[var(--primary)] transition-all hover:bg-[var(--primary)]/25 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isFetching ? "Checking..." : "Try Again"}
+              {isFetching ? "Verificando..." : "Tentar Novamente"}
             </button>
           </div>
         )}
@@ -1057,7 +1057,7 @@ export function ChatSidebar() {
               onClick={handleNewChatFromTab}
               className="mt-1 rounded-lg bg-[var(--primary)]/15 px-3 py-1.5 text-[0.6875rem] font-medium text-[var(--primary)] transition-all hover:bg-[var(--primary)]/25"
             >
-              + New {activeTab === "conversation" ? "Conversation" : activeTab === "game" ? "Game" : "Roleplay"}
+              + New {activeTab === "conversation" ? "Conversa" : activeTab === "game" ? "Jogo" : "Roleplay"}
             </button>
           </div>
         )}
@@ -1069,7 +1069,7 @@ export function ChatSidebar() {
               <FolderPlus size="0.75rem" className="text-[var(--muted-foreground)]" />
               <input
                 autoFocus
-                placeholder="Folder name..."
+                placeholder="Nome da pasta..."
                 value={newFolderName}
                 onChange={(e) => setNewFolderName(e.target.value)}
                 onKeyDown={(e) => {
@@ -1109,7 +1109,7 @@ export function ChatSidebar() {
                   )}
                 >
                   <CheckSquare size="0.75rem" />
-                  {multiSelectMode ? "Cancel" : "Select"}
+                  {multiSelectMode ? "Cancelar" : "Selecionar"}
                 </button>
               )}
             </div>
@@ -1189,7 +1189,7 @@ export function ChatSidebar() {
       <UserStatusFooter />
 
       {/* ── Delete Branch Modal ── */}
-      <Modal open={deleteTarget !== null} onClose={() => setDeleteTarget(null)} title="Delete Chat" width="max-w-sm">
+      <Modal open={deleteTarget !== null} onClose={() => setDeleteTarget(null)} title="Excluir Conversa" width="max-w-sm">
         {deleteTarget && (
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
@@ -1233,7 +1233,7 @@ export function ChatSidebar() {
       </Modal>
 
       {/* ── Move to Folder Modal ── */}
-      <Modal open={movingChatId !== null} onClose={() => setMovingChatId(null)} title="Move to Folder" width="max-w-xs">
+      <Modal open={movingChatId !== null} onClose={() => setMovingChatId(null)} title="Mover para Pasta" width="max-w-xs">
         {movingChatId && (
           <div className="flex flex-col gap-1">
             <button
@@ -1450,7 +1450,7 @@ function FolderRow({
             setRenaming(true);
           }}
           className="shrink-0 rounded-md p-1 opacity-0 transition-all hover:bg-[var(--accent)] group-hover:opacity-100 max-md:opacity-100"
-          title="Rename folder"
+          title="Renomear pasta"
         >
           <Pencil size="0.75rem" className="text-[var(--muted-foreground)]" />
         </button>
@@ -1484,22 +1484,22 @@ const STATUS_OPTIONS: Array<{
 }> = [
   {
     value: "active",
-    label: "Active",
-    description: "You're online and available",
+    label: "Ativo",
+    description: "Você está online e disponível",
     color: "bg-green-500",
     icon: <Circle size="0.625rem" className="fill-green-500 text-green-500" />,
   },
   {
     value: "idle",
-    label: "Idle",
-    description: "Automatic when you're away",
+    label: "Ausente",
+    description: "Automático quando você está ausente",
     color: "bg-yellow-500",
     icon: <Moon size="0.625rem" className="text-yellow-500" />,
   },
   {
     value: "dnd",
-    label: "Do Not Disturb",
-    description: "Suppress auto messages",
+    label: "Não Perturbe",
+    description: "Suprimir mensagens automáticas",
     color: "bg-red-500",
     icon: <MinusCircle size="0.625rem" className="text-red-500" />,
   },
@@ -1556,8 +1556,8 @@ function UserStatusFooter() {
         <button
           onClick={() => setOpen((v) => !v)}
           className="flex min-w-0 shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 transition-all hover:bg-[var(--sidebar-accent)]/60"
-          title="Change activity status"
-          aria-label="Change activity status"
+          title="Alterar status de atividade"
+          aria-label="Alterar status de atividade"
         >
           <span className={`h-2 w-2 shrink-0 rounded-full ${current.color}`} />
           <span className="max-w-20 truncate text-xs text-[var(--sidebar-foreground)]">{current.label}</span>
@@ -1566,8 +1566,8 @@ function UserStatusFooter() {
           value={userActivity}
           onChange={(event) => setUserActivity(event.target.value)}
           maxLength={120}
-          placeholder="What are you doing?"
-          aria-label="Custom activity"
+          placeholder="O que você está fazendo?"
+          aria-label="Atividade personalizada"
           className="min-w-0 flex-1 rounded-lg border border-[var(--border)]/40 bg-[var(--sidebar-accent)]/35 px-2 py-1.5 text-xs text-[var(--sidebar-foreground)] outline-none transition-colors placeholder:text-[var(--muted-foreground)]/70 focus:border-[var(--primary)]/40 focus:bg-[var(--sidebar-accent)]/60"
         />
       </div>

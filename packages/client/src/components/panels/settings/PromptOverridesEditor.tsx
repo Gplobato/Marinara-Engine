@@ -234,7 +234,7 @@ function PromptOverridesEditorBody({ keys, preferredKey }: { keys?: readonly str
   const handleSave = async () => {
     if (!selectedKey) return;
     if (!draft.trim()) {
-      setLastError("Template must not be empty.");
+      setLastError("O template não pode estar vazio.");
       return;
     }
     try {
@@ -261,7 +261,7 @@ function PromptOverridesEditorBody({ keys, preferredKey }: { keys?: readonly str
       title: "Reset prompt override?",
       message: `${humanizePromptKey(selectedKey)} will use its built-in default again. Your custom template for this key will be removed.`,
       confirmLabel: "Reset to Default",
-      cancelLabel: "Cancel",
+      cancelLabel: "Cancelar",
       tone: "destructive",
     });
     if (!confirmed) return;

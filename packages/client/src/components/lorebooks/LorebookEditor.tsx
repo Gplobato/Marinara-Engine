@@ -267,7 +267,7 @@ function LinkedResourcePicker({
             ))}
             {availableItems.length === 0 && (
               <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                {items.length === selectedItems.length ? `All ${label.toLowerCase()} already added.` : "No matches."}
+                {items.length === selectedItems.length ? `All ${label.toLowerCase()} already added.` : "Nenhuma correspondência."}
               </p>
             )}
           </div>
@@ -1021,7 +1021,7 @@ export function LorebookEditor() {
       !(await showConfirmDialog({
         title: "Delete Lorebook",
         message: "Delete this lorebook? All entries will be lost.",
-        confirmLabel: "Delete",
+        confirmLabel: "Excluir",
         tone: "destructive",
       }))
     ) {
@@ -1172,7 +1172,7 @@ export function LorebookEditor() {
               <div className="space-y-6">
                 {/* Name */}
                 <div>
-                  <label className="mb-1.5 block text-xs font-medium">Name</label>
+                  <label className="mb-1.5 block text-xs font-medium">Nome</label>
                   <input
                     value={formName}
                     onChange={(e) => {
@@ -1185,7 +1185,7 @@ export function LorebookEditor() {
 
                 {/* Description */}
                 <div>
-                  <label className="mb-1.5 block text-xs font-medium">Description</label>
+                  <label className="mb-1.5 block text-xs font-medium">Descrição</label>
                   <ExpandableTextarea
                     value={formDescription}
                     onChange={(value) => {
@@ -1231,7 +1231,7 @@ export function LorebookEditor() {
                           handleAddTags();
                         }
                       }}
-                      placeholder="Add tag…"
+                      placeholder="Adicionar tag…"
                       className="flex-1 rounded-xl bg-[var(--secondary)] px-3 py-2 text-xs ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                     />
                     <button
@@ -1278,7 +1278,7 @@ export function LorebookEditor() {
                       <LinkedResourcePicker
                         label="Linked Characters"
                         help="When linked to characters, this lorebook auto-activates in chats that include any of them."
-                        emptyText="No characters selected"
+                        emptyText="Nenhum personagem selecionado"
                         addLabel="Add Character"
                         searchPlaceholder="Search characters..."
                         icon={<Users size="0.875rem" />}
@@ -1306,7 +1306,7 @@ export function LorebookEditor() {
                       <LinkedResourcePicker
                         label="Linked Personas"
                         help="When linked to personas, this lorebook auto-activates in chats that use any of them."
-                        emptyText="No personas selected"
+                        emptyText="Nenhuma persona selecionada"
                         addLabel="Add Persona"
                         searchPlaceholder="Search personas..."
                         icon={<UserRound size="0.875rem" />}
@@ -1341,7 +1341,7 @@ export function LorebookEditor() {
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   <div className="flex min-h-[4.75rem] items-center justify-between rounded-xl bg-[var(--secondary)] px-4 py-3 ring-1 ring-[var(--border)]">
                     <div>
-                      <p className="text-xs font-medium">Enabled</p>
+                      <p className="text-xs font-medium">Ativado</p>
                       <p className="text-[0.6875rem] text-[var(--muted-foreground)]">
                         When off, entries in this lorebook won't activate
                       </p>
@@ -1561,7 +1561,7 @@ export function LorebookEditor() {
                         <textarea
                           value={keywordPreviewText}
                           onChange={(e) => setKeywordPreviewText(e.target.value)}
-                          placeholder="Paste a paragraph or sample messages here…"
+                          placeholder="Cole um parágrafo ou mensagens de exemplo aqui…"
                           rows={4}
                           className="w-full resize-y rounded-xl bg-[var(--background)] px-3 py-2 pr-8 text-xs ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                         />
@@ -1570,8 +1570,8 @@ export function LorebookEditor() {
                             type="button"
                             onClick={() => setKeywordPreviewText("")}
                             className="absolute right-2 top-2 rounded p-1 text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)]"
-                            title="Clear keyword test"
-                            aria-label="Clear keyword test"
+                            title="Limpar teste de palavra-chave"
+                            aria-label="Limpar teste de palavra-chave"
                           >
                             <X size="0.75rem" />
                           </button>
@@ -1602,7 +1602,7 @@ export function LorebookEditor() {
                     />
                     <input
                       type="text"
-                      placeholder="Search entries…"
+                      placeholder="Buscar entradas…"
                       value={entrySearch}
                       onChange={(e) => setEntrySearch(e.target.value)}
                       className="w-full rounded-xl bg-[var(--secondary)] py-2.5 pl-8 pr-3 text-xs ring-1 ring-[var(--border)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
@@ -1636,7 +1636,7 @@ export function LorebookEditor() {
                         ? "bg-amber-400/15 text-amber-400 ring-amber-400/30"
                         : "bg-[var(--secondary)] ring-[var(--border)] hover:bg-[var(--accent)]",
                     )}
-                    title="Select entries to copy or move"
+                    title="Selecionar entradas para copiar ou mover"
                   >
                     <CheckSquare2 size="0.8125rem" />
                     Select
@@ -1644,7 +1644,7 @@ export function LorebookEditor() {
                   <button
                     onClick={handleAddFolder}
                     className="flex shrink-0 items-center gap-1.5 rounded-xl bg-[var(--secondary)] px-3 py-2.5 text-xs font-medium ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--accent)]"
-                    title="Create a new folder to group entries"
+                    title="Criar nova pasta para agrupar entradas"
                   >
                     <FolderPlus size="0.8125rem" />
                     Add Folder

@@ -577,7 +577,7 @@ export function TrackerCardColorSettings() {
                 type="button"
                 onClick={handleRevert}
                 disabled={!hasUnsavedChanges || saveState === "saving"}
-                title="Revert to previous save"
+                title="Reverter para o save anterior"
                 className="inline-flex h-6 min-w-0 items-center gap-1 rounded-md border border-[var(--border)] bg-[var(--secondary)] px-1.5 text-[0.625rem] font-semibold text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <RotateCcw size="0.6875rem" />
@@ -594,7 +594,7 @@ export function TrackerCardColorSettings() {
                 ) : (
                   <Save size="0.6875rem" />
                 )}
-                <span>Save</span>
+                <span>Salvar</span>
               </button>
             </div>
           )}

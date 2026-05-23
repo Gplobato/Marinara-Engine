@@ -59,7 +59,7 @@ export function SwipeJumpControl({
         }}
         disabled={activeSwipeIndex <= 0}
         aria-label="Previous swipe"
-        title="Previous swipe"
+        title="Deslize anterior"
       >
         <ChevronLeft size={iconSize} />
       </button>

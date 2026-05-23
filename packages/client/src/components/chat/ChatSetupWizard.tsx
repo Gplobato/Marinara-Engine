@@ -196,7 +196,7 @@ function PersonaPicker({
       >
         <PersonaAvatar persona={null} />
         <div className="min-w-0 flex-1">
-          <span className="block truncate text-xs font-medium">None</span>
+          <span className="block truncate text-xs font-medium">Nenhum</span>
           <span className="block truncate text-[0.625rem] text-[var(--muted-foreground)]">Stay anonymous</span>
         </div>
         {!selectedId && <Check size="0.75rem" className="shrink-0 text-[var(--primary)]" />}
@@ -232,7 +232,7 @@ function PersonaPicker({
           );
         })}
         {personas.length === 0 && (
-          <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">No personas created yet.</p>
+          <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">Nenhuma persona criada ainda.</p>
         )}
       </div>
     </div>
@@ -401,14 +401,14 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
   // Build an auto-generated chat name from character IDs
   const buildAutoName = useCallback(
     (charIds: string[]) => {
-      if (charIds.length === 0) return "New Conversation";
+      if (charIds.length === 0) return "Nova Conversa";
       const names = charIds
         .map((id) => {
           const c = characters.find((ch) => ch.id === id);
           return c ? charName(c) : null;
         })
         .filter((n): n is string => !!n);
-      return names.length > 0 ? names.join(", ") : "New Conversation";
+      return names.length > 0 ? names.join(", ") : "Nova Conversa";
     },
     [characters, charName],
   );
@@ -512,7 +512,7 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
           <div className="flex shrink-0 items-center justify-between border-b border-[var(--border)] px-4 py-3">
             <div className="flex items-center gap-2">
               <MessageCircle size="0.875rem" className="text-[var(--primary)]" />
-              <h3 className="text-sm font-semibold text-[var(--foreground)]">New Conversation</h3>
+              <h3 className="text-sm font-semibold text-[var(--foreground)]">Nova Conversa</h3>
             </div>
             <button
               onClick={onFinish}
@@ -539,7 +539,7 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
                     updateChat.mutate({ id: chat.id, name: val });
                   }
                 }}
-                placeholder="Conversation name"
+                placeholder="Nome da conversa"
                 className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-[var(--border)] transition-shadow focus:ring-[var(--primary)]/40 placeholder:text-[var(--muted-foreground)]"
               />
             </div>
@@ -554,7 +554,7 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
                 onChange={(e) => setConnection(e.target.value || null)}
                 className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs outline-none ring-1 ring-[var(--border)] transition-shadow focus:ring-[var(--primary)]/40"
               >
-                <option value="">None</option>
+                <option value="">Nenhum</option>
                 <option value="random">🎲 Random</option>
                 {connectionOptions.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -649,7 +649,7 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
                   <input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search characters…"
+                    placeholder="Buscar personagens…"
                     className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                     autoFocus
                   />
@@ -692,7 +692,7 @@ function ConversationQuickSetup({ chat, onFinish }: ChatSetupWizardProps) {
                     <p className="px-3 py-3 text-center text-[0.6875rem] text-[var(--muted-foreground)]">
                       {characters.filter((c) => !chatCharIds.includes(c.id)).length === 0
                         ? "All characters added."
-                        : "No matches."}
+                        : "Nenhuma correspondência."}
                     </p>
                   )}
                 </div>
@@ -947,9 +947,9 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
   // Build an auto-generated chat name from character IDs
   const buildAutoName = useCallback(
     (charIds: string[]) => {
-      if (charIds.length === 0) return "New Roleplay";
+      if (charIds.length === 0) return "Novo Roleplay";
       const names = charIds.map((id) => charInfoMap.get(id)?.name).filter((n): n is string => !!n);
-      return names.length > 0 ? names.join(", ") : "New Roleplay";
+      return names.length > 0 ? names.join(", ") : "Novo Roleplay";
     },
     [charInfoMap],
   );
@@ -1124,7 +1124,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
           onChange={(e) => setConnection(e.target.value || null)}
           className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2.5 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
         >
-          <option value="">None</option>
+          <option value="">Nenhum</option>
           <option value="random">🎲 Random</option>
           {connectionOptions.map((c) => (
             <option key={c.id} value={c.id}>
@@ -1162,7 +1162,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
         onChange={(e) => setPreset(e.target.value || null)}
         className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2.5 text-xs outline-none ring-1 ring-transparent transition-shadow focus:ring-[var(--primary)]/40"
       >
-        <option value="">None</option>
+        <option value="">Nenhum</option>
         {((presets ?? []) as Array<{ id: string; name: string; isDefault?: boolean | string }>).map((p) => (
           <option key={p.id} value={p.id}>
             {p.name}
@@ -1222,7 +1222,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                   <button
                     onClick={() => toggleCharacter(cid)}
                     className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                    title="Remove"
+                    title="Remover"
                   >
                     <Trash2 size="0.6875rem" />
                   </button>
@@ -1239,7 +1239,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
             <input
               value={charSearch}
               onChange={(e) => setCharSearch(e.target.value)}
-              placeholder="Search characters…"
+              placeholder="Buscar personagens…"
               className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
             />
           </div>
@@ -1281,7 +1281,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
               <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
                 {characters.filter((c) => !chatCharIds.includes(c.id)).length === 0
                   ? "All characters already added."
-                  : "No matches."}
+                  : "Nenhuma correspondência."}
               </p>
             )}
           </div>
@@ -1313,7 +1313,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                   <button
                     onClick={() => toggleLorebook(lb.id)}
                     className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                    title="Remove"
+                    title="Remover"
                   >
                     <Trash2 size="0.6875rem" />
                   </button>
@@ -1330,7 +1330,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
             <input
               value={lbSearch}
               onChange={(e) => setLbSearch(e.target.value)}
-              placeholder="Search lorebooks…"
+              placeholder="Buscar livros de lore…"
               className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
             />
           </div>
@@ -1351,7 +1351,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                 {((lorebooks ?? []) as Array<{ id: string }>).filter((lb) => !activeLorebookIds.includes(lb.id))
                   .length === 0
                   ? "All lorebooks already added."
-                  : "No matches."}
+                  : "Nenhuma correspondência."}
               </p>
             )}
           </div>
@@ -1513,7 +1513,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                       <input
                         value={charSearch}
                         onChange={(e) => setCharSearch(e.target.value)}
-                        placeholder="Search characters…"
+                        placeholder="Buscar personagens…"
                         className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                       />
                     </div>
@@ -1567,7 +1567,7 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                         <p className="px-3 py-3 text-center text-[0.6875rem] text-[var(--muted-foreground)]">
                           {characters.filter((c) => !chatCharIds.includes(c.id)).length === 0
                             ? "All characters added."
-                            : "No matches."}
+                            : "Nenhuma correspondência."}
                         </p>
                       )}
                     </div>
@@ -1663,12 +1663,12 @@ function RoleplaySetupWizard({ chat, onFinish }: ChatSetupWizardProps) {
                   </button>
                   <button
                     onClick={() => setShortcutMode(true)}
-                    title="Apply a saved chat-settings preset and pick a persona + characters in one step"
+                    title="Aplicar predefinição salva e escolher persona + personagens em um passo"
                     className="flex items-center gap-1.5 rounded-lg border border-[var(--primary)]/30 bg-[var(--primary)]/10 px-3 py-1.5 text-xs font-medium text-[var(--primary)] transition-all hover:bg-[var(--primary)]/20"
                   >
                     <Wand2 size="0.75rem" />
                     <span className="hidden xs:inline sm:inline">Use Settings Presets</span>
-                    <span className="inline xs:hidden sm:hidden">Presets</span>
+                    <span className="inline xs:hidden sm:hidden">Predefinições</span>
                   </button>
                   <button
                     onClick={next}

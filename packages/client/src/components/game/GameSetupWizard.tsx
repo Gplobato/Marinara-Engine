@@ -656,7 +656,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   value={customGenre}
                   onChange={(e) => setCustomGenre(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addCustomGenre()}
-                  placeholder="Add custom genre…"
+                  placeholder="Adicionar gênero personalizado…"
                   className="flex-1 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-xs text-[var(--foreground)] outline-none ring-1 ring-transparent transition-all placeholder:text-[var(--muted-foreground)] focus:ring-[var(--primary)]/40"
                 />
                 <button
@@ -748,7 +748,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   value={customTone}
                   onChange={(e) => setCustomTone(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addCustomTone()}
-                  placeholder="Add custom tone…"
+                  placeholder="Adicionar tom personalizado…"
                   className="flex-1 rounded-lg bg-[var(--secondary)] px-3 py-1.5 text-xs text-[var(--foreground)] outline-none ring-1 ring-transparent transition-all placeholder:text-[var(--muted-foreground)] focus:ring-[var(--primary)]/40"
                 />
                 <button
@@ -818,7 +818,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
 
             {/* Language */}
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-[var(--foreground)]">Language</label>
+              <label className="mb-1.5 block text-xs font-medium text-[var(--foreground)]">Idioma</label>
               <input
                 type="text"
                 value={language}
@@ -898,7 +898,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                         <button
                           onClick={() => setGmCharacterId(null)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                          title="Remove"
+                          title="Remover"
                         >
                           <X size="0.6875rem" />
                         </button>
@@ -912,7 +912,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                     <input
                       value={gmSearch}
                       onChange={(e) => setGmSearch(e.target.value)}
-                      placeholder="Search characters…"
+                      placeholder="Buscar personagens…"
                       className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                     />
                   </div>
@@ -942,7 +942,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                     ))}
                     {filteredGmCharacters.length === 0 && (
                       <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                        {characters.length === 0 ? "No characters found." : "No matches."}
+                        {characters.length === 0 ? "Nenhum personagem encontrado." : "Nenhuma correspondência."}
                       </p>
                     )}
                   </div>
@@ -978,7 +978,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                         <button
                           onClick={() => togglePartyMember(cid)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                          title="Remove"
+                          title="Remover"
                         >
                           <X size="0.6875rem" />
                         </button>
@@ -994,7 +994,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   <input
                     value={partySearch}
                     onChange={(e) => setPartySearch(e.target.value)}
-                    placeholder="Search characters…"
+                    placeholder="Buscar personagens…"
                     className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                   />
                 </div>
@@ -1029,7 +1029,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   })}
                   {filteredPartyCharacters.length === 0 && (
                     <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                      {characters.length === 0 ? "No characters found. Create characters first." : "No matches."}
+                      {characters.length === 0 ? "Nenhum personagem encontrado. Create characters first." : "Nenhuma correspondência."}
                     </p>
                   )}
                 </div>
@@ -1070,7 +1070,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                       <button
                         onClick={() => setPersonaId(null)}
                         className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                        title="Remove"
+                        title="Remover"
                       >
                         <X size="0.6875rem" />
                       </button>
@@ -1083,7 +1083,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   <input
                     value={personaSearch}
                     onChange={(e) => setPersonaSearch(e.target.value)}
-                    placeholder="Search personas or titles…"
+                    placeholder="Buscar personas ou títulos…"
                     className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                   />
                 </div>
@@ -1120,7 +1120,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   })}
                   {filteredPersonas.length === 0 && (
                     <p className="px-3 py-2 text-[0.6875rem] text-[var(--muted-foreground)]">
-                      {personas.length === 0 ? "No personas found. Create one in the Personas panel." : "No matches."}
+                      {personas.length === 0 ? "Nenhuma persona encontrada. Crie uma no painel de Personas." : "Nenhuma correspondência."}
                     </p>
                   )}
                 </div>
@@ -1138,7 +1138,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                 onChange={(e) => setGmConnectionId(e.target.value || null)}
                 className="w-full rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs text-[var(--foreground)] outline-none ring-1 ring-transparent transition-all focus:ring-[var(--primary)]/40"
               >
-                <option value="">Select a connection…</option>
+                <option value="">Selecionar uma conexão…</option>
                 {connections.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.name}
@@ -1554,7 +1554,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
               <textarea
                 value={preferences}
                 onChange={(e) => setPreferences(e.target.value)}
-                placeholder="Any extra details for the GM?"
+                placeholder="Algum detalhe extra para o Mestre?"
                 rows={3}
                 className="w-full resize-none rounded-lg bg-[var(--secondary)] px-3 py-2 text-xs text-[var(--foreground)] outline-none ring-1 ring-transparent transition-all placeholder:text-[var(--muted-foreground)] focus:ring-[var(--primary)]/40"
               />
@@ -1604,7 +1604,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                         <button
                           onClick={() => toggleLorebook(lb.id)}
                           className="flex h-5 w-5 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--destructive)]/15 hover:text-[var(--destructive)]"
-                          title="Remove"
+                          title="Remover"
                         >
                           <X size={11} />
                         </button>
@@ -1621,7 +1621,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                   <input
                     value={lbSearch}
                     onChange={(e) => setLbSearch(e.target.value)}
-                    placeholder="Search lorebooks…"
+                    placeholder="Buscar livros de lore…"
                     className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]"
                   />
                 </div>
@@ -1641,7 +1641,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
                     <p className="px-3 py-2 text-[0.625rem] text-[var(--muted-foreground)]">
                       {lorebooks.filter((lb) => !activeLorebookIds.includes(lb.id)).length === 0
                         ? "All lorebooks already added."
-                        : "No matches."}
+                        : "Nenhuma correspondência."}
                     </p>
                   )}
                 </div>
@@ -1698,7 +1698,7 @@ export function GameSetupWizard({ onComplete, onCancel, isLoading, characters }:
           className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
         >
           <ArrowLeft size={14} />
-          {step === 0 ? "Cancel" : "Back"}
+          {step === 0 ? "Cancelar" : "Back"}
         </button>
 
         {step < steps.length - 1 ? (

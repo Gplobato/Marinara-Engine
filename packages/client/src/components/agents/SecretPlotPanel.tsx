@@ -336,7 +336,7 @@ export function SecretPlotPanel({
                         ? "Re-run scene directions for this turn but keep the current arc"
                         : "No assistant message yet"
                     }
-                    aria-label="Re-run scene directions"
+                    aria-label="Reexecutar direções de cena"
                     className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)]/55 hover:text-[var(--accent-foreground)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)] disabled:opacity-40 max-md:h-7 max-md:w-7"
                   >
                     <RefreshCw size="0.625rem" className={cn(turnRerollBusy && "animate-spin")} />
@@ -400,7 +400,7 @@ export function SecretPlotPanel({
                             setSaved(false);
                             setDraft((current) => (current ? { ...current, sceneDirections: next } : current));
                           }}
-                          placeholder="Direction..."
+                          placeholder="Direção..."
                           rows={2}
                           spellCheck={false}
                           className="min-h-12 w-full resize-y rounded-md border border-[var(--input)] bg-[var(--secondary)]/45 px-2 py-1.5 font-mono text-[0.625rem] leading-relaxed text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--muted-foreground)] focus:border-[var(--ring)] focus:ring-1 focus:ring-[var(--ring)]"
@@ -458,7 +458,7 @@ export function SecretPlotPanel({
                     disabled={isGenerationBusy || !!rerollingMode || !target}
                     onClick={() => handleReroll("full")}
                     title={target ? "Re-run full secret plot state" : "No assistant message yet"}
-                    aria-label="Re-run full secret plot state"
+                    aria-label="Reexecutar estado do enredo secreto"
                     className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent)]/55 hover:text-[var(--accent-foreground)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)] disabled:opacity-40 max-md:h-7 max-md:w-7"
                   >
                     <RefreshCw size="0.625rem" className={cn(fullRerollBusy && "animate-spin")} />
@@ -476,8 +476,8 @@ export function SecretPlotPanel({
                         <span>Arc description</span>
                         <label
                           className="inline-flex shrink-0 items-center gap-1 rounded border border-[var(--border)]/70 bg-[var(--secondary)]/30 px-1.5 py-0.5 text-[0.5rem] font-medium transition-colors hover:bg-[var(--accent)]/45 hover:text-[var(--accent-foreground)]"
-                          title="Mark this long-term arc as complete without deleting the arc notes."
-                          aria-label="Mark this long-term arc as complete"
+                          title="Marcar este arco como concluído sem excluir as notas."
+                          aria-label="Marcar arco de longo prazo como concluído"
                         >
                           <input
                             type="checkbox"

@@ -175,7 +175,7 @@ export function GifPicker({ open, onClose, onSelect, anchorRef, containerRef }: 
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for GIFs"
+            placeholder="Buscar GIFs"
             className="flex-1 bg-transparent text-xs outline-none placeholder:text-[var(--muted-foreground)]/50"
             autoFocus
           />

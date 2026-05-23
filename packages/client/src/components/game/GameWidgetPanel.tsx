@@ -336,7 +336,7 @@ export function MobileWidgetPanel({ widgets, position, chatId }: MobileWidgetPan
                     type="button"
                     onClick={() => setExpandedId(null)}
                     className="flex h-5 w-5 items-center justify-center rounded-full text-xs font-medium text-white/40 transition-colors hover:bg-white/10 hover:text-white"
-                    title="Collapse widget"
+                    title="Recolher widget"
                   >
                     ×
                   </button>
@@ -585,7 +585,7 @@ function WidgetEditorModal({
                             ),
                           }))
                         }
-                        placeholder="Name"
+                        placeholder="Nome"
                         className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] outline-none transition focus:border-[var(--primary)]"
                       />
                     </label>
@@ -774,7 +774,7 @@ export function GameWidgetSessionPrepModal({
             title: "Review Starting Widgets",
             description:
               "Review the custom HUD widgets generated for this game before the first turn. You can rename stat-block fields, add or remove them, and drop widgets that do not fit the intended gameplay loop.",
-            empty: "No custom widgets will be used for the starting session.",
+            empty: "Nenhum widget personalizado será usado na sessão inicial.",
             removeConfirm: "Remove {label} from the starting session?",
             savingError: "Failed to save starting widget changes.",
             cancelLabel: "Back",
@@ -789,10 +789,10 @@ export function GameWidgetSessionPrepModal({
             title: "Prepare Next Session Widgets",
             description:
               "Review which custom widgets should carry into the next session. You can rename stat-block fields, add or remove them, and drop widgets you no longer want before the next session starts.",
-            empty: "No custom widgets will be carried into the next session.",
+            empty: "Nenhum widget personalizado será levado para a próxima sessão.",
             removeConfirm: "Remove {label} from the next session?",
             savingError: "Failed to save widget carry-over changes.",
-            cancelLabel: "Cancel",
+            cancelLabel: "Cancelar",
             startLabel: "Start Next Session",
             startingLabel: "Starting Session...",
             editorDescription:
@@ -877,7 +877,7 @@ export function GameWidgetSessionPrepModal({
                       className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--accent)] disabled:opacity-50"
                     >
                       <Pencil size={12} />
-                      <span>Edit</span>
+                      <span>Editar</span>
                     </button>
                     <button
                       type="button"
@@ -886,7 +886,7 @@ export function GameWidgetSessionPrepModal({
                       className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--destructive)]/25 px-3 py-1.5 text-xs font-medium text-[var(--destructive)] transition-colors hover:bg-[var(--destructive)]/10 disabled:opacity-50"
                     >
                       <Trash2 size={12} />
-                      <span>Remove</span>
+                      <span>Remover</span>
                     </button>
                   </div>
                 </div>
